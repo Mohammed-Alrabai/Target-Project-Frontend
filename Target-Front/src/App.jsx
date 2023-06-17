@@ -16,6 +16,10 @@ import {
   useColorModeValue,
   useDisclosure,
   useColorMode,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
 } from "@chakra-ui/react";
 import { FaBell, FaClipboardCheck, FaRss } from "react-icons/fa";
 import { AiFillGift } from "react-icons/ai";
@@ -39,12 +43,16 @@ import { HiCode, HiCollection } from "react-icons/hi";
 import { Router, Routes, Route, Link, useNavigate } from "react-router-dom";
 import { HiUserGroup } from "react-icons/hi";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 // import components
 import Hero from "./Components/Hero";
 import Challenge from "./Components/Challenge";
 import DashbordAdmin from "./Components/DashboardAdmin/DashbordAdmin";
 import User from "./Components/DashboardAdmin/User";
 import Footer from "./Components/Footer";
+import Department from "./Components/DashboardAdmin/Department";
+import Goals from "./Components/DashboardAdmin/Goals";
+import Solution from "./Components/DashboardAdmin/Solution";
 
 // sidebar items
 const LinkItems = [
@@ -60,6 +68,7 @@ const LinkItems = [
 export default function App() {
   const sidebar = useDisclosure();
   const integrations = useDisclosure();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const color = useColorModeValue("gray.900", "gray.300");
   const { colorMode, toggleColorMode } = useColorMode();
   const navigate = useNavigate();
@@ -156,6 +165,14 @@ export default function App() {
     );
   };
 
+  const handleDropdownOpen = () => {
+    setIsDropdownOpen(true);
+  };
+
+  const handleDropdownClose = () => {
+    setIsDropdownOpen(false);
+  };
+
   return (
     <Box as="section" bg="gray.200" _dark={{ bg: "gray.700" }} dir="rtl">
       <SidebarContent
@@ -180,11 +197,12 @@ export default function App() {
           as="header"
           align="center"
           justify={{ base: "space-between", md: "flex-end" }}
-          position={{ base: "sticky" }}
-          top="0"
+          position={"sticky"}
+          top={0}
+          zIndex={100}
           w="full"
           py={{ base: 2, md: 8, lg: 10 }}
-          px={{ base: 4, md: 8, lg: 14 }}
+          px={{ base: 4, md: 8, lg: 24 }}
           bg="white"
           _dark={{ bg: "gray.800" }}
           borderBottomWidth="1px"
@@ -205,27 +223,38 @@ export default function App() {
               icon={colorMode === "dark" ? <FiSun /> : <FiMoon />}
               size={{ base: "sm", md: "md" }}
             />
-            <Avatar
-              ml="4"
-              size={{ base: "sm", md: "md" }}
-              name="anubra266"
-              src="https://picsum.photos/200"
-              cursor="pointer"
-            />
+            <Menu>
+              <MenuButton
+                as={Avatar}
+                ml="4"
+                size={{ base: "sm", md: "md" }}
+                name="anubra266"
+                src="https://picsum.photos/200"
+                cursor="pointer"
+                onClick={handleDropdownOpen}
+              />
+              <MenuList>
+                <MenuItem onClick={handleDropdownClose}>Dashboard</MenuItem>
+                <MenuItem onClick={handleDropdownClose}>Sign out</MenuItem>
+              </MenuList>
+            </Menu>
           </Flex>
         </Flex>
         <Box as="main" p="4">
-          <Box display="flex" w={"full"}  h="96vh">
+          <Box display="flex" w={"full"} h="96vh">
             <Routes>
-            <Route path="/" element={<DashbordAdmin />} />
-            <Route path="/challenge" element={<Challenge />} />
-            <Route path="/User" element={<User />} />
-            <Route path="*" element={<Text>404</Text>} />
-          </Routes>
+              <Route path="/" element={<DashbordAdmin />} />
+              <Route path="/challenge" element={<Challenge />} />
+              <Route path="/User" element={<User />} />
+              <Route path="/Department" element={<Department />} />
+              <Route path="/Goals" element={<Goals />} />
+              <Route path="/Solution" element={<Solution />} />
+              <Route path="*" element={<Text>404</Text>} />
+            </Routes>
           </Box>
-        <Footer />
-        </Box>
+          <Footer />
         </Box>
       </Box>
+    </Box>
   );
 }
