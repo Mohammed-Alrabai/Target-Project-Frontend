@@ -39,20 +39,26 @@ import React from "react";
 import { motion } from "framer-motion";
 import Hero from "./Hero";
 import Challenge from "./Challenge";
-
+import DashbordAdmin from "./DashboardAdmin/DashbordAdmin";
+import { HiUserGroup } from "react-icons/hi";
+import User from "./DashboardAdmin/User";
+import { Router , Routes, Route } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const LinkItems = [
-  { name: "Home", icon: FiHome },
-  { name: "Trending", icon: FiTrendingUp },
-  { name: "Explore", icon: FiCompass },
-  { name: "Favourites", icon: FiStar },
-  { name: "Settings", icon: FiSettings },
+  { name: "الصفحة الرئيسية", Link: "/dashboard", icon: FiHome },
+  { name: "التحديات", path: "/challenge", icon: FiCompass },
+  { name: "الحلول المقترحة", path: "/Solution", icon: FiTrendingUp },
+  { name: "الاهداف", path: "/Goals", icon: FiStar },
+  { name: "الاقسام", path: "/Department", icon: HiUserGroup },
+  { name: "الموظفين", path: "/User", icon: HiUserGroup },
 ];
 
-export default function Home() {
+export default function App() {
   const sidebar = useDisclosure();
   const integrations = useDisclosure();
-  const color = useColorModeValue("gray.600", "gray.300");
-  const { colorMode, toggleColorMode } = useColorMode(); // استخدم colorMode هنا
+  const color = useColorModeValue("gray.900", "gray.300");
+  const { colorMode, toggleColorMode } = useColorMode();
 
   const NavItem = (props) => {
     const { icon, children, ...rest } = props;
@@ -64,10 +70,11 @@ export default function Home() {
         py="3"
         cursor="pointer"
         color="inherit"
+        rounded={"md"}
         _dark={{ color: "gray.400" }}
         _hover={{
-          bg: "gray.100",
-          _dark: { bg: "gray.900" },
+          bg: "blue.300",
+          _dark: { bg: "blue.700" },
           color: "gray.900",
         }}
         role="group"
@@ -90,6 +97,7 @@ export default function Home() {
   };
 
   const SidebarContent = ({ onClose, ...rest }) => {
+    
     const sidebarVariants = {
       open: {
         x: 0,
@@ -141,7 +149,7 @@ export default function Home() {
   };
 
   return (
-    <Box as="section" bg="gray.50" _dark={{ bg: "gray.700" }} minH="100vh">
+    <Box as="section" bg="gray.50" _dark={{ bg: "gray.700" }} dir="rtl">
       <SidebarContent
         display={{ base: "none", md: "unset" }}
         onClose={sidebar.onClose}
@@ -149,7 +157,7 @@ export default function Home() {
       <Drawer
         isOpen={sidebar.isOpen}
         onClose={sidebar.onClose}
-        placement="left">
+        placement="right">
         <DrawerOverlay />
         <DrawerContent>
           <SidebarContent
@@ -159,7 +167,7 @@ export default function Home() {
           />
         </DrawerContent>
       </Drawer>
-      <Box ml={{ base: 0, md: 60 }} transition=".3s ease">
+      <Box mr={{ base: 0, md: 60 }} transition=".3s ease">
         <Flex
           as="header"
           align="center"
@@ -198,18 +206,14 @@ export default function Home() {
             />
           </Flex>
         </Flex>
-
         <Box as="main" p="4">
           {/* Add content here, remove div below  */}
           {/* Section-1 */}
           <Box display="flex" rounded="md" h="96vh">
-            <Box w="100%" bg={useColorModeValue("white", "gray.900")}>
-              <Hero />
-            </Box>
           </Box>
           {/* Section-2 */}
         </Box>
-                <Box as="main" p="4">
+        <Box as="main" p="4">
         <Box display="flex" rounded="md" h="96vh">
           <Box w="100%" bg={useColorModeValue("white", "gray.900")}>
             <Challenge />
