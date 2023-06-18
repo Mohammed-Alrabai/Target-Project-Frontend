@@ -106,13 +106,6 @@ const UsersTable = () => {
               _placeholder={{ color: "gray.500", _active: true }}
             />
           </Box>
-          <Box
-            w={{ base: "full", md: "50%" }}
-            px={6}
-            py={6}
-            display={"flex"}
-            alignItems={"center"}
-            justifyContent={"flex-end"}>
             <Box
               w={{ base: "full", md: "50%" }}
               px={6}
@@ -122,7 +115,6 @@ const UsersTable = () => {
               justifyContent={"flex-end"}>
               <Button onClick={() => setIsModalOpen(true)}>اضافة موظف</Button>
             </Box>
-          </Box>
           <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
             <ModalOverlay />
             <ModalContent>

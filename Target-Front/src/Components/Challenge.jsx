@@ -1,11 +1,19 @@
 import React from "react";
-import { Box, Flex, Image, Link, chakra, SimpleGrid, Button } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Image,
+  Link,
+  chakra,
+  SimpleGrid,
+  Button,
+} from "@chakra-ui/react";
 
 export default function App() {
   return (
-    <SimpleGrid columns={2} spacing={5} spacingY={0}>
+    <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={5} spacingY={0}>
       {/* Box-1 */}
-      <Box bg="" height="80px" spacing={10} mt={10}>
+      <Box bg="" height="" spacing={10} mt={10}>
         <Box
           mx="auto"
           px={8}
@@ -31,10 +39,9 @@ export default function App() {
               fontWeight="700"
               rounded="md"
               _hover={{ bg: "gray.500" }}>
-              Design
+              Chaling
             </Link>
           </Flex>
-
           <Box mt={2}>
             <Link
               fontSize="2xl"
@@ -88,8 +95,7 @@ export default function App() {
           </Flex>
         </Box>
       </Box>
-      {/* Box-2 */}
-      <Box bg="" height="80px" spacing={0} mt={10}>
+      <Box bg="" height="" spacing={10} mt={10}>
         <Box
           mx="auto"
           px={8}
@@ -118,7 +124,6 @@ export default function App() {
               Design
             </Link>
           </Flex>
-
           <Box mt={2}>
             <Link
               fontSize="2xl"
@@ -147,7 +152,7 @@ export default function App() {
               color="brand.600"
               _dark={{ color: "brand.400" }}
               _hover={{ textDecor: "underline" }}>
-              Read more
+              <Button colorScheme="blue">Read more</Button>
             </Link>
 
             <Flex alignItems="center">
@@ -172,8 +177,7 @@ export default function App() {
           </Flex>
         </Box>
       </Box>
-      {/* Box-3 */}
-      <Box bg="" height="80px" spacing={0}>
+      <Box bg="" height="" spacing={10} mt={10}>
         <Box
           mx="auto"
           px={8}
@@ -202,7 +206,6 @@ export default function App() {
               Design
             </Link>
           </Flex>
-
           <Box mt={2}>
             <Link
               fontSize="2xl"
@@ -231,7 +234,7 @@ export default function App() {
               color="brand.600"
               _dark={{ color: "brand.400" }}
               _hover={{ textDecor: "underline" }}>
-              Read more
+              <Button colorScheme="blue">Read more</Button>
             </Link>
 
             <Flex alignItems="center">
@@ -256,8 +259,7 @@ export default function App() {
           </Flex>
         </Box>
       </Box>
-      {/* Box-4 */}
-      <Box bg="" height="80px" spacing={0}>
+      <Box bg="" height="" spacing={10} mt={10}>
         <Box
           mx="auto"
           px={8}
@@ -286,7 +288,6 @@ export default function App() {
               Design
             </Link>
           </Flex>
-
           <Box mt={2}>
             <Link
               fontSize="2xl"
@@ -315,7 +316,7 @@ export default function App() {
               color="brand.600"
               _dark={{ color: "brand.400" }}
               _hover={{ textDecor: "underline" }}>
-              Read more
+              <Button colorScheme="blue">Read more</Button>
             </Link>
 
             <Flex alignItems="center">

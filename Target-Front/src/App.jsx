@@ -241,7 +241,7 @@ export default function App() {
           </Flex>
         </Flex>
         <Box as="main" p="4">
-          <Box display="flex" w={"full"} h="96vh">
+          <Box display="flex" w={"full"} h="100%" minH={"100vh"}>
             <Routes>
               <Route path="/" element={<DashbordAdmin />} />
               <Route path="/challenge" element={<Challenge />} />
