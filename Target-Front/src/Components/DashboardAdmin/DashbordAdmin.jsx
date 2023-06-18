@@ -10,6 +10,7 @@ import {
   SimpleGrid,
   Container,
   Stack,
+  color,
 } from "@chakra-ui/react";
 // Here we have used framer-motion package for animations
 import { motion } from "framer-motion";
@@ -20,25 +21,23 @@ import { AiOutlineLike, AiOutlineEye } from "react-icons/ai";
 
 const statData = [
   {
-    id: 1,
-    label: "Total post reactions",
-    score: 1730,
-    icon: AiOutlineLike,
-    percentage: "10%",
-  },
-  {
     id: 2,
-    label: "Total post views",
+    label: "Total post",
     score: 3245,
     icon: AiOutlineEye,
     percentage: "30%",
   },
   {
+    id: 1,
+    label: "Total post reactions",
+    score: 1730,
+    icon: AiOutlineLike,
+  },
+  {
     id: 3,
-    label: "Total messages",
-    score: 100,
+    label: "عدد الموظفين",
+    score: 34,
     icon: HiOutlineMail,
-    percentage: "30%",
   },
 ];
 
@@ -55,6 +54,7 @@ const StatsWithIcons = () => {
 };
 
 const Card = ({ data }) => {
+    const color = useColorModeValue("gray.900", "gray.100");
   return (
     <motion.div whileHover={{ translateY: -5 }}>
       <Stack
@@ -74,14 +74,14 @@ const Card = ({ data }) => {
           py={6}
           px={5}
           spacing={4}
-          bg={useColorModeValue("gray.100", "gray.800")}
+          bg={useColorModeValue("gray.50", "gray.800")}
           w="100%">
           <Flex
             justify="center"
             alignItems="center"
             rounded="lg"
             p={2}
-            bg="green.400"
+            bg="blue.400"
             position="relative"
             w={12}
             h={12}
@@ -91,7 +91,7 @@ const Card = ({ data }) => {
             <Icon as={data.icon} w={6} h={6} color="white" />
           </Flex>
           <VStack spacing={0} align="start" maxW="lg" h="100%">
-            <Text as="h3" fontSize="md" noOfLines={2} color="gray.400">
+            <Text as="h3" fontSize="md" noOfLines={2} color={color}>
               {data.label}
             </Text>
             <HStack spacing={2}>
@@ -111,9 +111,6 @@ const Card = ({ data }) => {
             </HStack>
           </VStack>
         </HStack>
-        <Flex py={3} px={5} d="none" _groupHover={{ d: "flex" }}>
-          <Link fontSize="md">View All</Link>
-        </Flex>
       </Stack>
     </motion.div>
   );

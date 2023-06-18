@@ -130,9 +130,11 @@ export default function App() {
       <Box
         transition="3s ease"
         bg={useColorModeValue("white", "gray.900")}
-        borderRight="1px"
+        borderLeft="1px"
+        borderStyle={"solid"}
+        borderColor={useColorModeValue("gray.300", "gray.700")}
         borderRightColor={useColorModeValue("gray.200", "gray.700")}
-        w={{ base: "full", md: 60 }}
+        w={{ base: "full", md: "300px" }}
         pos="fixed"
         zIndex={{ base: 0, md: 2 }}
         h="full"
@@ -192,7 +194,7 @@ export default function App() {
           />
         </DrawerContent>
       </Drawer>
-      <Box mr={{ base: 0, md: 60 }} transition=".3s ease">
+      <Box mr={{ base: 0, md: "300px" }} transition=".3s ease">
         <Flex
           as="header"
           align="center"
@@ -240,11 +242,14 @@ export default function App() {
             </Menu>
           </Flex>
         </Flex>
-        <Box as="main" p="4">
+        <Box as="main" p="">
           <Box display="flex" w={"full"} h="100%" minH={"100vh"}>
             <Routes>
               <Route path="/" element={<DashbordAdmin />} />
-              <Route path="/challenge" element={<Challenge />} />
+              <Route
+                path="/challenge"
+                element={<Challenge />}
+              />
               <Route path="/User" element={<User />} />
               <Route path="/Department" element={<Department />} />
               <Route path="/Goals" element={<Goals />} />
