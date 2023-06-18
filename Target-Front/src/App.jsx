@@ -20,6 +20,7 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+  Button,
 } from "@chakra-ui/react";
 import { FaBell, FaClipboardCheck, FaRss } from "react-icons/fa";
 import { AiFillGift } from "react-icons/ai";
@@ -53,6 +54,7 @@ import Footer from "./Components/Footer";
 import Department from "./Components/DashboardAdmin/Department";
 import Goals from "./Components/DashboardAdmin/Goals";
 import Solution from "./Components/DashboardAdmin/Solution";
+import Login from './Components/auth/Login';
 
 // sidebar items
 const LinkItems = [
@@ -225,6 +227,7 @@ export default function App() {
               icon={colorMode === "dark" ? <FiSun /> : <FiMoon />}
               size={{ base: "sm", md: "md" }}
             />
+            <Button onClick={() => navigate("/login")}>Login</Button>
             <Menu>
               <MenuButton
                 as={Avatar}
@@ -254,6 +257,7 @@ export default function App() {
               <Route path="/Department" element={<Department />} />
               <Route path="/Goals" element={<Goals />} />
               <Route path="/Solution" element={<Solution />} />
+              <Route path="/login" element={<Login />} />
               <Route path="*" element={<Text>404</Text>} />
             </Routes>
           </Box>
