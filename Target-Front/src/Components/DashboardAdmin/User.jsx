@@ -22,8 +22,9 @@ import {
   Icon,
   Image,
 } from "@chakra-ui/react";
-import { useState } from "react";
 import { HiUserGroup } from "react-icons/hi";
+import axios from "axios";
+import { React, useState, useEffect } from "react";
 
 
 const UsersTable = () => {
@@ -33,7 +34,7 @@ const UsersTable = () => {
       username: "",
       password: "",
       department: "",
-    });
+    });    
       const handleChange = (e) => {
         const { name, value } = e.target;
         setEmployeeData((prevData) => ({ ...prevData, [name]: value }));
