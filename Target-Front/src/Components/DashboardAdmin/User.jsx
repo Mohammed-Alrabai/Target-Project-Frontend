@@ -23,14 +23,12 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { HiUserGroup } from "react-icons/hi";
-import axios, { isCancel } from "axios";
+import axios from "axios";
 import { React, useState, useEffect } from "react";
 
-
-// for push
 const UsersTable = () => {
-
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalChange, setIsModalChange] = useState(false);
   const [isModalOpenChange, setIsModalOpenChange] = useState(false);
 
   const [data, setData] = useState([]);
@@ -40,68 +38,95 @@ const UsersTable = () => {
   const [username, setUsername] = useState("");
   const [department, setDepartment] = useState("");
   const [depData, setDepData] = useState([]);
+  const [editEmployeeId, setEditEmployeeId] = useState("");
+  const [editName, setEditName] = useState("");
+  const [editUsername, setEditUsername] = useState("");
+  const [editPassword, setEditPassword] = useState("");
+  const [editDepartment, setEditDepartment] = useState("");
 
-  //get all the data from backEnd API
+
+
   useEffect(() => {
-    axios.get("http://localhost:8800/api/admin/employee").then((res) => {
-      setData(res.data.result)
-      setSearch(res.data.result)
-      console.log(res.data)
-    }).catch((error) => {
-      console.log(error)
-    })
+    axios
+      .get("http://localhost:8000/api/admin/employee")
+      .then((res) => {
+        setData(res.data.result);
+        setSearch(res.data.result);
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
-    axios.get("http://localhost:8800/api/department/DepartmentList").then((res) => {
-      setDepData(res.data.result)
-      console.log("department")
-      console.log(depData)
-      console.log(res.data)
-    }).catch((error) => {
-      console.log(error)
-    })
-
-  }, [])
-
-
+    axios
+      .get("http://localhost:8000/api/department/DepartmentList")
+      .then((res) => {
+        setDepData(res.data.result);
+        console.log("department");
+        console.log(depData);
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const handleChange = (e) => {
-    setSearch(data.filter(item => (item.name.toLowerCase().includes(e.target.value))));
-
+    setSearch(
+      data.filter((item) => item.name.toLowerCase().includes(e.target.value))
+    );
   };
 
   const color = useColorModeValue("gray.900", "gray.300");
 
   const handleAddEmployee = () => {
-    // قم بتنفيذ الإجراءات المطلوبة عند النقر على زر "اضافة موظف" هنا
-    // مثال: افتح النموذج أو قم بإرسال طلب إضافة الموظف إلى الخادم
+    setIsModalOpen(true);
   };
 
-
   const DeleteUser = (id) => {
-    console.log(id)
-    axios.delete(`http://localhost:8800/api/admin/deleteEmployee/${id}`).then((res) => {
-      setData(data.filter(del => {
-        return del._id != id
-      }))
-      console.log("deleted")
-    })
-  }
+    console.log(id);
+    axios
+      .delete(`http://localhost:8800/api/admin/deleteEmployee/${id}`)
+      .then((res) => {
+        setData(data.filter((del) => del._id !== id));
+        console.log("deleted");
+      });
+  };
 
   const AddEmployee = () => {
+    console.log(department);
+    axios
+      .post("http://localhost:8800/api/admin/createEmployee", {
+        name,
+        username,
+        password,
+        department,
+      })
+      .then((res) => {
+        setIsModalOpen(false);
+        console.log("employee is added successfully");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-    console.log(department)
-    axios.post('http://localhost:8800/api/admin/createEmployee', {
-      name,
-      username,
-      password,
-      department
-    }).then((res) => {
-      setIsModalOpen(false)
-      console.log("employee is added successfuly")
-    }).catch((error) => {
-      console.log(error)
+const EditEmployee = () => {
+  axios
+    .put(`http://localhost:8800/api/admin/updateEmployee/${editEmployeeId}`, {
+      name: editName,
+      username: editUsername,
+      password: editPassword,
+      department: editDepartment,
     })
-  }
+    .then((res) => {
+      setIsModalOpenChange(false);
+      console.log("Employee is updated successfully");
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 
 
   return (
@@ -150,7 +175,6 @@ const UsersTable = () => {
             alignItems={"center"}
             justifyContent={"flex-end"}>
             <Button onClick={() => setIsModalOpen(true)}>اضافة موظف</Button>
-
           </Box>
           <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
             <ModalOverlay />
@@ -193,14 +217,13 @@ const UsersTable = () => {
                     mb={4}
                     icon={<></>}
                     // value={employeeData.department}
-                    onChange={(e) => setDepartment(e.target.value)}
-                  >
+                    onChange={(e) => setDepartment(e.target.value)}>
                     {depData.map((item) => {
                       return (
-                        <option key={item._id} value={item._id} >
+                        <option key={item._id} value={item._id}>
                           {item.name}
                         </option>
-                      )
+                      );
                     })}
                   </Select>
                   <Select
@@ -208,7 +231,7 @@ const UsersTable = () => {
                     placeholder="الصلاحيات "
                     mb={4}
                     icon={<></>}
-                    value={employeeData.department}
+                    // value={employeeData.department}
                     onChange={handleChange}>
                     <option value="employee">موظف</option>
                     <option value="subAdmin">مدير قسم</option>
@@ -231,9 +254,8 @@ const UsersTable = () => {
           fontSize="sm"
           fontWeight="light"
           color={color}
-          rounded={"md"}
-        >
-          <Thead borderBottomWidth="1px" fontWeight="extrabold" >
+          rounded={"md"}>
+          <Thead borderBottomWidth="1px" fontWeight="extrabold">
             <Tr>
               <Th fontSize={"0.95rem"} px={6} py={6}>
                 #
@@ -254,61 +276,145 @@ const UsersTable = () => {
           </Thead>
           <Tbody>
             <>
-              {
-
-                data.map((user) => (
-
-                  <Tr
-                    borderBottomWidth="1px"
-                    rounded={"md"}
-                    key={user._id}
-                    _hover={{ bg: "gray.100", _dark: { bg: "gray.800" } }}>
-                    <Td
-                      whiteSpace="nowrap"
-                      fontSize={"0.95rem"}
-                      fontWeight={"medium"}
-                      px={6}
-                      py={6}>
-                      {user._id}
-                    </Td>
-                    <Td
-                      whiteSpace="nowrap"
-                      fontSize={"0.95rem"}
-                      fontWeight={"medium"}
-                      px={6}
-                      py={6}>
-                      {user.name}
-                    </Td>
-                    <Td
-                      whiteSpace="nowrap"
-                      fontSize={"0.95rem"}
-                      fontWeight={"medium"}
-                      px={6}
-                      py={6}>
-                      {user.department}
-                    </Td>
-                    <Td whiteSpace="nowrap" px={4} py={0}>
-                      <Button colorScheme="blue" outline={true} >
-                        تعديل
-                      </Button>
-                    </Td>
-                    <Td
-                      whiteSpace="nowrap"
-                      fontSize={"0.95rem"}
-                      fontWeight={"medium"}
-                      px={6}
-                      py={6}>
-                      <Button colorScheme="red" outline={true} onClick={() => DeleteUser(user._id)}>
-                        حذف
-                      </Button>
-                    </Td>
-                  </Tr>
-                ))}
+              {data.map((user) => (
+                <Tr
+                  borderBottomWidth="1px"
+                  rounded={"md"}
+                  key={user._id}
+                  _hover={{ bg: "gray.100", _dark: { bg: "gray.800" } }}>
+                  <Td
+                    whiteSpace="nowrap"
+                    fontSize={"0.95rem"}
+                    fontWeight={"medium"}
+                    px={6}
+                    py={6}>
+                    {user._id}
+                  </Td>
+                  <Td
+                    whiteSpace="nowrap"
+                    fontSize={"0.95rem"}
+                    fontWeight={"medium"}
+                    px={6}
+                    py={6}>
+                    {user.name}
+                  </Td>
+                  <Td
+                    whiteSpace="nowrap"
+                    fontSize={"0.95rem"}
+                    fontWeight={"medium"}
+                    px={6}
+                    py={6}>
+                    {user.department}
+                  </Td>
+                  <Td whiteSpace="nowrap" px={4} py={0}>
+                    <Button
+                      colorScheme="blue"
+                      outline={true}
+                      onClick={() => {
+                        setEditEmployeeId(user._id);
+                        setIsModalOpenChange(true);
+                      }}>
+                      تعديل
+                    </Button>
+                  </Td>
+                  <Td
+                    whiteSpace="nowrap"
+                    fontSize={"0.95rem"}
+                    fontWeight={"medium"}
+                    px={6}
+                    py={6}>
+                    <Button
+                      colorScheme="red"
+                      outline={true}
+                      onClick={() => DeleteUser(user._id)}>
+                      حذف
+                    </Button>
+                  </Td>
+                </Tr>
+              ))}
+              <Modal
+                isOpen={isModalOpenChange}
+                onClose={() => setIsModalOpenChange(false)}>
+                <ModalOverlay />
+                <ModalContent>
+                  <Box
+                    display={"flex"}
+                    justifyContent={"space-between"}
+                    w={"full"}>
+                    <Box display={"flex"} justifyContent={"flex-start"}>
+                      <ModalCloseButton />
+                    </Box>
+                    <Box>
+                      <ModalHeader>نافذة تعديل موظف</ModalHeader>
+                    </Box>
+                  </Box>
+                  <ModalBody>
+                    <Box>
+                      <Input
+                        name="name"
+                        placeholder="اسم الموظف"
+                        mb={4}
+                        // value={employeeData.name}
+                        onChange={(e) => setName(e.target.value)}
+                      />
+                      <Input
+                        name="username"
+                        placeholder="اسم المستخدم"
+                        mb={4}
+                        // value={employeeData.username}
+                        onChange={(e) => setUsername(e.target.value)}
+                      />
+                      <Input
+                        name="password"
+                        type="password"
+                        placeholder="كلمة المرور"
+                        mb={4}
+                        // value={employeeData.password}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                      <Select
+                        name="Department"
+                        placeholder="اختر القسم"
+                        mb={4}
+                        icon={<></>}
+                        // value={employeeData.department}
+                        onChange={(e) => setDepartment(e.target.value)}>
+                        {depData.map((item) => {
+                          return (
+                            <option key={item._id} value={item._id}>
+                              {item.name}
+                            </option>
+                          );
+                        })}
+                      </Select>
+                      <Select
+                        name="userRole"
+                        placeholder="الصلاحيات "
+                        mb={4}
+                        icon={<></>}
+                        // value={employeeData.department}
+                        onChange={handleChange}>
+                        <option value="employee">موظف</option>
+                        <option value="subAdmin">مدير قسم</option>
+                      </Select>
+                    </Box>
+                  </ModalBody>
+                  <ModalFooter>
+                    <Button
+                      colorScheme="blue"
+                      ml={3}
+                      onClick={() => EditEmployee()}>
+                      حفظ
+                    </Button>
+                    <Button onClick={() => setIsModalOpenChange(false)}>إغلاق</Button>
+                  </ModalFooter>
+                </ModalContent>
+              </Modal>
             </>
           </Tbody>
         </Table>
       </Box>
-    </Box >
+    </Box>
   );
 };
 
