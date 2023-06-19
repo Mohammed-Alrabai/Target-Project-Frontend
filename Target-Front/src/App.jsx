@@ -20,12 +20,15 @@ import {
   Menu,
   MenuButton,
   MenuList,
+  Image,
   MenuItem,
   Button,
 } from "@chakra-ui/react";
 import { FaBell, FaClipboardCheck, FaRss } from "react-icons/fa";
 import { AiFillGift } from "react-icons/ai";
 import { BsGearFill } from "react-icons/bs";
+import logo from "./assets/img/logo.png"
+import logoBlack from "./assets/img/logo-black.png"
 import {
   FiHome,
   FiTrendingUp,
@@ -58,6 +61,10 @@ import Solution from "./Components/DashboardAdmin/Solution";
 import Login from './Components/auth/Login';
 import OneChallenge from "./Components/DashboardAdmin/OneChallenge";
 
+import { HiOutlineMail } from "react-icons/hi";
+import { BsArrowUpShort, BsArrowDownShort } from "react-icons/bs";
+import { AiOutlineLike, AiOutlineEye } from "react-icons/ai";
+import axios from 'axios';
 // sidebar items
 const LinkItems = [
   { name: "الصفحة الرئيسية", path: "/", icon: FiHome },
@@ -75,8 +82,64 @@ export default function App() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const color = useColorModeValue("gray.900", "gray.300");
   const { colorMode, toggleColorMode } = useColorMode();
-  const navigate = useNavigate();
+    const [dataChallenge, setDataChallenge] = useState([]);
+    const [dataComment, setDataComment] = useState([]);
+    const [employee, setEmployee] = useState([]);
 
+  const navigate = useNavigate();
+    const apiChallenge = "http://localhost:8000/api/admin/challenge/";
+    const apiComment = "http://localhost:8000/api/admin/comment/";
+    const apiEmployee = "http://localhost:8000/api/admin/employee";
+
+    useEffect(() => {
+      axios.get(apiChallenge).then((res) => {
+        setDataChallenge(res.data.result);
+        console.log(res.data.result);
+      });
+      axios.get(apiComment).then((res) => {
+        setDataComment(res.data.result);
+        console.log(res.data.result);
+      })
+      axios.get(apiEmployee).then((res) => {
+        setEmployee(res.data.result);
+        console.log(res.data.result);
+      })
+    }, []);
+
+    // get comment data from employee
+    const employeeComment = () => {
+      employee.map((item) => {
+        item.comments.map((item) => {
+          console.log(item.length);
+        })
+      })
+    }
+    employeeComment();    
+    // Calculate the number of challenges
+    const totalChallenges = dataChallenge.length;
+    const totalComments = dataComment.length;
+    const totalEmployee = employee.length;
+    const statData = [
+      {
+        id: 2,
+        label: "عدد التحديات",
+        score: totalChallenges,
+        icon: AiOutlineEye,
+        percentage: "30%",
+      },
+      {
+        id: 1,
+        label: "عدد الردود",
+        score: totalComments,
+        icon: AiOutlineLike,
+      },
+      {
+        id: 3,
+        label: "عدد الموظفين",
+        score: totalEmployee,
+        icon: HiOutlineMail,
+      },
+    ];
   const NavItem = (props) => {
     const { icon, children, ...rest } = props;
     return (
@@ -149,9 +212,29 @@ export default function App() {
           mx="8"
           mb={8}
           justifyContent="space-between">
-          <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-            Logo
-          </Text>
+          <Box display={{ base: "block", md: "flex" }} mr={-6}>
+            {localStorage.getItem("chakra-ui-color-mode") === "dark" ? (
+              <>
+                <Image
+                  src={logoBlack}
+                  objectFit="contain"
+                  alt="logo"
+                  height={"full"}
+                  mt={10}
+                  w={"200px"}
+                />
+              </>
+            ) : (
+              <Image
+                src={logo}
+                objectFit="contain"
+                alt="logo"
+                height={"full"}
+                mt={10}
+                w={"200px"}
+              />
+            )}
+          </Box>
           <CloseButton
             display={{ base: "flex", md: "none" }}
             onClick={onClose}
@@ -250,11 +333,8 @@ export default function App() {
         <Box as="main" p="">
           <Box display="flex" w={"full"} h="100%" minH={"100vh"}>
             <Routes>
-              <Route path="/" element={<DashbordAdmin />} />
-              <Route
-                path="/challenge"
-                element={<Challenge />}
-              />
+              <Route path="/" element={<DashbordAdmin statData={statData}/>} />
+              <Route path="/challenge" element={<Challenge />} />
               <Route path="/User" element={<User />} />
               <Route path="/Department" element={<Department />} />
               <Route path="/Goals" element={<Goals />} />

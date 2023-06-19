@@ -55,29 +55,17 @@ import axios from "axios";
 import { useState , useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const StatsWithIcons = () => {
+const StatsWithIcons = (props) => {
+  const stat = props.statData;
   const color = useColorModeValue("gray.50", " gray.900");
   const textColor = useColorModeValue("gray.900", "gray.50");
   const [data, setData] = useState([]);
-  const [stat, setStat] = useState(0);
   const navigate = useNavigate();
-
-  const api = "http://localhost:8000/api/admin/challenge/";
-
-  useEffect(() => {
-    axios.get(api).then((res) => {
-      setData(res.data.result);
-    });
-  } , []);
-  // Calculate the number of challenges
-
-
-
 
   return (
     <Container maxW="7xl" p={{ base: 5, md: 10 }}>
       <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing={5} mt={6} mb={4}>
-        {statData.map((data, index) => (
+        {stat.map((data, index) => (
           <motion.div
             animate={{
               x: 1,
@@ -328,7 +316,7 @@ const StatsWithIcons = () => {
 };
 
 const Card = ({ data }) => {
-  const color = useColorModeValue("gray.900", "gray.100");
+    const color = useColorModeValue("gray.900", "gray.100");
   return (
     <motion.div whileHover={{ translateY: -5 }}>
       <Stack

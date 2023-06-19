@@ -23,14 +23,12 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { HiUserGroup } from "react-icons/hi";
-import axios, { isCancel } from "axios";
+import axios from "axios";
 import { React, useState, useEffect } from "react";
 
-
-// for push
 const UsersTable = () => {
-
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalChange, setIsModalChange] = useState(false);
   const [isModalOpenChange, setIsModalOpenChange] = useState(false);
 
   const [data, setData] = useState([]);
@@ -41,6 +39,12 @@ const UsersTable = () => {
   const [department, setDepartment] = useState("");
   const [userRole, setUserRole] = useState("");
   const [depData, setDepData] = useState([]);
+  const [editEmployeeId, setEditEmployeeId] = useState("");
+  const [editName, setEditName] = useState("");
+  const [editUsername, setEditUsername] = useState("");
+  const [editPassword, setEditPassword] = useState("");
+  const [editDepartment, setEditDepartment] = useState("");
+
 
   //get all the data from backEnd API
   useEffect(() => {
@@ -54,43 +58,79 @@ const UsersTable = () => {
       console.log(error)
     })
 
-    axios.get("http://localhost:8800/api/department/DepartmentList").then((res) => {
-      setDepData(res.data.result)
-      console.log("department")
-      console.log(depData)
-      console.log(res.data)
-    }).catch((error) => {
-      console.log(error)
-    })
 
-  }, [])
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/api/admin/employee")
+      .then((res) => {
+        setData(res.data.result);
+        setSearch(res.data.result);
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
-
+    axios
+      .get("http://localhost:8000/api/department/DepartmentList")
+      .then((res) => {
+        setDepData(res.data.result);
+        console.log("department");
+        console.log(depData);
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const handleChange = (e) => {
-    setSearch(data.filter(item => (item.name.toLowerCase().includes(e.target.value))));
-
+    setSearch(
+      data.filter((item) => item.name.toLowerCase().includes(e.target.value))
+    );
   };
 
   const color = useColorModeValue("gray.900", "gray.300");
 
   const handleAddEmployee = () => {
-    // قم بتنفيذ الإجراءات المطلوبة عند النقر على زر "اضافة موظف" هنا
-    // مثال: افتح النموذج أو قم بإرسال طلب إضافة الموظف إلى الخادم
+    setIsModalOpen(true);
   };
 
-
   const DeleteUser = (id) => {
-    console.log(id)
-    axios.delete(`http://localhost:8800/api/admin/deleteEmployee/${id}`).then((res) => {
-      setData(data.filter(del => {
-        return del._id != id
-      }))
-      console.log("deleted")
-    })
-  }
+    console.log(id);
+    axios
+      .delete(`http://localhost:8800/api/admin/deleteEmployee/${id}`)
+      .then((res) => {
+        setData(data.filter((del) => del._id !== id));
+        console.log("deleted");
+      });
+  };
 
   const AddEmployee = () => {
+    console.log(department);
+    axios
+      .post("http://localhost:8800/api/admin/createEmployee", {
+        name,
+        username,
+        password,
+        department,
+      })
+      .then((res) => {
+        setIsModalOpen(false);
+        console.log("employee is added successfully");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+const EditEmployee = () => {
+  axios
+    .put(`http://localhost:8800/api/admin/updateEmployee/${editEmployeeId}`, {
+      name: editName,
+      username: editUsername,
+      password: editPassword,
+      department: editDepartment,
     console.log(userRole)
     console.log(department)
     axios.post('http://localhost:8800/api/admin/createEmployee', {
@@ -105,7 +145,14 @@ const UsersTable = () => {
     }).catch((error) => {
       console.log(error)
     })
-  }
+    .then((res) => {
+      setIsModalOpenChange(false);
+      console.log("Employee is updated successfully");
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 
   const UpdateEmp = (id) => {
     axios.patch(`http://localhost:8800/api/admin/updateEmployee/${id}`, {
@@ -165,7 +212,6 @@ const UsersTable = () => {
             alignItems={"center"}
             justifyContent={"flex-end"}>
             <Button onClick={() => setIsModalOpen(true)}>اضافة موظف</Button>
-
           </Box>
           <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
             <ModalOverlay />
@@ -208,10 +254,10 @@ const UsersTable = () => {
                   >
                     {depData.map((item) => {
                       return (
-                        <option key={item._id} value={item._id} >
+                        <option key={item._id} value={item._id}>
                           {item.name}
                         </option>
-                      )
+                      );
                     })}
                   </Select>
                   <Select
@@ -241,9 +287,8 @@ const UsersTable = () => {
           fontSize="sm"
           fontWeight="light"
           color={color}
-          rounded={"md"}
-        >
-          <Thead borderBottomWidth="1px" fontWeight="extrabold" >
+          rounded={"md"}>
+          <Thead borderBottomWidth="1px" fontWeight="extrabold">
             <Tr>
               <Th fontSize={"0.95rem"} px={6} py={6}>
                 #
@@ -318,7 +363,7 @@ const UsersTable = () => {
           </Tbody>
         </Table>
       </Box>
-    </Box >
+    </Box>
   );
 };
 

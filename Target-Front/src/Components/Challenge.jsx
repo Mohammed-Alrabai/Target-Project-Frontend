@@ -31,9 +31,7 @@ export default function App() {
   const [type, setType] = useState("");
   const [challenge, setChallenge] = useState([]);
   const [data, setData] = useState([]);
-  const [searchData, setSearchData] = useState([]);
-  const [search, setSearch] = useState("");
-
+  const [search, setSearch] = useState([]);
   const navigate = useNavigate();
 
   const api = "http://localhost:8000/api/admin/challenge/";
@@ -59,20 +57,17 @@ export default function App() {
   useEffect(() => {
     axios.get(api).then((res) => {
       setData(res.data.result);
+      setSearch(res.data.result);
     });
-  }, []);
+  }, [data]);
   // search function
 const handleSearch = (e) => {
-  const searchValue = e.target.value;
-  setSearch(searchValue);
-
-  const filtered = data.filter((item) => {
-    return item.title.toLowerCase().includes(searchValue.toLowerCase());
+  const value = e.target.value;
+  const result = data.filter((item) => {
+    return item.title.toLowerCase().includes(value.toLowerCase());
   });
-
-  setSearchData(filtered);
-  console.log(filtered);
-};
+  setSearch(result);
+  };
 
   return (
     <>
@@ -105,7 +100,7 @@ const handleSearch = (e) => {
                       fontSize="sm"
                       color="gray.600"
                       _dark={{ color: "gray.400" }}>
-                      قبل 3 ايام
+                        {item.createdAt.slice(0, 10).replace("-", "/" , 2).replace("-", "/" , 2)}
                     </chakra.span>
                   </Flex>
                   <Box mt={2}>
@@ -180,7 +175,6 @@ const handleSearch = (e) => {
             <Input
               type="text"
               placeholder="بحث"
-              value={search}
               onChange={(e) => handleSearch(e)}
             />
             <Button>ابحث</Button>
