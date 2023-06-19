@@ -40,6 +40,7 @@ const UsersTable = () => {
   const [userRole, setUserRole] = useState("");
   const [depData, setDepData] = useState([]);
 
+  ///
   //get all the data from backEnd API
   useEffect(() => {
     axios
