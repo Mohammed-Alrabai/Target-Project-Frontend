@@ -259,7 +259,7 @@ export default function App() {
               <Route path="/Goals" element={<Goals />} />
               <Route path="/Solution" element={<Solution />} />
               <Route path="/login" element={<Login />} />
-              <Route path="/challenge/one" element={<OneChallenge />} />
+              <Route path="/challenge/:id" element={<OneChallenge />} />
               <Route path="*" element={<Text>404</Text>} />
             </Routes>
           </Box>

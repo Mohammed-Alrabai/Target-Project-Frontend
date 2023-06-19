@@ -20,6 +20,7 @@ import {
   Select,
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function App() {
@@ -27,9 +28,13 @@ export default function App() {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [department, setDepartment] = useState("");
-  const [type , setType] = useState("");
+  const [type, setType] = useState("");
   const [challenge, setChallenge] = useState([]);
-  const [data , setData] = useState([]);
+  const [data, setData] = useState([]);
+  const [searchData, setSearchData] = useState([]);
+  const [search, setSearch] = useState("");
+
+  const navigate = useNavigate();
 
   const api = "http://localhost:8000/api/admin/challenge/";
   const apiCreate = "http://localhost:8000/api/admin/createChallenge";
@@ -37,7 +42,7 @@ export default function App() {
     await setChallenge({
       title,
       body,
-    })
+    });
     try {
       await axios.post(apiCreate, {
         title,
@@ -50,95 +55,114 @@ export default function App() {
     }
     onClose();
   };
- 
+
   useEffect(() => {
     axios.get(api).then((res) => {
       setData(res.data.result);
-      console.log(data);
     });
   }, []);
-  
+  // search function
+const handleSearch = (e) => {
+  const searchValue = e.target.value;
+  setSearch(searchValue);
+
+  const filtered = data.filter((item) => {
+    return item.title.toLowerCase().includes(searchValue.toLowerCase());
+  });
+
+  setSearchData(filtered);
+  console.log(filtered);
+};
+
   return (
     <>
       <Box display={"flex"} w={"full"} justifyContent={"space-between"}>
-        <SimpleGrid w={"100%"} columns={{ base: 1, md: 1, lg: 1 }}>
+        <SimpleGrid w={"100%"} columns={{ base: 1, md: 1, lg: 1 }} gap={0}>
           {/* Box-1 */}
-          {data.map((item) => (
-            <Box
-              key={item._id}
-              mt={0}
-              borderBottom={"2px solid"}
-              borderStyle={"solid"}
-              borderColor={useColorModeValue("gray.300", "gray.700")}>
+          <Box>
+            {data.map((item) => (
               <Box
-                mx="auto"
-                px={8}
-                py={4}
-                shadow="lg"
-                bg="white"
-                _dark={{ bg: "gray.800" }}>
-                <Flex justifyContent="space-between" alignItems="center">
-                  <Link
-                    color="gray.700"
-                    _dark={{ color: "gray.200" }}
-                    fontWeight="700"
-                    cursor="pointer">
-                  </Link>
-                  <chakra.span
-                    fontSize="sm"
-                    color="gray.600"
-                    _dark={{ color: "gray.400" }}>
-                    قبل 3 ايام
-                  </chakra.span>
-                </Flex>
-                <Box mt={2}>
-                  <Link
-                    fontSize="2xl"
-                    color="gray.700"
-                    _dark={{ color: "white" }}
-                    fontWeight="700"
-                    _hover={{
-                      color: "gray.600",
-                      _dark: {
-                        color: "gray.200",
-                      },
-                      textDecor: "underline",
-                    }}>
-                    {item.title}
-                  </Link>
-                  <chakra.p
-                    mt={2}
-                    color="gray.600"
-                    _dark={{ color: "gray.300" }}>
-                    {item.body}
-                  </chakra.p>
-                </Box>
-
-                <Flex justifyContent="space-between" alignItems="center" mt={4}>
-                  <Flex alignItems="center">
+                key={item._id}
+                mt={0}
+                borderBottom={"2px solid"}
+                borderStyle={"solid"}
+                borderColor={"gray.300"}
+                _dark={{ borderColor: "gray.700" }}>
+                <Box
+                  mx="auto"
+                  px={8}
+                  py={4}
+                  shadow="lg"
+                  bg="white"
+                  _dark={{ bg: "gray.800" }}>
+                  <Flex justifyContent="space-between" alignItems="center">
                     <Link
-                      px={3}
-                      py={1}
-                      bg="gray.600"
-                      color="gray.100"
-                      fontSize="sm"
+                      color="gray.700"
+                      _dark={{ color: "gray.200" }}
                       fontWeight="700"
-                      rounded="md"
-                      _hover={{ bg: "gray.500" }}>
-                      
-                      {item.type}
+                      cursor="pointer"></Link>
+                    <chakra.span
+                      fontSize="sm"
+                      color="gray.600"
+                      _dark={{ color: "gray.400" }}>
+                      قبل 3 ايام
+                    </chakra.span>
+                  </Flex>
+                  <Box mt={2}>
+                    <Link
+                      fontSize="2xl"
+                      color="gray.700"
+                      _dark={{ color: "white" }}
+                      fontWeight="700"
+                      _hover={{
+                        color: "gray.600",
+                        _dark: {
+                          color: "gray.200",
+                        },
+                        textDecor: "underline",
+                      }}>
+                      {item.title}
+                    </Link>
+                    <chakra.p
+                      mt={2}
+                      color="gray.600"
+                      _dark={{ color: "gray.300" }}>
+                      {item.body}
+                    </chakra.p>
+                  </Box>
+
+                  <Flex
+                    justifyContent="space-between"
+                    alignItems="center"
+                    mt={4}>
+                    <Flex alignItems="center">
+                      <Link
+                        px={3}
+                        py={1}
+                        bg="gray.600"
+                        color="gray.100"
+                        fontSize="sm"
+                        fontWeight="700"
+                        rounded="md"
+                        _hover={{ bg: "gray.500" }}>
+                        {item.type}
+                      </Link>
+                    </Flex>
+                    <Link
+                      color="brand.600"
+                      _dark={{ color: "brand.400" }}
+                      _hover={{ textDecor: "underline" }}>
+                      <Button
+                        colorScheme="blue"
+                        onClick={() => navigate(`/challenge/${item._id}`)}>
+                        اقراء المزيد
+                      </Button>
                     </Link>
                   </Flex>
-                  <Link
-                    color="brand.600"
-                    _dark={{ color: "brand.400" }}
-                    _hover={{ textDecor: "underline" }}>
-                    <Button colorScheme="blue">اقراء المزيد</Button>
-                  </Link>
-                </Flex>
+                </Box>
               </Box>
-            </Box>
-          ))}
+            ))}
+          </Box>
           {/* <Box bg="tomato" height="80px"></Box>
       <Box bg="tomato" height="80px"></Box>
       <Box bg="tomato" height="80px"></Box>
@@ -152,7 +176,14 @@ export default function App() {
           bgColor={useColorModeValue("white", "gray.800")}
           borderColor={useColorModeValue("gray.200", "gray.700")}>
           <Box p={4}>
-            <Input type="text" placeholder="بحث" />
+            {/* search input */}
+            <Input
+              type="text"
+              placeholder="بحث"
+              value={search}
+              onChange={(e) => handleSearch(e)}
+            />
+            <Button>ابحث</Button>
           </Box>
           <Box
             p={4}
