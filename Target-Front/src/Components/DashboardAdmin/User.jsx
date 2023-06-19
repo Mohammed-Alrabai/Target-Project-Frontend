@@ -196,13 +196,9 @@ const UsersTable = () => {
                     onChange={(e) => setDepartment(e.target.value)}
                   >
                     {depData.map((item) => {
-
-
-                      {/* {console.log(item._id)} */ }
                       return (
                         <option key={item._id} value={item._id} >
                           {item.name}
-                          {/* {item._id} */}
                         </option>
                       )
                     })}
