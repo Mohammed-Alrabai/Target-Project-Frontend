@@ -46,9 +46,10 @@ const UsersTable = () => {
   useEffect(() => {
     axios.get("http://localhost:8800/api/admin/employee").then((res) => {
       setData(res.data.result)
-      console.log(res.result.Department)
-      console.log(res.data.result)
       setSearch(res.data.result)
+      console.log("api data")
+      console.log(res.data.result)
+      console.log(data)
       //console.log(res.data)
     }).catch((error) => {
       console.log(error)
@@ -67,17 +68,16 @@ const UsersTable = () => {
 
 
 
-  const handleChange = (e) => {
-    setSearch(data.filter(item => (item.name.toLowerCase().includes(e.target.value))));
-
+  const handleChange = (event) => {
+    console.log("the data inside")
+    console.log(data)
+    setSearch(data.filter(item => (
+      item.name.toLowerCase().includes(event.target.value))));
   };
 
   const color = useColorModeValue("gray.900", "gray.300");
 
-  const handleAddEmployee = () => {
-    // قم بتنفيذ الإجراءات المطلوبة عند النقر على زر "اضافة موظف" هنا
-    // مثال: افتح النموذج أو قم بإرسال طلب إضافة الموظف إلى الخادم
-  };
+
 
 
   const DeleteUser = (id) => {
@@ -155,6 +155,7 @@ const UsersTable = () => {
             <Input
               placeholder="بحث"
               _placeholder={{ color: "gray.500", _active: true }}
+              onChange={handleChange}
             />
           </Box>
           <Box
@@ -265,11 +266,11 @@ const UsersTable = () => {
           <Tbody>
             <>
               {
-                data.map((user) => (
+                search.map((item) => (
                   <Tr
                     borderBottomWidth="1px"
                     rounded={"md"}
-                    key={user._id}
+                    key={item._id}
                     _hover={{ bg: "gray.100", _dark: { bg: "gray.800" } }}>
                     <Td
                       whiteSpace="nowrap"
@@ -277,7 +278,7 @@ const UsersTable = () => {
                       fontWeight={"medium"}
                       px={6}
                       py={6}>
-                      {user._id}
+                      {item._id}
                     </Td>
                     <Td
                       whiteSpace="nowrap"
@@ -285,7 +286,7 @@ const UsersTable = () => {
                       fontWeight={"medium"}
                       px={6}
                       py={6}>
-                      {user.name}
+                      {item.name}
                     </Td>
                     <Td
                       whiteSpace="nowrap"
