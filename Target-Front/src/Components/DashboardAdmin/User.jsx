@@ -57,7 +57,7 @@ const UsersTable = () => {
     }).catch((error) => {
       console.log(error)
     })
-
+  }, [])
 
   useEffect(() => {
     axios
@@ -124,35 +124,29 @@ const UsersTable = () => {
       });
   };
 
-const EditEmployee = () => {
-  axios
-    .put(`http://localhost:8800/api/admin/updateEmployee/${editEmployeeId}`, {
-      name: editName,
-      username: editUsername,
-      password: editPassword,
-      department: editDepartment,
-    console.log(userRole)
-    console.log(department)
-    axios.post('http://localhost:8800/api/admin/createEmployee', {
-      name,
-      username,
-      password,
-      department,
-      userRole
-    }).then((res) => {
-      setIsModalOpen(false)
-      console.log("employee is added successfuly")
-    }).catch((error) => {
-      console.log(error)
-    })
-    .then((res) => {
-      setIsModalOpenChange(false);
-      console.log("Employee is updated successfully");
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
+// const EditEmployee = () => {
+//     console.log(userRole)
+//     console.log(department)
+//     axios.post('http://localhost:8800/api/admin/createEmployee', {
+//       name,
+//       username,
+//       password,
+//       department,
+//       userRole
+//     }).then((res) => {
+//       setIsModalOpen(false)
+//       console.log("employee is added successfuly")
+//     }).catch((error) => {
+//       console.log(error)
+//     })
+//     .then((res) => {
+//       setIsModalOpenChange(false);
+//       console.log("Employee is updated successfully");
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//     });
+// };
 
   const UpdateEmp = (id) => {
     axios.patch(`http://localhost:8800/api/admin/updateEmployee/${id}`, {
