@@ -308,7 +308,10 @@ const UsersTable = () => {
                     <Button
                       colorScheme="blue"
                       outline={true}
-                      onClick={() => UpdateEmp(user._id)}>
+                      onClick={() => {
+                        UpdateEmp(user._id);
+                        setIsModalOpenChange(true);
+                      }}>
                       تعديل
                     </Button>
                   </Td>
@@ -328,6 +331,86 @@ const UsersTable = () => {
                 </Tr>
               ))}
             </>
+            <Modal
+              isOpen={isModalOpenChange}
+              onClose={() => setIsModalOpenChange(false)}>
+              <ModalOverlay />
+              <ModalContent>
+                <Box
+                  display={"flex"}
+                  justifyContent={"space-between"}
+                  w={"full"}>
+                  <Box display={"flex"} justifyContent={"flex-start"}>
+                    <ModalCloseButton />
+                  </Box>
+                  <Box>
+                    <ModalHeader>نافذة تعديل موظف</ModalHeader>
+                  </Box>
+                </Box>
+                <ModalBody>
+                  <Box>
+                    <Input
+                      name="name"
+                      placeholder="اسم الموظف"
+                      mb={4}
+                      // value={employeeData.name}
+                      onChange={(e) => setName(e.target.value)}
+                    />
+                    <Input
+                      name="username"
+                      placeholder="اسم المستخدم"
+                      mb={4}
+                      // value={employeeData.username}
+                      onChange={(e) => setUsername(e.target.value)}
+                    />
+                    <Input
+                      name="password"
+                      type="password"
+                      placeholder="كلمة المرور"
+                      mb={4}
+                      // value={employeeData.password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <Select
+                      name="Department"
+                      placeholder="اختر القسم"
+                      mb={4}
+                      icon={<></>}
+                      // value={employeeData.department}
+                      onChange={(e) => setDepartment(e.target.value)}>
+                      {depData.map((item) => {
+                        return (
+                          <option key={item._id} value={item._id}>
+                            {item.name}
+                          </option>
+                        );
+                      })}
+                    </Select>
+                    <Select
+                      name="userRole"
+                      placeholder="الصلاحيات "
+                      mb={4}
+                      icon={<></>}
+                      // value={employeeData.department}
+                      onChange={handleChange}>
+                      <option value="employee">موظف</option>
+                      <option value="subAdmin">مدير قسم</option>
+                    </Select>
+                  </Box>
+                </ModalBody>
+                <ModalFooter>
+                  <Button
+                    colorScheme="blue"
+                    ml={3}
+                    onClick={() => EditEmployee()}>
+                    حفظ
+                  </Button>
+                  <Button onClick={() => setIsModalOpenChange(false)}>
+                    إغلاق
+                  </Button>
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
           </Tbody>
         </Table>
       </Box>
