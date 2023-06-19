@@ -53,8 +53,8 @@ const statData = [
 ];
 
 const StatsWithIcons = () => {
-      const color = useColorModeValue("gray.50" ," gray.900");
-      const textColor = useColorModeValue("gray.900", "gray.50");
+  const color = useColorModeValue("gray.50", " gray.900");
+  const textColor = useColorModeValue("gray.900", "gray.50");
 
   return (
     <Container maxW="7xl" p={{ base: 5, md: 10 }}>
@@ -310,7 +310,7 @@ const StatsWithIcons = () => {
 };
 
 const Card = ({ data }) => {
-    const color = useColorModeValue("gray.900", "gray.100");
+  const color = useColorModeValue("gray.900", "gray.100");
   return (
     <motion.div whileHover={{ translateY: -5 }}>
       <Stack
