@@ -29,23 +29,24 @@ import { React, useState, useEffect } from "react";
 // for push
 const UsersTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-    const [employeeData, setEmployeeData] = useState({
-      name: "",
-      username: "",
-      password: "",
-      department: "",
-    });    
-      const handleChange = (e) => {
-        const { name, value } = e.target;
-        setEmployeeData((prevData) => ({ ...prevData, [name]: value }));
-      };
+  const [isModalOpenChange, setIsModalOpenChange] = useState(false);
+  const [employeeData, setEmployeeData] = useState({
+    name: "",
+    username: "",
+    password: "",
+    department: "",
+  });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setEmployeeData((prevData) => ({ ...prevData, [name]: value }));
+  };
 
   const color = useColorModeValue("gray.900", "gray.300");
 
-      const handleAddEmployee = () => {
-        // قم بتنفيذ الإجراءات المطلوبة عند النقر على زر "اضافة موظف" هنا
-        // مثال: افتح النموذج أو قم بإرسال طلب إضافة الموظف إلى الخادم
-      };
+  const handleAddEmployee = () => {
+    // قم بتنفيذ الإجراءات المطلوبة عند النقر على زر "اضافة موظف" هنا
+    // مثال: افتح النموذج أو قم بإرسال طلب إضافة الموظف إلى الخادم
+  };
 
   const tableData = [
     {
@@ -107,15 +108,15 @@ const UsersTable = () => {
               _placeholder={{ color: "gray.500", _active: true }}
             />
           </Box>
-            <Box
-              w={{ base: "full", md: "50%" }}
-              px={6}
-              py={6}
-              display={"flex"}
-              alignItems={"center"}
-              justifyContent={"flex-end"}>
-              <Button onClick={() => setIsModalOpen(true)}>اضافة موظف</Button>
-            </Box>
+          <Box
+            w={{ base: "full", md: "50%" }}
+            px={6}
+            py={6}
+            display={"flex"}
+            alignItems={"center"}
+            justifyContent={"flex-end"}>
+            <Button onClick={() => setIsModalOpen(true)}>اضافة موظف</Button>
+          </Box>
           <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
             <ModalOverlay />
             <ModalContent>
@@ -127,7 +128,6 @@ const UsersTable = () => {
                   <ModalHeader>نافذة إضافة موظف</ModalHeader>
                 </Box>
               </Box>
-
               <ModalBody>
                 <Box>
                   <Input
@@ -153,7 +153,7 @@ const UsersTable = () => {
                     onChange={handleChange}
                   />
                   <Select
-                    name="department"
+                    name="Department"
                     placeholder="اختر القسم"
                     mb={4}
                     icon={<></>}
@@ -163,9 +163,18 @@ const UsersTable = () => {
                     <option value="قسم 2">قسم 2</option>
                     <option value="قسم 3">قسم 3</option>
                   </Select>
+                  <Select
+                    name="userRole"
+                    placeholder="الصلاحيات "
+                    mb={4}
+                    icon={<></>}
+                    value={employeeData.department}
+                    onChange={handleChange}>
+                    <option value="employee">موظف</option>
+                    <option value="subAdmin">مدير قسم</option>
+                  </Select>
                 </Box>
               </ModalBody>
-
               <ModalFooter>
                 <Button colorScheme="blue" ml={3} onClick={handleAddEmployee}>
                   حفظ
@@ -233,7 +242,10 @@ const UsersTable = () => {
                   {user.department}
                 </Td>
                 <Td whiteSpace="nowrap" px={4} py={0}>
-                  <Button colorScheme="blue" outline={true}>
+                  <Button
+                    colorScheme="blue"
+                    outline={true}
+                    onClick={() => setIsModalOpenChange(true)}>
                     تعديل
                   </Button>
                 </Td>
@@ -249,6 +261,79 @@ const UsersTable = () => {
                 </Td>
               </Tr>
             ))}
+            <Modal
+              isOpen={isModalOpenChange}
+              onClose={() => setIsModalOpenChange(false)}>
+              <ModalOverlay />
+              <ModalContent>
+                <Box
+                  display={"flex"}
+                  justifyContent={"space-between"}
+                  w={"full"}>
+                  <Box display={"flex"} justifyContent={"flex-start"}>
+                    <ModalCloseButton />
+                  </Box>
+                  <Box>
+                    <ModalHeader>نافذة تعديل موظف</ModalHeader>
+                  </Box>
+                </Box>
+                <ModalBody>
+                  <Box>
+                    <Input
+                      name="name"
+                      placeholder="اسم الموظف"
+                      mb={4}
+                      value={employeeData.name}
+                      onChange={handleChange}
+                    />
+                    <Input
+                      name="username"
+                      placeholder="اسم المستخدم"
+                      mb={4}
+                      value={employeeData.username}
+                      onChange={handleChange}
+                    />
+                    <Input
+                      name="password"
+                      type="password"
+                      placeholder="كلمة المرور"
+                      mb={4}
+                      value={employeeData.password}
+                      onChange={handleChange}
+                    />
+                    <Select
+                      name="department"
+                      placeholder="اختر القسم"
+                      mb={4}
+                      icon={<></>}
+                      value={employeeData.department}
+                      onChange={handleChange}>
+                      <option value="قسم 1">قسم 1</option>
+                      <option value="قسم 2">قسم 2</option>
+                      <option value="قسم 3">قسم 3</option>
+                    </Select>
+                    <Select
+                      name="userRole"
+                      placeholder="الصلاحيات "
+                      mb={4}
+                      icon={<></>}
+                      value={employeeData.department}
+                      onChange={handleChange}>
+                      <option value="employee">موظف</option>
+                      <option value="subAdmin">مدير قسم</option>
+                    </Select>
+                  </Box>
+                </ModalBody>
+                <ModalFooter>
+                  <Button colorScheme="blue" ml={3} onClick={handleAddEmployee}>
+                    حفظ
+                  </Button>
+                  <Button onClick={() => setIsModalOpenChange(false)}>
+                    إغلاق
+                  </Button>
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
           </Tbody>
         </Table>
       </Box>

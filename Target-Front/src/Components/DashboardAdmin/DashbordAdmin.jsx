@@ -28,7 +28,7 @@ import { motion, useMotionValueEvent } from "framer-motion";
 import { HiOutlineMail } from "react-icons/hi";
 import { BsArrowUpShort, BsArrowDownShort } from "react-icons/bs";
 import { AiOutlineLike, AiOutlineEye } from "react-icons/ai";
-
+import {FiTrendingUp} from "react-icons/fi";
 
 const statData = [
   {
@@ -98,13 +98,20 @@ const StatsWithIcons = () => {
           <Grid templateColumns="repeat(5, 1fr)" gap={2}>
             <GridItem colSpan={3} h="10">
               <Box bg={color} w={"full"} rounded={"md"}>
-                <Text
-                  fontSize={"1.2rem"}
-                  fontWeight={"extrabold"}
-                  color={textColor}
-                  p={10}>
-                  التحديات الاكثر تفاعلا
-                </Text>
+                <Box
+                  display={"flex"}
+                  alignItems={"center"}
+                  justifyContent={"start"}>
+                  <Text
+                    fontSize={"1.2rem"}
+                    fontWeight={"extrabold"}
+                    color={textColor}
+                    py={5}
+                    mx={3}>
+                    التحديات الاكثر تفاعلا
+                  </Text>
+                  <Icon as={FiTrendingUp} />
+                </Box>
                 <hr></hr>
                 <Table
                   minW="full"
@@ -183,12 +190,13 @@ const StatsWithIcons = () => {
                         fontWeight={"medium"}
                         px={6}
                         py={6}>
-                        <Text textAlign={"center"} size={"2xl"}>
+                        <Box display={"flex"} alignItems={"center"} gap={2}>
+                          <Text textAlign={"center"} size={"2xl"}></Text>
                           33 <Icon as={HiOutlineMail} />
-                        </Text>
+                        </Box>
                       </Td>
-                      <Td whiteSpace="nowrap" px={4} py={0}>
-                        <Button colorScheme="blue" outline={true}>
+                      <Td whiteSpace="nowrap" px={2} py={0}>
+                        <Button colorScheme="blue" px={6} outline={true}>
                           <Icon as={AiOutlineEye} />
                         </Button>
                       </Td>
@@ -198,12 +206,101 @@ const StatsWithIcons = () => {
               </Box>
             </GridItem>
             <GridItem colStart={4} colEnd={8} h="10" rounded={"md"}>
-              <Box
-                bg={color}
-                w={"full"}
-                minH={"40px"}
-                p={60}
-                rounded={"md"}></Box>
+              <Box bg={color} w={"full"} rounded={"md"}>
+                <Box
+                  display={"flex"}
+                  alignItems={"center"}
+                  justifyContent={"start"}>
+                  <Text
+                    fontSize={"1.2rem"}
+                    fontWeight={"extrabold"}
+                    color={textColor}
+                    py={5}
+                    mx={3}>
+                    الموظفين الاكثر تفاعلا
+                  </Text>
+                  <Icon as={FiTrendingUp} />
+                </Box>
+                <hr></hr>
+                <Table
+                  minW="full"
+                  textAlign="left"
+                  fontSize="sm"
+                  fontWeight="light"
+                  color={textColor}
+                  rounded={"md"}>
+                  <Thead borderBottomWidth="1px" fontWeight="extrabold">
+                    <Tr>
+                      <Th fontSize={"0.95rem"} px={6} py={6}>
+                        #
+                      </Th>
+                      <Th
+                        fontSize={"1.2rem"}
+                        fontWeight={"extrabold"}
+                        px={6}
+                        py={6}>
+                        الاسم
+                      </Th>
+                      <Th
+                        fontSize={"1.2rem"}
+                        fontWeight={"extrabold"}
+                        px={6}
+                        py={6}>
+                        القسم
+                      </Th>
+                      <Th
+                        fontSize={"1.2rem"}
+                        fontWeight={"extrabold"}
+                        px={6}
+                        py={6}>
+                        عدد الردود
+                      </Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    <Tr
+                      borderBottomWidth="1px"
+                      rounded={"md"}
+                      _hover={{ bg: "gray.100", _dark: { bg: "gray.800" } }}>
+                      <Td
+                        whiteSpace="nowrap"
+                        fontSize={"0.95rem"}
+                        fontWeight={"medium"}
+                        px={6}
+                        py={6}>
+                        1
+                      </Td>
+                      <Td
+                        whiteSpace="nowrap"
+                        fontSize={"0.95rem"}
+                        fontWeight={"medium"}
+                        px={6}
+                        py={6}>
+                        name
+                      </Td>
+                      <Td
+                        whiteSpace="nowrap"
+                        fontSize={"0.95rem"}
+                        fontWeight={"medium"}
+                        px={6}
+                        py={6}>
+                        desc
+                      </Td>
+                      <Td
+                        whiteSpace="nowrap"
+                        fontSize={"0.95rem"}
+                        fontWeight={"medium"}
+                        px={6}
+                        py={6}>
+                        <Box display={"flex"} alignItems={"center"} gap={2}>
+                          <Text textAlign={"center"} size={"2xl"}></Text>
+                          33 <Icon as={HiOutlineMail} />
+                        </Box>
+                      </Td>
+                    </Tr>
+                  </Tbody>
+                </Table>
+              </Box>
             </GridItem>
           </Grid>
         </Box>

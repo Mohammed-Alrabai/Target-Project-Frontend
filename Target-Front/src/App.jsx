@@ -55,6 +55,7 @@ import Department from "./Components/DashboardAdmin/Department";
 import Goals from "./Components/DashboardAdmin/Goals";
 import Solution from "./Components/DashboardAdmin/Solution";
 import Login from './Components/auth/Login';
+import OneChallenge from "./Components/DashboardAdmin/OneChallenge";
 
 // sidebar items
 const LinkItems = [
@@ -258,6 +259,7 @@ export default function App() {
               <Route path="/Goals" element={<Goals />} />
               <Route path="/Solution" element={<Solution />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/challenge/one" element={<OneChallenge />} />
               <Route path="*" element={<Text>404</Text>} />
             </Routes>
           </Box>

@@ -22,8 +22,24 @@ import {
 } from "@chakra-ui/react";
 import {AiOutlineDelete} from "react-icons/ai";
 import {IoMdAdd} from "react-icons/io";
+import axios from "axios";
+import { useState , useEffect } from "react";
 const Todo = () => {
   const color = useColorModeValue("gray.50" ,"gray.900" );
+  const [goals, setGoals] = useState([]);
+  const [bodyGoals , setBodyGoals] = useState([]);
+
+    useEffect(() => {
+      axios.get("http://localhost:8000/api/admin/goals").then((res) => {
+        setGoals(res.data.result);
+        console.log(res.data);
+        const {body} = res.data.result[0];
+        console.log(body);
+        const bodyS = body.split("-");
+                console.log(bodyS);
+
+      });
+    } , []);
   return (
     <Box as="main" p={{ base: "4", md: "6" }} w={"full"}>
       {/* Breadcrumb */}
@@ -81,34 +97,21 @@ const Todo = () => {
               </Tr>
             </Thead>
             <Tbody>
-              <Tr>
-                <Td>
-                  <Checkbox />
-                </Td>
-                <Td>نص عشوائي عربي عربي عربي</Td>
-              </Tr>
-              <Tr>
-                <Td>
-                  <Checkbox />
-                </Td>
-                <Td>
-                  هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم
-                  توليد هذا النص من مولد النص العربى
-                </Td>
-              </Tr>
-              <Tr>
-                <Td>
-                  <Checkbox />
-                </Td>
-                <Td>
-                  هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم
-                </Td>
-              </Tr>
+              {goals.map((goal) => (
+                <Tr>
+                  <Td>
+                    <Checkbox />
+                  </Td>
+                  <Td>{goal.title}</Td>
+                </Tr>
+              ))}
               <Tr>
                 <Td></Td>
                 <Td>
                   <Input
                     className="w-full bg-transparent outline-none placeholder:text-placeholder"
+                    type="text"
+                    on
                     placeholder="اضافة هدف جديد"
                   />
                 </Td>
