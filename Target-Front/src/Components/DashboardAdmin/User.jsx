@@ -31,6 +31,8 @@ import { React, useState, useEffect } from "react";
 const UsersTable = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpenChange, setIsModalOpenChange] = useState(false);
+
   const [data, setData] = useState([]);
   const [search, setSearch] = useState([]);
   const [name, setName] = useState("");
@@ -73,6 +75,7 @@ const UsersTable = () => {
     // قم بتنفيذ الإجراءات المطلوبة عند النقر على زر "اضافة موظف" هنا
     // مثال: افتح النموذج أو قم بإرسال طلب إضافة الموظف إلى الخادم
   };
+
 
   const DeleteUser = (id) => {
     console.log(id)
@@ -160,7 +163,6 @@ const UsersTable = () => {
                   <ModalHeader>نافذة إضافة موظف</ModalHeader>
                 </Box>
               </Box>
-
               <ModalBody>
                 <Box>
                   <Input
@@ -186,7 +188,7 @@ const UsersTable = () => {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   <Select
-                    name="department"
+                    name="Department"
                     placeholder="اختر القسم"
                     mb={4}
                     icon={<></>}
@@ -204,6 +206,16 @@ const UsersTable = () => {
                         </option>
                       )
                     })}
+                  </Select>
+                  <Select
+                    name="userRole"
+                    placeholder="الصلاحيات "
+                    mb={4}
+                    icon={<></>}
+                    value={employeeData.department}
+                    onChange={handleChange}>
+                    <option value="employee">موظف</option>
+                    <option value="subAdmin">مدير قسم</option>
                   </Select>
                 </Box>
               </ModalBody>
@@ -295,7 +307,6 @@ const UsersTable = () => {
                       </Button>
                     </Td>
                   </Tr>
-
                 ))}
             </>
           </Tbody>
