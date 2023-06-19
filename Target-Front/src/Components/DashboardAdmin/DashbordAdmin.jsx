@@ -28,7 +28,7 @@ import { motion, useMotionValueEvent } from "framer-motion";
 import { HiOutlineMail } from "react-icons/hi";
 import { BsArrowUpShort, BsArrowDownShort } from "react-icons/bs";
 import { AiOutlineLike, AiOutlineEye } from "react-icons/ai";
-
+import {FiTrendingUp} from "react-icons/fi";
 
 const statData = [
   {
@@ -51,10 +51,28 @@ const statData = [
     icon: HiOutlineMail,
   },
 ];
+import axios from "axios";
+import { useState , useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const StatsWithIcons = () => {
   const color = useColorModeValue("gray.50", " gray.900");
   const textColor = useColorModeValue("gray.900", "gray.50");
+  const [data, setData] = useState([]);
+  const [stat, setStat] = useState(0);
+  const navigate = useNavigate();
+
+  const api = "http://localhost:8000/api/admin/challenge/";
+
+  useEffect(() => {
+    axios.get(api).then((res) => {
+      setData(res.data.result);
+    });
+  } , []);
+  // Calculate the number of challenges
+
+
+
 
   return (
     <Container maxW="7xl" p={{ base: 5, md: 10 }}>
@@ -94,118 +112,215 @@ const StatsWithIcons = () => {
           y: 0,
           scale: 1,
         }}>
-        <Box bg={"color"} w={"full"} py={5} px={0}>
-          <Grid templateColumns="repeat(5, 1fr)" gap={2}>
-            <GridItem colSpan={3} h="10">
-              <Box bg={color} w={"full"} rounded={"md"}>
-                <Text id="input"
-                  fontSize={"1.2rem"}
-                  fontWeight={"extrabold"}
-                  color={textColor}
-                  p={10}>
-                  التحديات الاكثر تفاعلا
-                </Text>
-                <hr></hr>
-                <Table
-                  minW="full"
-                  textAlign="left"
-                  fontSize="sm"
-                  fontWeight="light"
-                  color={textColor}
-                  rounded={"md"}>
-                  <Thead borderBottomWidth="1px" fontWeight="extrabold">
-                    <Tr>
-                      <Th fontSize={"0.95rem"} px={6} py={6}>
-                        #
-                      </Th>
-                      <Th
-                        fontSize={"1.2rem"}
-                        fontWeight={"extrabold"}
-                        px={6}
-                        py={6}>
-                        العنوان
-                      </Th>
-                      <Th
-                        fontSize={"1.2rem"}
-                        fontWeight={"extrabold"}
-                        px={6}
-                        py={6}>
-                        الموظف
-                      </Th>
-                      <Th
-                        fontSize={"1.2rem"}
-                        fontWeight={"extrabold"}
-                        px={6}
-                        py={6}>
-                        عدد الردود
-                      </Th>
-                      <Th
-                        fontSize={"1.2rem"}
-                        fontWeight={"extrabold"}
-                        px={6}
-                        py={6}>
-                        مشاهدة
-                      </Th>
-                    </Tr>
-                  </Thead>
-                  <Tbody>
-                    <Tr
-                      borderBottomWidth="1px"
-                      rounded={"md"}
-                      _hover={{ bg: "gray.100", _dark: { bg: "gray.800" } }}>
-                      <Td
-                        whiteSpace="nowrap"
-                        fontSize={"0.95rem"}
-                        fontWeight={"medium"}
-                        px={6}
-                        py={6}>
-                        1
-                      </Td>
-                      <Td
-                        whiteSpace="nowrap"
-                        fontSize={"0.95rem"}
-                        fontWeight={"medium"}
-                        px={6}
-                        py={6}>
-                        name
-                      </Td>
-                      <Td
-                        whiteSpace="nowrap"
-                        fontSize={"0.95rem"}
-                        fontWeight={"medium"}
-                        px={6}
-                        py={6}>
-                        desc
-                      </Td>
-                      <Td
-                        whiteSpace="nowrap"
-                        fontSize={"0.95rem"}
-                        fontWeight={"medium"}
-                        px={6}
-                        py={6}>
-                        <Text textAlign={"center"} size={"2xl"}>
-                          33 <Icon as={HiOutlineMail} />
-                        </Text>
-                      </Td>
-                      <Td whiteSpace="nowrap" px={4} py={0}>
-                        <Button colorScheme="blue" outline={true}>
-                          <Icon as={AiOutlineEye} />
-                        </Button>
-                      </Td>
-                    </Tr>
-                  </Tbody>
-                </Table>
-              </Box>
-            </GridItem>
-            <GridItem colStart={4} colEnd={8} h="10" rounded={"md"}>
-              <Box
-                bg={color}
-                w={"full"}
-                minH={"40px"}
-                p={60}
-                rounded={"md"}></Box>
-            </GridItem>
-          </Grid>
+        <Box
+          bg={"color"}
+          display={"flex"}
+          flexDirection={{ base: "column", md: "row" }}
+          gap={{ base: 5, md: 16 }}
+          w={"full"}
+          flex={1}>
+          <Box bg={color} mb={{ base: 5, md: 2 }} w={"full"} rounded={"md"}>
+            <Box
+              display={"flex"}
+              alignItems={"center"}
+              justifyContent={"start"}>
+              <Text
+                fontSize={{ base: "0.75rem", md: "1.2rem" }}
+                fontWeight={"extrabold"}
+                color={textColor}
+                py={5}
+                mx={3}>
+                التحديات الاكثر تفاعلا
+              </Text>
+              <Icon as={FiTrendingUp} />
+            </Box>
+            <hr></hr>
+            <Box overflowX="auto">
+              <Table
+                minW={{ base: "auto", md: "full" }}
+                textAlign="left"
+                fontSize="sm"
+                fontWeight="light"
+                color={textColor}
+                rounded={"md"}>
+                <Thead borderBottomWidth="1px" fontWeight="extrabold">
+                  <Tr>
+                    <Th fontSize={"0.95rem"} px={6} py={6}>
+                      #
+                    </Th>
+                    <Th
+                      fontSize={{ base: "0.75rem", md: "1.2rem" }}
+                      fontWeight={"extrabold"}
+                      px={6}
+                      py={6}>
+                      العنوان
+                    </Th>
+                    <Th
+                      fontSize={{ base: "0.75rem", md: "1.2rem" }}
+                      fontWeight={"extrabold"}
+                      px={6}
+                      py={6}>
+                      الموظف
+                    </Th>
+                    <Th
+                      fontSize={{ base: "0.75rem", md: "1.2rem" }}
+                      fontWeight={"extrabold"}
+                      px={6}
+                      py={6}>
+                      عدد الردود
+                    </Th>
+                    <Th
+                      fontSize={{ base: "0.75rem", md: "1.2rem" }}
+                      fontWeight={"extrabold"}
+                      px={6}
+                      py={6}>
+                      مشاهدة
+                    </Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  <Tr
+                    borderBottomWidth="1px"
+                    rounded={"md"}
+                    _hover={{ bg: "gray.100", _dark: { bg: "gray.800" } }}>
+                    <Td
+                      whiteSpace="nowrap"
+                      fontSize={"0.95rem"}
+                      fontWeight={"medium"}
+                      px={6}
+                      py={6}>
+                      1
+                    </Td>
+                    <Td
+                      whiteSpace="nowrap"
+                      fontSize={"0.95rem"}
+                      fontWeight={"medium"}
+                      px={6}
+                      py={6}>
+                      name
+                    </Td>
+                    <Td
+                      whiteSpace="nowrap"
+                      fontSize={"0.95rem"}
+                      fontWeight={"medium"}
+                      px={6}
+                      py={6}>
+                      desc
+                    </Td>
+                    <Td
+                      whiteSpace="nowrap"
+                      fontSize={"0.95rem"}
+                      fontWeight={"medium"}
+                      px={6}
+                      py={6}>
+                      <Box display={"flex"} alignItems={"center"} gap={2}>
+                        <Text textAlign={"center"} size={"2xl"}></Text>
+                        33 <Icon as={HiOutlineMail} />
+                      </Box>
+                    </Td>
+                    <Td whiteSpace="nowrap" px={2} py={0}>
+                      <Button colorScheme="blue" px={6} outline={true}>
+                        <Icon as={AiOutlineEye} />
+                      </Button>
+                    </Td>
+                  </Tr>
+                </Tbody>
+              </Table>
+            </Box>
+          </Box>
+          <Box bg={color} mb={{ base: 5, md: 2 }} w={"full"} rounded={"md"}>
+            <Box
+              display={"flex"}
+              alignItems={"center"}
+              justifyContent={"start"}>
+              <Text
+                fontSize={{ base: "0.75rem", md: "1.2rem" }}
+                fontWeight={"extrabold"}
+                color={textColor}
+                py={5}
+                mx={3}>
+                الموظفين الاكثر تفاعلا
+              </Text>
+              <Icon as={FiTrendingUp} />
+            </Box>
+            <hr></hr>
+            <Table
+              minW="auto"
+              overflowX="auto"
+              textAlign="left"
+              fontSize="sm"
+              fontWeight="light"
+              color={textColor}
+              rounded={"md"}>
+              <Thead borderBottomWidth="1px" fontWeight="extrabold">
+                <Tr>
+                  <Th fontSize={{ base: "0.75rem", md: "1.2rem" }}>#</Th>
+                  <Th
+                    fontSize={{ base: "0.75rem", md: "1.2rem" }}
+                    fontWeight={"extrabold"}
+                    px={6}
+                    py={6}>
+                    الاسم
+                  </Th>
+                  <Th
+                    fontSize={{ base: "0.75rem", md: "1.2rem" }}
+                    fontWeight={"extrabold"}
+                    px={6}
+                    py={6}>
+                    القسم
+                  </Th>
+                  <Th
+                    fontSize={{ base: "0.75rem", md: "1.2rem" }}
+                    fontWeight={"extrabold"}
+                    px={6}
+                    py={6}>
+                    عدد الردود
+                  </Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                <Tr
+                  borderBottomWidth="1px"
+                  rounded={"md"}
+                  _hover={{ bg: "gray.100", _dark: { bg: "gray.800" } }}>
+                  <Td
+                    whiteSpace="nowrap"
+                    fontSize={"0.95rem"}
+                    fontWeight={"medium"}
+                    px={6}
+                    py={6}>
+                    1
+                  </Td>
+                  <Td
+                    whiteSpace="nowrap"
+                    fontSize={"0.95rem"}
+                    fontWeight={"medium"}
+                    px={6}
+                    py={6}>
+                    name
+                  </Td>
+                  <Td
+                    whiteSpace="nowrap"
+                    fontSize={"0.95rem"}
+                    fontWeight={"medium"}
+                    px={6}
+                    py={6}>
+                    desc
+                  </Td>
+                  <Td
+                    whiteSpace="nowrap"
+                    fontSize={"0.95rem"}
+                    fontWeight={"medium"}
+                    py={6}>
+                    <Box display={"flex"} alignItems={"center"} gap={2}>
+                      <Text textAlign={"center"} size={"2xl"}></Text>
+                      33 <Icon as={HiOutlineMail} />
+                    </Box>
+                  </Td>
+                </Tr>
+              </Tbody>
+            </Table>
+          </Box>
         </Box>
       </motion.div>
     </Container>

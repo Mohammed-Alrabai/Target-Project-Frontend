@@ -23,21 +23,50 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { HiUserGroup } from "react-icons/hi";
-import axios from "axios";
+import axios, { isCancel } from "axios";
 import { React, useState, useEffect } from "react";
+
 
 // for push
 const UsersTable = () => {
+
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [employeeData, setEmployeeData] = useState({
-    name: "",
-    username: "",
-    password: "",
-    department: "",
-  });
+  const [isModalOpenChange, setIsModalOpenChange] = useState(false);
+
+  const [data, setData] = useState([]);
+  const [search, setSearch] = useState([]);
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [department, setDepartment] = useState("");
+  const [depData, setDepData] = useState([]);
+
+  //get all the data from backEnd API
+  useEffect(() => {
+    axios.get("http://localhost:8800/api/admin/employee").then((res) => {
+      setData(res.data.result)
+      setSearch(res.data.result)
+      console.log(res.data)
+    }).catch((error) => {
+      console.log(error)
+    })
+
+    axios.get("http://localhost:8800/api/department/DepartmentList").then((res) => {
+      setDepData(res.data.result)
+      console.log("department")
+      console.log(depData)
+      console.log(res.data)
+    }).catch((error) => {
+      console.log(error)
+    })
+
+  }, [])
+
+
+
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setEmployeeData((prevData) => ({ ...prevData, [name]: value }));
+    setSearch(data.filter(item => (item.name.toLowerCase().includes(e.target.value))));
+
   };
 
   const color = useColorModeValue("gray.900", "gray.300");
@@ -47,28 +76,34 @@ const UsersTable = () => {
     // مثال: افتح النموذج أو قم بإرسال طلب إضافة الموظف إلى الخادم
   };
 
-  const tableData = [
-    {
-      id: 1,
-      name: "محمد",
-      department: "المالية",
-    },
-    {
-      id: 2,
-      name: "علي",
-      department: "ادارة الموظفين",
-    },
-    {
-      id: 3,
-      name: "خالد",
-      department: "المشتريات",
-    },
-    {
-      id: 4,
-      name: "فهد",
-      department: "تقنية المعلومات",
-    },
-  ];
+
+  const DeleteUser = (id) => {
+    console.log(id)
+    axios.delete(`http://localhost:8800/api/admin/deleteEmployee/${id}`).then((res) => {
+      setData(data.filter(del => {
+        return del._id != id
+      }))
+      console.log("deleted")
+    })
+  }
+
+  const AddEmployee = () => {
+
+    console.log(department)
+    axios.post('http://localhost:8800/api/admin/createEmployee', {
+      name,
+      username,
+      password,
+      department
+    }).then((res) => {
+
+      console.log("employee is added successfuly")
+    }).catch((error) => {
+      console.log(error)
+    })
+  }
+
+
   return (
     <Box
       className="flex flex-col"
@@ -115,6 +150,7 @@ const UsersTable = () => {
             alignItems={"center"}
             justifyContent={"flex-end"}>
             <Button onClick={() => setIsModalOpen(true)}>اضافة موظف</Button>
+
           </Box>
           <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
             <ModalOverlay />
@@ -127,47 +163,60 @@ const UsersTable = () => {
                   <ModalHeader>نافذة إضافة موظف</ModalHeader>
                 </Box>
               </Box>
-
               <ModalBody>
                 <Box>
                   <Input
                     name="name"
                     placeholder="اسم الموظف"
                     mb={4}
-                    value={employeeData.name}
-                    onChange={handleChange}
+                    // value={employeeData.name}
+                    onChange={(e) => setName(e.target.value)}
                   />
                   <Input
                     name="username"
                     placeholder="اسم المستخدم"
                     mb={4}
-                    value={employeeData.username}
-                    onChange={handleChange}
+                    // value={employeeData.username}
+                    onChange={(e) => setUsername(e.target.value)}
                   />
                   <Input
                     name="password"
                     type="password"
                     placeholder="كلمة المرور"
                     mb={4}
-                    value={employeeData.password}
-                    onChange={handleChange}
+                    // value={employeeData.password}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                   <Select
-                    name="department"
+                    name="Department"
                     placeholder="اختر القسم"
+                    mb={4}
+                    icon={<></>}
+                    // value={employeeData.department}
+                    onChange={(e) => setDepartment(e.target.value)}
+                  >
+                    {depData.map((item) => {
+                      return (
+                        <option key={item._id} value={item._id} >
+                          {item.name}
+                        </option>
+                      )
+                    })}
+                  </Select>
+                  <Select
+                    name="userRole"
+                    placeholder="الصلاحيات "
                     mb={4}
                     icon={<></>}
                     value={employeeData.department}
                     onChange={handleChange}>
-                    <option value="قسم 1">قسم 1</option>
-                    <option value="قسم 2">قسم 2</option>
-                    <option value="قسم 3">قسم 3</option>
+                    <option value="employee">موظف</option>
+                    <option value="subAdmin">مدير قسم</option>
                   </Select>
                 </Box>
               </ModalBody>
-
               <ModalFooter>
-                <Button colorScheme="blue" ml={3} onClick={handleAddEmployee}>
+                <Button colorScheme="blue" ml={3} onClick={() => AddEmployee()}>
                   حفظ
                 </Button>
                 <Button onClick={() => setIsModalOpen(false)}>إغلاق</Button>
@@ -176,13 +225,15 @@ const UsersTable = () => {
           </Modal>
         </Box>
         <Table
+          id="empTable"
           minW="full"
           textAlign="left"
           fontSize="sm"
           fontWeight="light"
           color={color}
-          rounded={"md"}>
-          <Thead borderBottomWidth="1px" fontWeight="extrabold">
+          rounded={"md"}
+        >
+          <Thead borderBottomWidth="1px" fontWeight="extrabold" >
             <Tr>
               <Th fontSize={"0.95rem"} px={6} py={6}>
                 #
@@ -202,57 +253,62 @@ const UsersTable = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {tableData.map((user) => (
-              <Tr
-                borderBottomWidth="1px"
-                rounded={"md"}
-                key={user.id}
-                _hover={{ bg: "gray.100", _dark: { bg: "gray.800" } }}>
-                <Td
-                  whiteSpace="nowrap"
-                  fontSize={"0.95rem"}
-                  fontWeight={"medium"}
-                  px={6}
-                  py={6}>
-                  {user.id}
-                </Td>
-                <Td
-                  whiteSpace="nowrap"
-                  fontSize={"0.95rem"}
-                  fontWeight={"medium"}
-                  px={6}
-                  py={6}>
-                  {user.name}
-                </Td>
-                <Td
-                  whiteSpace="nowrap"
-                  fontSize={"0.95rem"}
-                  fontWeight={"medium"}
-                  px={6}
-                  py={6}>
-                  {user.department}
-                </Td>
-                <Td whiteSpace="nowrap" px={4} py={0}>
-                  <Button colorScheme="blue" outline={true}>
-                    تعديل
-                  </Button>
-                </Td>
-                <Td
-                  whiteSpace="nowrap"
-                  fontSize={"0.95rem"}
-                  fontWeight={"medium"}
-                  px={6}
-                  py={6}>
-                  <Button colorScheme="red" outline={true}>
-                    حذف
-                  </Button>
-                </Td>
-              </Tr>
-            ))}
+            <>
+              {
+
+                data.map((user) => (
+
+                  <Tr
+                    borderBottomWidth="1px"
+                    rounded={"md"}
+                    key={user._id}
+                    _hover={{ bg: "gray.100", _dark: { bg: "gray.800" } }}>
+                    <Td
+                      whiteSpace="nowrap"
+                      fontSize={"0.95rem"}
+                      fontWeight={"medium"}
+                      px={6}
+                      py={6}>
+                      {user._id}
+                    </Td>
+                    <Td
+                      whiteSpace="nowrap"
+                      fontSize={"0.95rem"}
+                      fontWeight={"medium"}
+                      px={6}
+                      py={6}>
+                      {user.name}
+                    </Td>
+                    <Td
+                      whiteSpace="nowrap"
+                      fontSize={"0.95rem"}
+                      fontWeight={"medium"}
+                      px={6}
+                      py={6}>
+                      {user.department}
+                    </Td>
+                    <Td whiteSpace="nowrap" px={4} py={0}>
+                      <Button colorScheme="blue" outline={true} >
+                        تعديل
+                      </Button>
+                    </Td>
+                    <Td
+                      whiteSpace="nowrap"
+                      fontSize={"0.95rem"}
+                      fontWeight={"medium"}
+                      px={6}
+                      py={6}>
+                      <Button colorScheme="red" outline={true} onClick={() => DeleteUser(user._id)}>
+                        حذف
+                      </Button>
+                    </Td>
+                  </Tr>
+                ))}
+            </>
           </Tbody>
         </Table>
       </Box>
-    </Box>
+    </Box >
   );
 };
 
