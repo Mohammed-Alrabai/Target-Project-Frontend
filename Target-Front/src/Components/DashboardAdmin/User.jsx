@@ -23,12 +23,12 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { HiUserGroup } from "react-icons/hi";
-import axios from "axios";
+import axios, { isCancel } from "axios";
 import { React, useState, useEffect } from "react";
 
+// for push
 const UsersTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isModalChange, setIsModalChange] = useState(false);
   const [isModalOpenChange, setIsModalOpenChange] = useState(false);
 
   const [data, setData] = useState([]);
@@ -39,40 +39,25 @@ const UsersTable = () => {
   const [department, setDepartment] = useState("");
   const [userRole, setUserRole] = useState("");
   const [depData, setDepData] = useState([]);
-  const [editEmployeeId, setEditEmployeeId] = useState("");
-  const [editName, setEditName] = useState("");
-  const [editUsername, setEditUsername] = useState("");
-  const [editPassword, setEditPassword] = useState("");
-  const [editDepartment, setEditDepartment] = useState("");
-
 
   //get all the data from backEnd API
   useEffect(() => {
-    axios.get("http://localhost:8800/api/admin/employee").then((res) => {
-      setData(res.data.result)
-      console.log(res.result.Department)
-      console.log(res.data.result)
-      setSearch(res.data.result)
-      //console.log(res.data)
-    }).catch((error) => {
-      console.log(error)
-    })
-  }, [])
-
-  useEffect(() => {
     axios
-      .get("http://localhost:8000/api/admin/employee")
+      .get("http://localhost:8800/api/admin/employee")
       .then((res) => {
         setData(res.data.result);
         setSearch(res.data.result);
-        console.log(res.data);
+        console.log("api data");
+        console.log(res.data.result);
+        console.log(data);
+        //console.log(res.data)
       })
       .catch((error) => {
         console.log(error);
       });
 
     axios
-      .get("http://localhost:8000/api/department/DepartmentList")
+      .get("http://localhost:8800/api/department/DepartmentList")
       .then((res) => {
         setDepData(res.data.result);
         console.log("department");
@@ -84,29 +69,34 @@ const UsersTable = () => {
       });
   }, []);
 
-  const handleChange = (e) => {
+  const handleChange = (event) => {
+    console.log("the data inside");
+    console.log(data);
     setSearch(
-      data.filter((item) => item.name.toLowerCase().includes(e.target.value))
+      data.filter((item) =>
+        item.name.toLowerCase().includes(event.target.value)
+      )
     );
   };
 
   const color = useColorModeValue("gray.900", "gray.300");
-
-  const handleAddEmployee = () => {
-    setIsModalOpen(true);
-  };
 
   const DeleteUser = (id) => {
     console.log(id);
     axios
       .delete(`http://localhost:8800/api/admin/deleteEmployee/${id}`)
       .then((res) => {
-        setData(data.filter((del) => del._id !== id));
+        setData(
+          data.filter((del) => {
+            return del._id != id;
+          })
+        );
         console.log("deleted");
       });
   };
 
   const AddEmployee = () => {
+    console.log(userRole);
     console.log(department);
     axios
       .post("http://localhost:8800/api/admin/createEmployee", {
@@ -114,51 +104,30 @@ const UsersTable = () => {
         username,
         password,
         department,
+        userRole,
       })
       .then((res) => {
         setIsModalOpen(false);
-        console.log("employee is added successfully");
+        console.log("employee is added successfuly");
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-// const EditEmployee = () => {
-//     console.log(userRole)
-//     console.log(department)
-//     axios.post('http://localhost:8800/api/admin/createEmployee', {
-//       name,
-//       username,
-//       password,
-//       department,
-//       userRole
-//     }).then((res) => {
-//       setIsModalOpen(false)
-//       console.log("employee is added successfuly")
-//     }).catch((error) => {
-//       console.log(error)
-//     })
-//     .then((res) => {
-//       setIsModalOpenChange(false);
-//       console.log("Employee is updated successfully");
-//     })
-//     .catch((error) => {
-//       console.log(error);
-//     });
-// };
-
   const UpdateEmp = (id) => {
-    axios.patch(`http://localhost:8800/api/admin/updateEmployee/${id}`, {
-      name,
-      username,
-      password,
-      department,
-      userRole
-    }).then((res) => {
-      console.log("updated!")
-    })
-  }
+    axios
+      .patch(`http://localhost:8800/api/admin/updateEmployee/${id}`, {
+        name,
+        username,
+        password,
+        department,
+        userRole,
+      })
+      .then((res) => {
+        console.log("updated!");
+      });
+  };
 
   return (
     <Box
@@ -196,6 +165,7 @@ const UsersTable = () => {
             <Input
               placeholder="بحث"
               _placeholder={{ color: "gray.500", _active: true }}
+              onChange={handleChange}
             />
           </Box>
           <Box
@@ -244,8 +214,7 @@ const UsersTable = () => {
                     placeholder="اختر القسم"
                     mb={4}
                     icon={<></>}
-                    onChange={(e) => setDepartment(e.target.value)}
-                  >
+                    onChange={(e) => setDepartment(e.target.value)}>
                     {depData.map((item) => {
                       return (
                         <option key={item._id} value={item._id}>
@@ -303,56 +272,61 @@ const UsersTable = () => {
           </Thead>
           <Tbody>
             <>
-              {
-                data.map((user) => (
-                  <Tr
-                    borderBottomWidth="1px"
-                    rounded={"md"}
-                    key={user._id}
-                    _hover={{ bg: "gray.100", _dark: { bg: "gray.800" } }}>
-                    <Td
-                      whiteSpace="nowrap"
-                      fontSize={"0.95rem"}
-                      fontWeight={"medium"}
-                      px={6}
-                      py={6}>
-                      {user._id}
-                    </Td>
-                    <Td
-                      whiteSpace="nowrap"
-                      fontSize={"0.95rem"}
-                      fontWeight={"medium"}
-                      px={6}
-                      py={6}>
-                      {user.name}
-                    </Td>
-                    <Td
-                      whiteSpace="nowrap"
-                      fontSize={"0.95rem"}
-                      fontWeight={"medium"}
-                      px={6}
-                      py={6}>
-                      {/* {
+              {search.map((item) => (
+                <Tr
+                  borderBottomWidth="1px"
+                  rounded={"md"}
+                  key={item._id}
+                  _hover={{ bg: "gray.100", _dark: { bg: "gray.800" } }}>
+                  <Td
+                    whiteSpace="nowrap"
+                    fontSize={"0.95rem"}
+                    fontWeight={"medium"}
+                    px={6}
+                    py={6}>
+                    {item._id}
+                  </Td>
+                  <Td
+                    whiteSpace="nowrap"
+                    fontSize={"0.95rem"}
+                    fontWeight={"medium"}
+                    px={6}
+                    py={6}>
+                    {item.name}
+                  </Td>
+                  <Td
+                    whiteSpace="nowrap"
+                    fontSize={"0.95rem"}
+                    fontWeight={"medium"}
+                    px={6}
+                    py={6}>
+                    {/* {
                         user.Department.name
                       } */}
-                    </Td>
-                    <Td whiteSpace="nowrap" px={4} py={0}>
-                      <Button colorScheme="blue" outline={true} onClick={() => UpdateEmp(user._id)}>
-                        تعديل
-                      </Button>
-                    </Td>
-                    <Td
-                      whiteSpace="nowrap"
-                      fontSize={"0.95rem"}
-                      fontWeight={"medium"}
-                      px={6}
-                      py={6}>
-                      <Button colorScheme="red" outline={true} onClick={() => DeleteUser(user._id)}>
-                        حذف
-                      </Button>
-                    </Td>
-                  </Tr>
-                ))}
+                  </Td>
+                  <Td whiteSpace="nowrap" px={4} py={0}>
+                    <Button
+                      colorScheme="blue"
+                      outline={true}
+                      onClick={() => UpdateEmp(user._id)}>
+                      تعديل
+                    </Button>
+                  </Td>
+                  <Td
+                    whiteSpace="nowrap"
+                    fontSize={"0.95rem"}
+                    fontWeight={"medium"}
+                    px={6}
+                    py={6}>
+                    <Button
+                      colorScheme="red"
+                      outline={true}
+                      onClick={() => DeleteUser(user._id)}>
+                      حذف
+                    </Button>
+                  </Td>
+                </Tr>
+              ))}
             </>
           </Tbody>
         </Table>
