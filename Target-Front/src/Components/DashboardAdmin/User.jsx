@@ -46,8 +46,10 @@ const UsersTable = () => {
   useEffect(() => {
     axios.get("http://localhost:8800/api/admin/employee").then((res) => {
       setData(res.data.result)
+      console.log(res.result.Department)
+      console.log(res.data.result)
       setSearch(res.data.result)
-      console.log(res.data)
+      //console.log(res.data)
     }).catch((error) => {
       console.log(error)
     })
@@ -105,6 +107,17 @@ const UsersTable = () => {
     })
   }
 
+  const UpdateEmp = (id) => {
+    axios.patch(`http://localhost:8800/api/admin/updateEmployee/${id}`, {
+      name,
+      username,
+      password,
+      department,
+      userRole
+    }).then((res) => {
+      console.log("updated!")
+    })
+  }
 
   return (
     <Box
@@ -252,9 +265,7 @@ const UsersTable = () => {
           <Tbody>
             <>
               {
-
                 data.map((user) => (
-
                   <Tr
                     borderBottomWidth="1px"
                     rounded={"md"}
@@ -282,10 +293,12 @@ const UsersTable = () => {
                       fontWeight={"medium"}
                       px={6}
                       py={6}>
-                      {user.department}
+                      {/* {
+                        user.Department.name
+                      } */}
                     </Td>
                     <Td whiteSpace="nowrap" px={4} py={0}>
-                      <Button colorScheme="blue" outline={true} >
+                      <Button colorScheme="blue" outline={true} onClick={() => UpdateEmp(user._id)}>
                         تعديل
                       </Button>
                     </Td>
