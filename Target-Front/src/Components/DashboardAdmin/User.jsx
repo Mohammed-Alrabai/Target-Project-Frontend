@@ -39,6 +39,7 @@ const UsersTable = () => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [department, setDepartment] = useState("");
+  const [userRole, setUserRole] = useState("");
   const [depData, setDepData] = useState([]);
 
   //get all the data from backEnd API
@@ -88,13 +89,14 @@ const UsersTable = () => {
   }
 
   const AddEmployee = () => {
-
+    console.log(userRole)
     console.log(department)
     axios.post('http://localhost:8800/api/admin/createEmployee', {
       name,
       username,
       password,
-      department
+      department,
+      userRole
     }).then((res) => {
 
       console.log("employee is added successfuly")
@@ -169,14 +171,12 @@ const UsersTable = () => {
                     name="name"
                     placeholder="اسم الموظف"
                     mb={4}
-                    // value={employeeData.name}
                     onChange={(e) => setName(e.target.value)}
                   />
                   <Input
                     name="username"
                     placeholder="اسم المستخدم"
                     mb={4}
-                    // value={employeeData.username}
                     onChange={(e) => setUsername(e.target.value)}
                   />
                   <Input
@@ -184,7 +184,6 @@ const UsersTable = () => {
                     type="password"
                     placeholder="كلمة المرور"
                     mb={4}
-                    // value={employeeData.password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   <Select
@@ -192,7 +191,6 @@ const UsersTable = () => {
                     placeholder="اختر القسم"
                     mb={4}
                     icon={<></>}
-                    // value={employeeData.department}
                     onChange={(e) => setDepartment(e.target.value)}
                   >
                     {depData.map((item) => {
@@ -208,8 +206,7 @@ const UsersTable = () => {
                     placeholder="الصلاحيات "
                     mb={4}
                     icon={<></>}
-                    value={employeeData.department}
-                    onChange={handleChange}>
+                    onChange={(e) => setUserRole(e.target.value)}>
                     <option value="employee">موظف</option>
                     <option value="subAdmin">مدير قسم</option>
                   </Select>
