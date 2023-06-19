@@ -73,6 +73,7 @@ const StatsWithIcons = () => {
 
 
 
+
   return (
     <Container maxW="7xl" p={{ base: 5, md: 10 }}>
       <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing={5} mt={6} mb={4}>
@@ -327,7 +328,7 @@ const StatsWithIcons = () => {
 };
 
 const Card = ({ data }) => {
-    const color = useColorModeValue("gray.900", "gray.100");
+  const color = useColorModeValue("gray.900", "gray.100");
   return (
     <motion.div whileHover={{ translateY: -5 }}>
       <Stack
