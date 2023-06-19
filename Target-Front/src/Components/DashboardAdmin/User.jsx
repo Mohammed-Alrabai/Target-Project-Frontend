@@ -96,7 +96,7 @@ const UsersTable = () => {
       password,
       department
     }).then((res) => {
-
+      setIsModalOpen(false)
       console.log("employee is added successfuly")
     }).catch((error) => {
       console.log(error)
