@@ -29,23 +29,23 @@ import { React, useState, useEffect } from "react";
 // for push
 const UsersTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-    const [employeeData, setEmployeeData] = useState({
-      name: "",
-      username: "",
-      password: "",
-      department: "",
-    });    
-      const handleChange = (e) => {
-        const { name, value } = e.target;
-        setEmployeeData((prevData) => ({ ...prevData, [name]: value }));
-      };
+  const [employeeData, setEmployeeData] = useState({
+    name: "",
+    username: "",
+    password: "",
+    department: "",
+  });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setEmployeeData((prevData) => ({ ...prevData, [name]: value }));
+  };
 
   const color = useColorModeValue("gray.900", "gray.300");
 
-      const handleAddEmployee = () => {
-        // قم بتنفيذ الإجراءات المطلوبة عند النقر على زر "اضافة موظف" هنا
-        // مثال: افتح النموذج أو قم بإرسال طلب إضافة الموظف إلى الخادم
-      };
+  const handleAddEmployee = () => {
+    // قم بتنفيذ الإجراءات المطلوبة عند النقر على زر "اضافة موظف" هنا
+    // مثال: افتح النموذج أو قم بإرسال طلب إضافة الموظف إلى الخادم
+  };
 
   const tableData = [
     {
@@ -107,15 +107,15 @@ const UsersTable = () => {
               _placeholder={{ color: "gray.500", _active: true }}
             />
           </Box>
-            <Box
-              w={{ base: "full", md: "50%" }}
-              px={6}
-              py={6}
-              display={"flex"}
-              alignItems={"center"}
-              justifyContent={"flex-end"}>
-              <Button onClick={() => setIsModalOpen(true)}>اضافة موظف</Button>
-            </Box>
+          <Box
+            w={{ base: "full", md: "50%" }}
+            px={6}
+            py={6}
+            display={"flex"}
+            alignItems={"center"}
+            justifyContent={"flex-end"}>
+            <Button onClick={() => setIsModalOpen(true)}>اضافة موظف</Button>
+          </Box>
           <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
             <ModalOverlay />
             <ModalContent>
