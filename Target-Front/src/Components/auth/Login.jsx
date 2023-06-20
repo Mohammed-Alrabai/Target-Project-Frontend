@@ -12,14 +12,45 @@ function Login() {
 
     
   const handelClick = () => {
-    axios.post("http://localhost:8000/api/admin/login", { username, password }).then((res) => {
-      // load page after login
-      window.location.href = "/"
-      cookies.save("token", res.data.token, { path: "/" })
-    }).catch((err) => {
-      console.log(err);
-    })
-  }
+    if (username === "admin") {
+          axios
+            .post("http://localhost:8000/api/admin/login", {
+              username,
+              password,
+            })
+            .then((res) => {
+              // load page after login
+              window.location.href = "/";
+              cookies.save("token", res.data.token, { path: "/" });
+              localStorage.setItem("token", res.data.token);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+    } else {
+      axios
+        .post("http://localhost:8000/api/employee/emplogin", {
+          username,
+          password,
+        })
+        .then((res) => {
+          // load page after login
+          window.location.href = "/";
+          cookies.save("token", res.data.token, { path: "/" });
+          cookies.save("username", res.data.result.username, { path: "/" });
+          localStorage.setItem("token", res.data.token);
+          if (cookies.get("username")) {
+            const isUser = true;
+          }else {
+            const isUser = false;
+          }
+          setUser(isUser)
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    }
   return (
     <>
       <Input placeholder="username" onChange={(e) => setUsername(e.target.value)} />

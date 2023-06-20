@@ -21,7 +21,7 @@ import {
 } from "@chakra-ui/react";
 import { useState, useEffect  } from "react";
 import { useNavigate , useParams } from "react-router-dom";
-
+import cookies from "react-cookies";
 import axios from "axios";
 
 export default function App() {
@@ -42,10 +42,23 @@ export default function App() {
     onClose();
   };
   useEffect(() => {
-    axios.get(api).then((res) => {
-      setData(res.data.result);
-    });
+    axios.get(api , {
+      headers: {
+        Authorization: "Bearer " + cookies.load("token"),
+      }
+    }).then((res) => {
+      setData(res.data);
+      console.log(res.data.result.title);
+    }).catch((err) => {
+      console.log(err);
+    })
   }, []);
+
+  const challengeData = Object.keys(data).map((key) => {
+    return data[key].title;
+  })
+  console.log(challengeData);
+  const isUser = cookies.load("username");
   
   return (
     <>
@@ -91,7 +104,6 @@ export default function App() {
                       },
                       textDecor: "underline",
                     }}>
-                    {data.title}
                   </Link>
                   <chakra.p
                     mt={2}
@@ -100,7 +112,6 @@ export default function App() {
                     {data.body}
                   </chakra.p>
                 </Box>
-
                 <Flex justifyContent="space-between" alignItems="center" mt={4}>
                   <Flex alignItems="center">
                     <Link
@@ -118,89 +129,16 @@ export default function App() {
                 </Flex>
               </Box>
             </Box>
-            <Box
-              mt={0}
-              borderBottom={"2px solid"}
-              borderStyle={"solid"}
-              borderColor={useColorModeValue("gray.300", "gray.700")}>
-              <Box
-                mx="auto"
-                px={8}
-                py={4}
-                shadow="lg"
-                bg="white"
-                _dark={{ bg: "gray.800" }}>
-                <Flex justifyContent="space-between" alignItems="center">
-                  <Link
-                    color="gray.700"
-                    _dark={{ color: "gray.200" }}
-                    fontWeight="700"
-                    cursor="pointer">
-                    محمد الربعي
-                  </Link>
-                  <chakra.span
-                    fontSize="sm"
-                    color="gray.600"
-                    _dark={{ color: "gray.400" }}>
-                    قبل 3 ايام
-                  </chakra.span>
-                </Flex>
-                <Box mt={2}>
-                  <chakra.p
-                    mt={2}
-                    color="gray.600"
-                    _dark={{ color: "gray.300" }}>
-                    وصف التحدي هذا النص هو مثال لنص يمكن أن يستبدل في نفس
-                    المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث
-                    يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة
-                    إلى زيادة عدد الحروف التى يولدها التطبيق. إذا كنت تحتاج إلى
-                    عدد أكبر من الفقرات يتيح لك مولد النص العربى زيادة عدد
-                    الفقرات كما تريد، النص العربى زيادة عدد الفقرات كما تريد،
-                  </chakra.p>
-                </Box>
-              </Box>
-            </Box>
-            <Box
-              mt={0}
-              borderBottom={"2px solid"}
-              borderStyle={"solid"}
-              borderColor={useColorModeValue("gray.300", "gray.700")}>
-              <Box
-                mx="auto"
-                px={8}
-                py={4}
-                shadow="lg"
-                bg="white"
-                _dark={{ bg: "gray.800" }}>
-                <Flex justifyContent="space-between" alignItems="center">
-                  <Link
-                    color="gray.700"
-                    _dark={{ color: "gray.200" }}
-                    fontWeight="700"
-                    cursor="pointer">
-                    محمد الربعي
-                  </Link>
-                  <chakra.span
-                    fontSize="sm"
-                    color="gray.600"
-                    _dark={{ color: "gray.400" }}>
-                    قبل 3 ايام
-                  </chakra.span>
-                </Flex>
-                <Box mt={2}>
-                  <chakra.p
-                    mt={2}
-                    color="gray.600"
-                    _dark={{ color: "gray.300" }}>
-                    وصف التحدي هذا النص هو مثال لنص يمكن أن يستبدل في نفس
-                    المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث
-                    يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة
-                    إلى زيادة عدد الحروف التى يولدها التطبيق. إذا كنت تحتاج إلى
-                    عدد أكبر من الفقرات يتيح لك مولد النص العربى زيادة عدد
-                    الفقرات كما تريد، النص العربى زيادة عدد الفقرات كما تريد،
-                  </chakra.p>
-                </Box>
-              </Box>
+            <Box display={"flex"} gap={0} alignItems={"center"}>
+              <Textarea rounded={0} bg={"white"} placeholder="تعليق" />
+              <Button
+                rounded={0}
+                bg={"#7fa084"}
+                _hover={{ bg: "#6F9475" }}
+                w={"25%%"}
+                h={"80px"}>
+                اضافة تعليق{" "}
+              </Button>
             </Box>
           </Box>
           {/* for employee */}
@@ -224,10 +162,10 @@ export default function App() {
         </SimpleGrid>
         <Box
           w={"400px"}
-          bg={"white"}
+          bg={"#f5f4f1"}
           display={{ base: "none", lg: "block" }}
           border="1px"
-          bgColor={useColorModeValue("white", "gray.800")}
+          bgColor={useColorModeValue("#f5f4f1", "gray.800")}
           borderColor={useColorModeValue("gray.200", "gray.700")}>
           <Box p={4}>
             <Input type="text" placeholder="بحث" />
@@ -238,15 +176,18 @@ export default function App() {
             justifyContent="space-between"
             alignItems="center"
             w="100%">
-            <Button
-              colorScheme="blue"
-              alignItems={"center"}
-              display={"flex"}
-              w={"100%"}
-              onClick={onOpen}>
-              اضافة تحدي جديد
-            </Button>
-
+            {isUser ? (
+              <></>
+            ) : (
+              <Button
+                colorScheme="blue"
+                alignItems={"center"}
+                display={"flex"}
+                w={"100%"}
+                onClick={onOpen}>
+                اضافة تحدي جديد
+              </Button>
+            )}
             <Modal isOpen={isOpen} onClose={onClose} size="xl">
               <ModalOverlay />
               <ModalContent>

@@ -25,10 +25,12 @@ import {
 import { HiUserGroup } from "react-icons/hi";
 import axios, { isCancel } from "axios";
 import { React, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 // for push
 const UsersTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalChange, setIsModalChange] = useState(false);
   const [isModalOpenChange, setIsModalOpenChange] = useState(false);
 
   const [data, setData] = useState([]);
@@ -40,12 +42,12 @@ const UsersTable = () => {
   const [userRole, setUserRole] = useState("");
   const [Emp, setGetEmp] = useState([]);
   const [depData, setDepData] = useState([]);
-
+  const navigate = useNavigate();
 
   //get all the data from backEnd API
   useEffect(() => {
     axios
-      .get("http://localhost:8800/api/admin/employee")
+      .get("http://localhost:8000/api/admin/employee")
       .then((res) => {
         setData(res.data.result);
         setSearch(res.data.result);
@@ -58,13 +60,11 @@ const UsersTable = () => {
         console.log(error);
       });
 
-
     axios
-      .get("http://localhost:8800/api/department/DepartmentList")
+      .get("http://localhost:8000/api/department/DepartmentList")
       .then((res) => {
         setDepData(res.data.result);
         console.log("all the department");
-
       })
       .catch((error) => {
         console.log(error);
@@ -76,7 +76,7 @@ const UsersTable = () => {
   const DeleteUser = (id) => {
     console.log(id);
     axios
-      .delete(`http://localhost:8800/api/admin/deleteEmployee/${id}`)
+      .delete(`http://localhost:8000/api/admin/deleteEmployee/${id}`)
       .then((res) => {
         setSearch(
           data.filter((del) => {
@@ -92,7 +92,7 @@ const UsersTable = () => {
     console.log("department ID");
     console.log(mydepartment);
     axios
-      .post("http://localhost:8800/api/admin/createEmployee", {
+      .post("http://localhost:8000/api/admin/createEmployee", {
         name,
         username,
         password,
@@ -100,44 +100,43 @@ const UsersTable = () => {
         userRole,
       })
       .then((res) => {
+        window.location.reload(false);
         setIsModalOpen(false);
         console.log("employee is added successfuly");
       })
       .catch((error) => {
         console.log(error);
       });
-    console.log('department')
-    console.log(mydepartment)
+    console.log("department");
+    console.log(mydepartment);
   };
 
   const UpdateEmp = (id) => {
-
-    axios
-      .get(`http://localhost:8800/api/admin/employee/${id}`)
-      .then((res) => {
-        setGetEmp(res.data.result);
-        console.log("the updated user is")
-        console.log(res.data.result)
-        console.log(id);
-
-      });
+    axios.get(`http://localhost:8000/api/admin/employee/${id}`).then((res) => {
+      setGetEmp(res.data.result);
+      console.log("the updated user is");
+      console.log(res.data.result);
+      console.log(id);
+    });
   };
 
   const EditEmployee = (id) => {
-    console.log("the Department Id kkk")
-    console.log(mydepartment)
-    console.log(name)
-    console.log(username)
-    console.log(userRole)
+    console.log("the Department Id kkk");
+    console.log(mydepartment);
+    console.log(name);
+    console.log(username);
+    console.log(userRole);
 
     axios
-      .patch(`http://localhost:8800/api/admin/updateEmployee/${id}`, {
+      .patch(`http://localhost:8000/api/admin/updateEmployee/${id}`, {
         name,
         username,
         mydepartment,
         userRole,
       })
       .then((res) => {
+        window.location.reload(false);
+        setIsModalChange(false);
         console.log("updated!");
       });
   };
@@ -146,8 +145,8 @@ const UsersTable = () => {
     console.log("the data inside");
     console.log(data);
     setSearch(
-      data.filter(f =>
-        f.name.toLowerCase().includes(event.target.value)
+      data.filter(
+        (f) => f.name.toLowerCase().includes(event.target.value)
         // console.log(f.name)
       )
     );
@@ -200,7 +199,13 @@ const UsersTable = () => {
             display={"flex"}
             alignItems={"center"}
             justifyContent={"flex-end"}>
-            <Button bg={"#7fa084"} _hover={{ bg: "#7fa084" }} color={"white"} onClick={() => setIsModalOpen(true)}>اضافة موظف</Button>
+            <Button
+              bg={"#7fa084"}
+              _hover={{ bg: "#7fa084" }}
+              color={"white"}
+              onClick={() => setIsModalOpen(true)}>
+              اضافة موظف
+            </Button>
           </Box>
           <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
             <ModalOverlay />
@@ -325,11 +330,7 @@ const UsersTable = () => {
                     fontWeight={"medium"}
                     px={6}
                     py={6}>
-                    {
-                      item.Department.map(i => (
-                        i.name
-                      ))
-                    }
+                    {item.Department.map((i) => i.name)}
                   </Td>
                   <Td whiteSpace="nowrap" px={4} py={0}>
                     <Button
@@ -337,7 +338,7 @@ const UsersTable = () => {
                       outline={true}
                       onClick={() => {
                         UpdateEmp(item._id);
-                        setIsModalOpenChange(true);
+                        setIsModalChange(true);
                       }}>
                       تعديل
                     </Button>
@@ -350,7 +351,6 @@ const UsersTable = () => {
                     py={6}>
                     <Button
                       colorScheme="red"
-                    
                       outline={true}
                       onClick={() => DeleteUser(item._id)}>
                       حذف
@@ -360,8 +360,8 @@ const UsersTable = () => {
               ))}
             </>
             <Modal
-              isOpen={isModalOpenChange}
-              onClose={() => setIsModalOpenChange(false)}>
+              isOpen={isModalChange}
+              onClose={() => setIsModalChange(false)}>
               <ModalOverlay />
               <ModalContent>
                 <Box
@@ -390,7 +390,6 @@ const UsersTable = () => {
                           name="username"
                           placeholder={emp.username}
                           mb={4}
-
                           onChange={(e) => setUsername(e.target.value)}
                         />
 
@@ -414,14 +413,13 @@ const UsersTable = () => {
                           onChange={(e) => setUserRole(e.target.value)}
                           mb={4}
                           icon={<></>}
-                        // value={employeeData.department}
-                        // onChange={handleChange1}>
+                          // value={employeeData.department}
+                          // onChange={handleChange1}>
                         >
                           <option value="employee">موظف</option>
                           <option value="subAdmin">مدير قسم</option>
                         </Select>
                       </>
-
                     </ModalBody>
                     <ModalFooter>
                       <Button
@@ -435,8 +433,7 @@ const UsersTable = () => {
                       </Button>
                     </ModalFooter>
                   </>
-                )
-                )}
+                ))}
               </ModalContent>
             </Modal>
           </Tbody>

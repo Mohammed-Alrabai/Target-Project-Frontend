@@ -79,8 +79,7 @@ const LinkItems = [
 ];
 
 const LinkItemsEmployee = [
-  { name: "الصفحة الرئيسية", path: "/", icon: FiHome },
-  { name: "التحديات", path: "/challenge", icon: FiCompass },
+  { name: "التحديات", path: "/", icon: FiCompass },
   // { name: "الحلول المقترحة", path: "/Solution", icon: FiTrendingUp },
   { name: "الاهداف", path: "/Goals", icon: FiStar },
   // { name: "الاقسام", path: "/Department", icon: HiUserGroup },
@@ -153,7 +152,8 @@ export default function App() {
   ];
 
   const isLogin = cookies.load("token");
-  const isAdmin = '';
+  const isUser = cookies.load("username");
+  const isAdmin = 'a';
   const NavItem = (props) => {
     const { icon, children, ...rest } = props;
     return (
@@ -257,9 +257,9 @@ export default function App() {
             onClick={onClose}
           />
         </Flex>
-        {isAdmin ? (
+        {isUser ? (
           <>
-            {LinkItems.map((link) => (
+            {LinkItemsEmployee.map((link) => (
               <NavItem
                 px="14"
                 py="6"
@@ -272,7 +272,7 @@ export default function App() {
           </>
         ) : (
           <>
-            {LinkItemsEmployee.map((link) => (
+            {LinkItems.map((link) => (
               <NavItem
                 px="14"
                 py="6"
@@ -295,9 +295,17 @@ export default function App() {
   const handleDropdownClose = () => {
     setIsDropdownOpen(false);
   };
+  const logout = () => {
+    cookies.remove("token");
+    cookies.remove("username");
+    navigate("/login");
+  }
 
   return (
     <>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+      </Routes>
       {isLogin ? (
         <>
           <Box as="section" bg="#E5E5E5" _dark={{ bg: "gray.700" }} dir="rtl">
@@ -365,9 +373,7 @@ export default function App() {
                       <MenuItem onClick={handleDropdownClose}>
                         Dashboard
                       </MenuItem>
-                      <MenuItem onClick={handleDropdownClose}>
-                        Sign out
-                      </MenuItem>
+                      <MenuItem onClick={logout}>Sign out</MenuItem>
                     </MenuList>
                   </Menu>
                 </Flex>
@@ -376,18 +382,36 @@ export default function App() {
                 <Box display="flex" w={"full"} h="100%" minH={"100vh"}>
                   <Routes>
                     {/* <Route path="/" element={<Home />} /> */}
-                    <Route
-                      path="/"
-                      element={<DashbordAdmin statData={statData} />}
-                    />
-                    <Route path="/challenge" element={<Challenge />} />
-                    <Route path="/User" element={<User />} />
-                    <Route path="/Department" element={<Department />} />
-                    <Route path="/Goals" element={<Goals />} />
-                    <Route path="/Solution" element={<Solution />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/challenge/:id" element={<OneChallenge />} />
-                    <Route path="*" element={<Text>404</Text>} />
+                    {isUser ? (
+                      <>
+                        <Route path="/" element={<Challenge props={isUser} />} />
+                        <Route path="/Goals" element={<Goals />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route
+                          path="/challenge/:id"
+                          element={<OneChallenge />}
+                        />
+                        <Route path="*" element={<Text>404</Text>} />
+                      </>
+                    ) : (
+                      <>
+                        <Route
+                          path="/"
+                          element={<DashbordAdmin statData={statData} />}
+                        />
+                        <Route path="/challenge" element={<Challenge />} />
+                        <Route path="/User" element={<User />} />
+                        <Route path="/Department" element={<Department />} />
+                        <Route path="/Goals" element={<Goals />} />
+                        <Route path="/Solution" element={<Solution />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route
+                          path="/challenge/:id"
+                          element={<OneChallenge />}
+                        />
+                        <Route path="*" element={<Text>404</Text>} />
+                      </>
+                    )}
                   </Routes>
                 </Box>
                 <Footer />
@@ -396,7 +420,7 @@ export default function App() {
           </Box>
         </>
       ) : (
-        <Login />
+        <>{navigate("/login")}</>
       )}
     </>
   );

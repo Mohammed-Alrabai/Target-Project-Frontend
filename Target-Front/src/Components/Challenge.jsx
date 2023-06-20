@@ -23,8 +23,9 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { color } from "framer-motion";
+import cookies from "react-cookies";
 
-export default function App() {
+export default function App(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
@@ -60,7 +61,7 @@ export default function App() {
       setData(res.data.result);
       setSearch(res.data.result);
     });
-  }, [data]);
+  }, []);
   // search function
   const handleSearch = (event) => {
     setSearch(
@@ -70,7 +71,7 @@ export default function App() {
       )
     );
   };
-
+    const isUser = cookies.load("username");
   return (
     <>
       <Box display={"flex"} w={"full"} justifyContent={"space-between"}>
@@ -156,8 +157,7 @@ export default function App() {
                         bg={"#8FAC93"}
                         _hover={{ bg: "#7FA084" }}
                         onClick={() => navigate(`/challenge/${item._id}`)}
-                        color={"white"}
-                      >
+                        color={"white"}>
                         اقراء المزيد
                       </Button>
                     </Link>
@@ -186,6 +186,20 @@ export default function App() {
               _focusVisible={{ borderColor: "#8FAC93" }}
               onChange={handleSearch}
             />
+            {isUser ? (
+              <></>
+            ) : (
+              <Button
+                bg={"#8FAC93"}
+                _hover={{ bg: "#7FA084" }}
+                color={"white"}
+                alignItems={"center"}
+                display={"flex"}
+                w={"100%"}
+                onClick={onOpen}>
+                اضافة تحدي جديد
+              </Button>
+            )}
           </Box>
           <Box
             p={4}
@@ -193,17 +207,6 @@ export default function App() {
             justifyContent="space-between"
             alignItems="center"
             w="100%">
-            <Button
-              bg={"#8FAC93"}
-              _hover={{ bg: "#7FA084" }}
-              color={"white"}
-              alignItems={"center"}
-              display={"flex"}
-              w={"100%"}
-              onClick={onOpen}>
-              اضافة تحدي جديد
-            </Button>
-
             <Modal isOpen={isOpen} onClose={onClose} size="xl">
               <ModalOverlay />
               <ModalContent bg={"#F5F4F1"} _dark={{ bg: "gray.700" }}>
