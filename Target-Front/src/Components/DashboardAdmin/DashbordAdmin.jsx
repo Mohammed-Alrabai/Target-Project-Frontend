@@ -57,7 +57,7 @@ import { useNavigate } from "react-router-dom";
 
 const StatsWithIcons = (props) => {
   const stat = props.statData;
-  const color = useColorModeValue("gray.50", " gray.900");
+  const color = useColorModeValue("#F7F7F7", " gray.900");
   const textColor = useColorModeValue("gray.900", "gray.50");
   const [data, setData] = useState([]);
   const navigate = useNavigate();
@@ -101,13 +101,20 @@ const StatsWithIcons = (props) => {
           scale: 1,
         }}>
         <Box
-          bg={"color"}
           display={"flex"}
           flexDirection={{ base: "column", md: "row" }}
           gap={{ base: 5, md: 16 }}
           w={"full"}
           flex={1}>
-          <Box bg={color} mb={{ base: 5, md: 2 }} w={"full"} rounded={"md"}>
+          <Box
+            bg={color}
+            mb={{ base: 5, md: 2 }}
+            w={"full"}
+            rounded={"md"}
+            boxShadow={useColorModeValue(
+              "0 4px 6px rgba(160, 174, 192, 0.6)",
+              "2px 4px 6px rgba(9, 17, 28, 0.9)"
+            )}>
             <Box
               display={"flex"}
               alignItems={"center"}
@@ -170,7 +177,7 @@ const StatsWithIcons = (props) => {
                   <Tr
                     borderBottomWidth="1px"
                     rounded={"md"}
-                    _hover={{ bg: "gray.100", _dark: { bg: "gray.800" } }}>
+                    _hover={{ bg: "#EFEFEF", _dark: { bg: "gray.800" } }}>
                     <Td
                       whiteSpace="nowrap"
                       fontSize={"0.95rem"}
@@ -207,8 +214,12 @@ const StatsWithIcons = (props) => {
                       </Box>
                     </Td>
                     <Td whiteSpace="nowrap" px={2} py={0}>
-                      <Button colorScheme="blue" px={6} outline={true}>
-                        <Icon as={AiOutlineEye} />
+                      <Button
+                        bg="#7FA084"
+                        _hover={{ bg: "#6F9475" }}
+                        px={6}
+                        outline={true}>
+                        <Icon color={"white"} as={AiOutlineEye} />
                       </Button>
                     </Td>
                   </Tr>
@@ -216,7 +227,15 @@ const StatsWithIcons = (props) => {
               </Table>
             </Box>
           </Box>
-          <Box bg={color} mb={{ base: 5, md: 2 }} w={"full"} rounded={"md"}>
+          <Box
+            bg={color}
+            mb={{ base: 5, md: 2 }}
+            w={"full"}
+            rounded={"md"}
+            boxShadow={useColorModeValue(
+              "0 4px 6px rgba(160, 174, 192, 0.6)",
+              "2px 4px 6px rgba(9, 17, 28, 0.9)"
+            )}>
             <Box
               display={"flex"}
               alignItems={"center"}
@@ -270,7 +289,7 @@ const StatsWithIcons = (props) => {
                 <Tr
                   borderBottomWidth="1px"
                   rounded={"md"}
-                  _hover={{ bg: "gray.100", _dark: { bg: "gray.800" } }}>
+                  _hover={{ bg: "#EFEFEF", _dark: { bg: "gray.800" } }}>
                   <Td
                     whiteSpace="nowrap"
                     fontSize={"0.95rem"}
@@ -336,14 +355,14 @@ const Card = ({ data }) => {
           py={6}
           px={5}
           spacing={4}
-          bg={useColorModeValue("gray.50", "gray.800")}
+          bg={useColorModeValue("#F7F7F7", "gray.800")}
           w="100%">
           <Flex
             justify="center"
             alignItems="center"
             rounded="lg"
             p={2}
-            bg="blue.400"
+            bg="#7FA084"
             position="relative"
             w={12}
             h={12}

@@ -139,7 +139,7 @@ const UsersTable = () => {
       <Box
         w={"full"}
         rounded={"md"}
-        bg={useColorModeValue("white", "gray.900")}
+        bg={useColorModeValue("#F5F4F1", "gray.900")}
         mx={[-6, -8]}
         my={[4]}>
         <Text fontSize={"2xl"} fontWeight={"bold"} px={6} py={6} w={"full"}>
@@ -154,7 +154,7 @@ const UsersTable = () => {
         px={[6, 8]}
         w={"full"}
         rounded={"md"}
-        bg={useColorModeValue("white", "gray.900")}>
+        bg={useColorModeValue("#F5F4F1", "gray.900")}>
         <Box
           display={"flex"}
           alignItems={"center"}
@@ -163,6 +163,7 @@ const UsersTable = () => {
           py={2}>
           <Box w={{ base: "full", md: "50%" }} px={6} py={6}>
             <Input
+              _focusVisible={{borderColor: "#0070f3"}}
               placeholder="بحث"
               _placeholder={{ color: "gray.500", _active: true }}
               onChange={handleChange}
@@ -175,7 +176,7 @@ const UsersTable = () => {
             display={"flex"}
             alignItems={"center"}
             justifyContent={"flex-end"}>
-            <Button onClick={() => setIsModalOpen(true)}>اضافة موظف</Button>
+            <Button bg={"#7fa084"} _hover={{ bg: "#7fa084"}} color={"white"} onClick={() => setIsModalOpen(true)}>اضافة موظف</Button>
           </Box>
           <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
             <ModalOverlay />

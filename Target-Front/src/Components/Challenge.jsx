@@ -22,6 +22,7 @@ import {
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { color } from "framer-motion";
 
 export default function App() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -100,7 +101,10 @@ const handleSearch = (e) => {
                       fontSize="sm"
                       color="gray.600"
                       _dark={{ color: "gray.400" }}>
-                        {item.createdAt.slice(0, 10).replace("-", "/" , 2).replace("-", "/" , 2)}
+                      {item.createdAt
+                        .slice(0, 10)
+                        .replace("-", "/", 2)
+                        .replace("-", "/", 2)}
                     </chakra.span>
                   </Flex>
                   <Box mt={2}>
@@ -148,8 +152,11 @@ const handleSearch = (e) => {
                       _dark={{ color: "brand.400" }}
                       _hover={{ textDecor: "underline" }}>
                       <Button
-                        colorScheme="blue"
-                        onClick={() => navigate(`/challenge/${item._id}`)}>
+                        bg={"#8FAC93"}
+                        _hover={{ bg: "#7FA084" }}
+                        onClick={() => navigate(`/challenge/${item._id}`)}
+                        color={"white"}
+                        >
                         اقراء المزيد
                       </Button>
                     </Link>
@@ -165,19 +172,19 @@ const handleSearch = (e) => {
         </SimpleGrid>
         <Box
           w={"400px"}
-          bg={"white"}
+          bg={"#F5F4F1"}
           display={{ base: "none", lg: "block" }}
           border="1px"
-          bgColor={useColorModeValue("white", "gray.800")}
+          bgColor={useColorModeValue("#F5F4F1", "gray.800")}
           borderColor={useColorModeValue("gray.200", "gray.700")}>
           <Box p={4}>
             {/* search input */}
             <Input
               type="text"
               placeholder="بحث"
+              _focusVisible={{ borderColor: "#8FAC93" }}
               onChange={(e) => handleSearch(e)}
             />
-            <Button>ابحث</Button>
           </Box>
           <Box
             p={4}
@@ -186,7 +193,9 @@ const handleSearch = (e) => {
             alignItems="center"
             w="100%">
             <Button
-              colorScheme="blue"
+              bg={"#8FAC93"}
+              _hover={{ bg: "#7FA084" }}
+              color={"white"}
               alignItems={"center"}
               display={"flex"}
               w={"100%"}
@@ -196,10 +205,11 @@ const handleSearch = (e) => {
 
             <Modal isOpen={isOpen} onClose={onClose} size="xl">
               <ModalOverlay />
-              <ModalContent>
+              <ModalContent bg={"#F5F4F1"} _dark={{ bg: "gray.700" }}>
                 <ModalHeader>إضافة تحدي جديد</ModalHeader>
                 <ModalBody>
                   <Input
+                    _focusVisible={{ borderColor: "#8FAC93" }}
                     type="text"
                     placeholder="أدخل عنوان التحدي"
                     value={title}
@@ -208,6 +218,7 @@ const handleSearch = (e) => {
                   />
                   <Textarea
                     type="text"
+                    _focusVisible={{ borderColor: "#8FAC93" }}
                     placeholder="أدخل موضوع التحدي"
                     value={body}
                     mb={4}
@@ -216,6 +227,7 @@ const handleSearch = (e) => {
                   <Box mb={4} display={"flex"} justifyContent={""}>
                     <Box>
                       <Select
+                        _focusVisible={{ borderColor: "#8FAC93" }}
                         icon={""}
                         ml={8}
                         colorScheme="blue"
@@ -233,6 +245,7 @@ const handleSearch = (e) => {
                     </Box>
                     <Box>
                       <Select
+                        _focusVisible={{ borderColor: "#8FAC93" }}
                         icon={""}
                         ml={8}
                         colorScheme="blue"
@@ -240,7 +253,9 @@ const handleSearch = (e) => {
                         value={type}
                         onChange={(e) => setType(e.target.value)}
                         placeholder="اختر القسم">
-                        <option value="عاجل">عاجل </option>
+                        <option _dark={{ color: "white" }} value="عاجل">
+                          عاجل{" "}
+                        </option>
                         <option value="غير عاجل">غير عاجل </option>
                       </Select>
                     </Box>
@@ -249,11 +264,13 @@ const handleSearch = (e) => {
                 <ModalFooter>
                   <Button
                     ml={4}
-                    colorScheme="blue"
+                    bg={"#8FAC93"}
+                    _hover={{ bg: "#7FA084" }}
+                    color={"white"}
                     onClick={handleAddChallenge}>
                     إضافة
                   </Button>
-                  <Button variant="ghost" onClick={onClose}>
+                  <Button onClick={onClose} colorScheme="red">
                     إلغاء
                   </Button>
                 </ModalFooter>

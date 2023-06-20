@@ -69,9 +69,9 @@ import axios from 'axios';
 const LinkItems = [
   { name: "الصفحة الرئيسية", path: "/", icon: FiHome },
   { name: "التحديات", path: "/challenge", icon: FiCompass },
-  { name: "الحلول المقترحة", path: "/Solution", icon: FiTrendingUp },
+  // { name: "الحلول المقترحة", path: "/Solution", icon: FiTrendingUp },
   { name: "الاهداف", path: "/Goals", icon: FiStar },
-  { name: "الاقسام", path: "/Department", icon: HiUserGroup },
+  // { name: "الاقسام", path: "/Department", icon: HiUserGroup },
   { name: "الموظفين", path: "/User", icon: HiUserGroup },
 ];
 
@@ -151,11 +151,11 @@ export default function App() {
         cursor="pointer"
         color="inherit"
         rounded={"md"}
-        _dark={{ color: "gray.400" }}
+        _dark={{ color: "gray.50" }}
         _hover={{
-          bg: "blue.300",
-          _dark: { bg: "blue.700" },
-          color: "gray.900",
+          bg: "#8FAC93",
+          _dark: { bg: "#6F9475" },
+          color: "gray.50",
         }}
         role="group"
         fontWeight="semibold"
@@ -165,8 +165,11 @@ export default function App() {
           <Icon
             mx="2"
             boxSize="4"
+            _hover={{
+              color: "white",
+            }}
             _groupHover={{
-              color: color,
+              color: "",
             }}
             as={icon}
           />
@@ -196,7 +199,7 @@ export default function App() {
     return (
       <Box
         transition="3s ease"
-        bg={useColorModeValue("white", "gray.900")}
+        bg={useColorModeValue("#F5F4F1", "gray.900")}
         borderLeft="1px"
         borderStyle={"solid"}
         borderColor={useColorModeValue("gray.300", "gray.700")}
@@ -263,7 +266,7 @@ export default function App() {
   };
 
   return (
-    <Box as="section" bg="gray.200" _dark={{ bg: "gray.700" }} dir="rtl">
+    <Box as="section" bg="#E5E5E5" _dark={{ bg: "gray.700" }} dir="rtl">
       <SidebarContent
         display={{ base: "none", md: "unset" }}
         onClose={sidebar.onClose}
@@ -292,7 +295,7 @@ export default function App() {
           w="full"
           py={{ base: 2, md: 8, lg: 10 }}
           px={{ base: 4, md: 8, lg: 24 }}
-          bg="white"
+          bg="#F5F4F1"
           _dark={{ bg: "gray.800" }}
           borderBottomWidth="1px"
           color="inherit"
@@ -307,12 +310,13 @@ export default function App() {
           <Flex align="center">
             <IconButton
               aria-label="Toggle color mode"
+              bg={"#7FA084"}
               ml="4"
               onClick={toggleColorMode}
               icon={colorMode === "dark" ? <FiSun /> : <FiMoon />}
               size={{ base: "sm", md: "md" }}
             />
-            <Button onClick={() => navigate("/login")}>Login</Button>
+            {/* <Button onClick={() => navigate("/login")}>Login</Button> */}
             <Menu>
               <MenuButton
                 as={Avatar}
@@ -333,7 +337,7 @@ export default function App() {
         <Box as="main" p="">
           <Box display="flex" w={"full"} h="100%" minH={"100vh"}>
             <Routes>
-              <Route path="/" element={<DashbordAdmin statData={statData}/>} />
+              <Route path="/" element={<DashbordAdmin statData={statData} />} />
               <Route path="/challenge" element={<Challenge />} />
               <Route path="/User" element={<User />} />
               <Route path="/Department" element={<Department />} />

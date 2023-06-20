@@ -20,26 +20,25 @@ import {
   MenuItem,
   Select,
 } from "@chakra-ui/react";
-import {AiOutlineDelete} from "react-icons/ai";
-import {IoMdAdd} from "react-icons/io";
+import { AiOutlineDelete } from "react-icons/ai";
+import { IoMdAdd } from "react-icons/io";
 import axios from "axios";
-import { useState , useEffect } from "react";
+import { useState, useEffect } from "react";
 const Todo = () => {
-  const color = useColorModeValue("gray.50" ,"gray.900" );
+  const color = useColorModeValue("#f5f4f1", "gray.900");
   const [goals, setGoals] = useState([]);
-  const [bodyGoals , setBodyGoals] = useState([]);
+  const [bodyGoals, setBodyGoals] = useState([]);
 
-    useEffect(() => {
-      axios.get("http://localhost:8000/api/admin/goals").then((res) => {
-        setGoals(res.data.result);
-        console.log(res.data);
-        const {body} = res.data.result[0];
-        console.log(body);
-        const bodyS = body.split("-");
-                console.log(bodyS);
-
-      });
-    } , []);
+  useEffect(() => {
+    axios.get("http://localhost:8000/api/admin/goals").then((res) => {
+      setGoals(res.data.result);
+      console.log(res.data);
+      const { body } = res.data.result[0];
+      console.log(body);
+      const bodyS = body.split("-");
+      console.log(bodyS);
+    });
+  }, []);
   return (
     <Box as="main" p={{ base: "4", md: "6" }} w={"full"}>
       {/* Breadcrumb */}
@@ -48,6 +47,7 @@ const Todo = () => {
         display={"flex"}
         alignItems={"center"}
         p={{ base: "4", md: "8" }}
+        rounded={"md"}
         justifyContent={"space-between"}
         bg={color}>
         <Box>
@@ -56,10 +56,12 @@ const Todo = () => {
         <Flex display={"flex"} flexWrap={"wrap"} gap={2} alignItems={"center"}>
           {/* Search */}
           <Box display={"flex"} gap={2} alignItems={"center"}>
-            <Input placeholder="بحث" />
+            <Input w={"full"} placeholder="بحث" />
           </Box>
           {/* Add New */}
-          <Button>اضافة</Button>
+          <Button bg={"#7fa084"} color={"white"} _hover={{ bg: "#6F9475" }}>
+            اضافة
+          </Button>
         </Flex>
       </Flex>
 
@@ -109,7 +111,7 @@ const Todo = () => {
                 <Td></Td>
                 <Td>
                   <Input
-                    className="w-full bg-transparent outline-none placeholder:text-placeholder"
+                    w={"full"}
                     type="text"
                     on
                     placeholder="اضافة هدف جديد"
@@ -160,13 +162,13 @@ const Todo = () => {
             <Tbody>
               <Tr>
                 <Td>
-                  <Checkbox />
+                  <Checkbox colorScheme="teal" />
                 </Td>
                 <Td>نص عشوائي عربي عربي عربي</Td>
               </Tr>
               <Tr>
                 <Td>
-                  <Checkbox />
+                  <Checkbox colorScheme="teal" />
                 </Td>
                 <Td>
                   هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم
@@ -175,7 +177,7 @@ const Todo = () => {
               </Tr>
               <Tr>
                 <Td>
-                  <Checkbox />
+                  <Checkbox colorScheme="teal" />
                 </Td>
                 <Td>
                   هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم
@@ -184,10 +186,7 @@ const Todo = () => {
               <Tr>
                 <Td></Td>
                 <Td>
-                  <Input
-                    className="w-full bg-transparent outline-none placeholder:text-placeholder"
-                    placeholder="اضافة هدف جديد"
-                  />
+                  <Input w={"full"} type="text" placeholder="اضافة هدف جديد" />
                 </Td>
               </Tr>
             </Tbody>
