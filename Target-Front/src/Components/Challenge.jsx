@@ -62,12 +62,13 @@ export default function App() {
     });
   }, [data]);
   // search function
-const handleSearch = (e) => {
-  const value = e.target.value;
-  const result = data.filter((item) => {
-    return item.title.toLowerCase().includes(value.toLowerCase());
-  });
-  setSearch(result);
+  const handleSearch = (event) => {
+    setSearch(
+      data.filter(f =>
+        f.title.toLowerCase().includes(event.target.value)
+        // console.log(f.name)
+      )
+    );
   };
 
   return (
@@ -76,7 +77,7 @@ const handleSearch = (e) => {
         <SimpleGrid w={"100%"} columns={{ base: 1, md: 1, lg: 1 }} gap={0}>
           {/* Box-1 */}
           <Box>
-            {data.map((item) => (
+            {search.map((item) => (
               <Box
                 key={item._id}
                 mt={0}
@@ -156,7 +157,7 @@ const handleSearch = (e) => {
                         _hover={{ bg: "#7FA084" }}
                         onClick={() => navigate(`/challenge/${item._id}`)}
                         color={"white"}
-                        >
+                      >
                         اقراء المزيد
                       </Button>
                     </Link>
@@ -183,7 +184,7 @@ const handleSearch = (e) => {
               type="text"
               placeholder="بحث"
               _focusVisible={{ borderColor: "#8FAC93" }}
-              onChange={(e) => handleSearch(e)}
+              onChange={handleSearch}
             />
           </Box>
           <Box
