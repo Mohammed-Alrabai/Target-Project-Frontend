@@ -63,16 +63,13 @@ const UsersTable = () => {
       .get("http://localhost:8800/api/department/DepartmentList")
       .then((res) => {
         setDepData(res.data.result);
-        console.log("department");
-        console.log(depData);
-        console.log(res.data);
+        console.log("all the department");
+
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
-
-
 
   const color = useColorModeValue("gray.900", "gray.300");
 
@@ -81,7 +78,7 @@ const UsersTable = () => {
     axios
       .delete(`http://localhost:8800/api/admin/deleteEmployee/${id}`)
       .then((res) => {
-        setData(
+        setSearch(
           data.filter((del) => {
             return del._id != id;
           })
@@ -92,7 +89,8 @@ const UsersTable = () => {
 
   const AddEmployee = () => {
     console.log(userRole);
-    console.log(department);
+    console.log("department ID");
+    console.log(mydepartment);
     axios
       .post("http://localhost:8800/api/admin/createEmployee", {
         name,
@@ -108,9 +106,12 @@ const UsersTable = () => {
       .catch((error) => {
         console.log(error);
       });
+    console.log('department')
+    console.log(mydepartment)
   };
 
   const UpdateEmp = (id) => {
+
     axios
       .get(`http://localhost:8800/api/admin/employee/${id}`)
       .then((res) => {
@@ -123,13 +124,16 @@ const UsersTable = () => {
   };
 
   const EditEmployee = (id) => {
-    console.log("hhhhhhhhhhhhhh")
+    console.log("the Department Id kkk")
     console.log(mydepartment)
+    console.log(name)
+    console.log(username)
+    console.log(userRole)
+
     axios
       .patch(`http://localhost:8800/api/admin/updateEmployee/${id}`, {
         name,
         username,
-        password,
         mydepartment,
         userRole,
       })
@@ -183,7 +187,7 @@ const UsersTable = () => {
           py={2}>
           <Box w={{ base: "full", md: "50%" }} px={6} py={6}>
             <Input
-              _focusVisible={{borderColor: "#0070f3"}}
+              _focusVisible={{ borderColor: "#0070f3" }}
               placeholder="بحث"
               _placeholder={{ color: "gray.500", _active: true }}
               onChange={filterFunc}
@@ -196,7 +200,7 @@ const UsersTable = () => {
             display={"flex"}
             alignItems={"center"}
             justifyContent={"flex-end"}>
-            <Button bg={"#7fa084"} _hover={{ bg: "#7fa084"}} color={"white"} onClick={() => setIsModalOpen(true)}>اضافة موظف</Button>
+            <Button bg={"#7fa084"} _hover={{ bg: "#7fa084" }} color={"white"} onClick={() => setIsModalOpen(true)}>اضافة موظف</Button>
           </Box>
           <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
             <ModalOverlay />
@@ -322,7 +326,9 @@ const UsersTable = () => {
                     px={6}
                     py={6}>
                     {
-                      item.Department.name
+                      item.Department.map(i => (
+                        i.name
+                      ))
                     }
                   </Td>
                   <Td whiteSpace="nowrap" px={4} py={0}>
@@ -387,17 +393,10 @@ const UsersTable = () => {
 
                           onChange={(e) => setUsername(e.target.value)}
                         />
-                        <Input
-                          name="password"
-                          type="password"
-                          placeholder="password"
-                          mb={4}
 
-                          onChange={(e) => setPassword(e.target.value)}
-                        />
                         <Select
                           name="Department"
-                          // placeholder={emp.department.name}
+                          //placeholder={emp.mydepartment.name}
                           mb={4}
                           icon={<></>}
                           onChange={(e) => setDepartment(e.target.value)}>
