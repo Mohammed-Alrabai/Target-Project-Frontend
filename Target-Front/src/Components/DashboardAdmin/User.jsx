@@ -344,6 +344,7 @@ const UsersTable = () => {
                     py={6}>
                     <Button
                       colorScheme="red"
+                    
                       outline={true}
                       onClick={() => DeleteUser(item._id)}>
                       حذف
