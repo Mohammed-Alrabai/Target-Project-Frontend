@@ -67,6 +67,7 @@ import { AiOutlineLike, AiOutlineEye } from "react-icons/ai";
 import axios from "axios";
 import Home from "./Components/Home";
 import cookies from "react-cookies";
+import LandingPage from "./Components/LandingPage/LandingPage";
 
 // sidebar items
 const LinkItems = [
@@ -305,6 +306,7 @@ export default function App() {
     <>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/landing" element={<LandingPage />} />
       </Routes>
       {isLogin ? (
         <>
@@ -384,7 +386,10 @@ export default function App() {
                     {/* <Route path="/" element={<Home />} /> */}
                     {isUser ? (
                       <>
-                        <Route path="/" element={<Challenge props={isUser} />} />
+                        <Route
+                          path="/"
+                          element={<Challenge props={isUser} />}
+                        />
                         <Route path="/Goals" element={<Goals />} />
                         <Route path="/login" element={<Login />} />
                         <Route
@@ -420,7 +425,7 @@ export default function App() {
           </Box>
         </>
       ) : (
-        <>{navigate("/login")}</>
+        <>{navigate("/landing")}</>
       )}
     </>
   );
