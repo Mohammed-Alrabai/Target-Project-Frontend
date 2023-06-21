@@ -163,9 +163,11 @@ export default function App() {
     },
   ];
 
+
   const isLogin = localStorage.getItem("token");
   const isUser = localStorage.getItem("username");
   const isAdmin = 'a';
+  
   const NavItem = (props) => {
     const { icon, children, ...rest } = props;
     return (
