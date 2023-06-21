@@ -6,7 +6,7 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import logo from "../assets/img/logo-w-jpeg.jpg";
+import logo from "../../assets/img/logo.png";
 import { Image } from "@chakra-ui/react";
 
 function NavList() {
