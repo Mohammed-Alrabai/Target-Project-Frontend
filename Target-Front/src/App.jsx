@@ -151,8 +151,8 @@ export default function App() {
     },
   ];
 
-  const isLogin = cookies.load("token");
-  const isUser = cookies.load("username");
+  const isLogin = localStorage.getItem("token");
+  const isUser = localStorage.getItem("username");
   const isAdmin = 'a';
   const NavItem = (props) => {
     const { icon, children, ...rest } = props;
@@ -192,7 +192,7 @@ export default function App() {
       </Flex>
     );
   };
-  
+
   const SidebarContent = ({ onClose, ...rest }) => {
     const sidebarVariants = {
       open: {
@@ -296,8 +296,9 @@ export default function App() {
     setIsDropdownOpen(false);
   };
   const logout = () => {
-    cookies.remove("token");
-    cookies.remove("username");
+    localStorage.clear()
+    // cookies.remove("token");
+    // cookies.remove("username");
     navigate("/login");
   }
 
