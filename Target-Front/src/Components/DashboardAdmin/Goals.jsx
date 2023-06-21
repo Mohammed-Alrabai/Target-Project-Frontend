@@ -24,21 +24,49 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { IoMdAdd } from "react-icons/io";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import cookies, { loadAll } from "react-cookies";
+
 const Todo = () => {
   const color = useColorModeValue("#f5f4f1", "gray.900");
   const [goals, setGoals] = useState([]);
   const [bodyGoals, setBodyGoals] = useState([]);
+  const api = "http://localhost:8000/api/admin/goals";
 
   useEffect(() => {
-    axios.get("http://localhost:8000/api/admin/goals").then((res) => {
+    axios.get(api , {
+      headers: {
+        Authorization: "Bearer " + cookies.load("token"),
+      }
+    }).then((res) => {
       setGoals(res.data.result);
       console.log(res.data);
       const { body } = res.data.result[0];
       console.log(body);
       const bodyS = body.split("-");
       console.log(bodyS);
-    });
+    }).catch((error) => {
+      console.log(error);
+    })
   }, []);
+
+  // create a new goal
+  const [goal, setGoal] = useState({});
+  const [body, setBody] = useState("");
+  const apiCreate = "http://localhost:8000/api/admin/createGoal";
+
+  const createGoal = () => {
+    axios.post(apiCreate, {
+      body,
+      headers : {
+        Authorization: "Bearer " + cookies.load("token"),
+      }
+    }
+    ).then((res) => {
+      console.log(res.data);
+    }).catch((error) => {
+      console.log(error);
+    })
+  }
   //
   return (
     <Box as="main" p={{ base: "4", md: "6" }} w={"full"}>
@@ -60,7 +88,9 @@ const Todo = () => {
             <Input w={"full"} placeholder="بحث" />
           </Box>
           {/* Add New */}
-          <Button bg={"#7fa084"} color={"white"} _hover={{ bg: "#6F9475" }}>
+          <Button bg={"#7fa084"} color={"white"} _hover={{ bg: "#6F9475" }}
+          onClick={createGoal}
+          >
             اضافة
           </Button>
         </Flex>
@@ -113,9 +143,12 @@ const Todo = () => {
                 <Td>
                   <Input
                     w={"full"}
+                    minW={"200px"}
                     type="text"
                     on
                     placeholder="اضافة هدف جديد"
+                    value={body}
+                    onChange={(e) => setBody(e.target.value)}
                   />
                 </Td>
               </Tr>
