@@ -18,48 +18,90 @@ import {
   useDisclosure,
   Textarea,
   Select,
+  Text
 } from "@chakra-ui/react";
-import { useState, useEffect  } from "react";
-import { useNavigate , useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import cookies from "react-cookies";
 import axios from "axios";
 
 export default function App() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [body, setBody] = useState("");
+  const [createAt, setCreateAt] = useState("");
   const [department, setDepartment] = useState("");
   const [challenge, setChallenge] = useState({});
-  const [data , setData] = useState([]);
-    const color = useColorModeValue("gray.50" ," gray.900");
+  const [data, setData] = useState([]);
+  const [comment, setComment] = useState([]);
+  const [bodyc, setbodyc] = useState("")
+  const color = useColorModeValue("gray.50", " gray.900");
 
-    const id = useParams().id;
+  const id = useParams().id;
 
 
-    const api = `http://localhost:8000/api/admin/challenge/${id}`;
+  const api = `http://localhost:8000/api/admin/challenge/${id}`;
   const handleAddChallenge = async () => {
 
     onClose();
   };
   useEffect(() => {
-    axios.get(api , {
+    console.log("hoooo")
+    axios.get(`http://localhost:8000/api/employee/ChallengeById/${id}`, {
       headers: {
-        Authorization: "Bearer " + cookies.load("token"),
+        Authorization: "Bearer " + localStorage.getItem("token"),
       }
     }).then((res) => {
       setData(res.data);
+      console.log("the challange data is")
+      console.log(res.data)
+      setTitle(res.data.result.title)
+      setBody(res.data.result.body)
+      console.log("the body is")
+      console.log(res.data.result.body)
+      setCreateAt(res.data.result.createdAt)
       console.log(res.data.result.title);
     }).catch((err) => {
       console.log(err);
     })
+
+    ////////comment api
+
+    axios.get(`http://localhost:8000/api/employee/CommentChallengeById/${id}`, {
+      headers: {
+        'authorization': `bearer ${localStorage.getItem("token")}`
+      }
+    }).then((res) => {
+      console.log("this issss commmenttt")
+      console.log(res.data.reponse.comments)
+      setComment(res.data.reponse.comments)
+    }).catch((error) => {
+      console.log(error);
+    })
   }, []);
 
-  const challengeData = Object.keys(data).map((key) => {
-    return data[key].title;
-  })
-  console.log(challengeData);
-  const isUser = cookies.load("username");
-  
+  ///add comment by employee
+  const addComment = () => {
+    const token = localStorage.getItem("token")
+    console.log(token)
+    console.log("commentsss")
+    axios.post(`http://localhost:8000/api/employee/CreateComment/${id}`,
+      {
+        bodyc
+      }, {
+      headers: {
+        'Authorization': `bearer ${token}`
+      }
+    }
+    ).then((res) => {
+      console.log("comment is added")
+    }).catch((error) => {
+      console.log(error)
+    })
+  }
+
+  const isUser = localStorage.getItem("username");
+
   return (
     <>
       <Box display={"flex"} w={"full"} minH={"100vh"}>
@@ -70,7 +112,8 @@ export default function App() {
               mt={0}
               borderBottom={"2px solid"}
               borderStyle={"solid"}
-              borderColor={useColorModeValue("gray.300", "gray.700")}>
+              borderColor={useColorModeValue("gray.300", "gray.700")}
+            >
               <Box
                 mx="auto"
                 px={8}
@@ -88,7 +131,7 @@ export default function App() {
                     fontSize="sm"
                     color="gray.600"
                     _dark={{ color: "gray.400" }}>
-                    قبل 3 ايام
+                    {createAt}
                   </chakra.span>
                 </Flex>
                 <Box mt={2}>
@@ -104,12 +147,13 @@ export default function App() {
                       },
                       textDecor: "underline",
                     }}>
+                    {title}
                   </Link>
                   <chakra.p
                     mt={2}
                     color="gray.600"
                     _dark={{ color: "gray.300" }}>
-                    {data.body}
+                    {body}
                   </chakra.p>
                 </Box>
                 <Flex justifyContent="space-between" alignItems="center" mt={4}>
@@ -127,18 +171,72 @@ export default function App() {
                     </Link>
                   </Flex>
                 </Flex>
+
+
               </Box>
-            </Box>
-            <Box display={"flex"} gap={0} alignItems={"center"}>
-              <Textarea rounded={0} bg={"white"} placeholder="تعليق" />
-              <Button
-                rounded={0}
-                bg={"#7fa084"}
-                _hover={{ bg: "#6F9475" }}
-                w={"25%%"}
-                h={"80px"}>
-                اضافة تعليق{" "}
-              </Button>
+              <Box display={"flex"} gap={0} alignItems={"center"}>
+                <Textarea rounded={0} bg={"white"} placeholder="تعليق" onChange={(e) => setbodyc(e.target.value)} />
+                <Button
+                  rounded={0}
+                  bg={"#7fa084"}
+                  _hover={{ bg: "#6F9475" }}
+                  w={"25%%"}
+                  h={"80px"}
+                  onClick={addComment}>
+                  اضافة تعليق{" "}
+
+                </Button>
+              </Box>
+              {/* comment box */}
+              {comment.map(c => {
+                return (
+                  <Box px={8}
+                    py={4}
+                    shadow="lg"
+                    bg="white"
+                    _dark={{ bg: "gray.800" }}
+                    key={c._id}>
+
+                    <Flex justifyContent="space-between">
+                      <Link
+                        color="gray.700"
+                        _dark={{ color: "gray.200" }}
+                        fontWeight="700"
+                        cursor="pointer"></Link>
+                      <chakra.span
+                        fontSize="sm"
+                        color="gray.600"
+                        _dark={{ color: "gray.400" }}>
+
+                      </chakra.span>
+                    </Flex>
+                    <Box mt={2}>
+                      <Text
+                        fontSize="2xl"
+                        color="gray.700"
+                        _dark={{ color: "white" }}
+                        fontWeight="700"
+                      >
+
+
+                      </Text>
+                      <chakra.p
+                        mt={2}
+                        color="gray.600"
+                        _dark={{ color: "gray.300" }}>
+                        {c.body}
+                      </chakra.p>
+                    </Box>
+                    <Flex justifyContent="space-between" alignItems="center" mt={4}>
+                      <Flex alignItems="center">
+
+                      </Flex>
+                    </Flex>
+                  </Box>
+
+                )
+              })}
+
             </Box>
           </Box>
           {/* for employee */}
@@ -203,9 +301,9 @@ export default function App() {
                   <Textarea
                     type="text"
                     placeholder="أدخل موضوع التحدي"
-                    value={description}
+                    value={body}
                     mb={4}
-                    onChange={(e) => setDescription(e.target.value)}
+                    onChange={(e) => setBody(e.target.value)}
                   />
                   <Select
                     icon={""}
