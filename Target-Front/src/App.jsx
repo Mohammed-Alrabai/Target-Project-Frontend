@@ -132,7 +132,7 @@ export default function App() {
   const employeeComment = () => {
     employee.map((item) => {
       item.comments.map((item) => {
-        console.log(item.length);
+
       });
     });
   };

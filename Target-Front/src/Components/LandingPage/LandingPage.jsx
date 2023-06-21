@@ -128,19 +128,19 @@ const Header = () => {
         </div>
       </header>
       {/* Features Start */}
-      <section class="bg-body dark:bg-gray-900">
-        <div class="container px-6 py-10 mx-auto">
-          <h1 class="text-2xl font-semibold text-center text-gray-800 capitalize lg:text-3xl dark:text-white">
+      <section className="bg-body dark:bg-gray-900">
+        <div className="container px-6 py-10 mx-auto">
+          <h1 className="text-2xl font-semibold text-center text-gray-800 capitalize lg:text-3xl dark:text-white">
             explore our <br /> awesome{" "}
-            <span class="text-primary">Components</span>
+            <span className="text-primary">Components</span>
           </h1>
 
-          <div class="grid grid-cols-1 gap-8 mt-8 xl:mt-12 xl:gap-16 md:grid-cols-2 xl:grid-cols-3">
-            <div class="flex flex-col items-center p-6 space-y-3 text-center bg-gray-50 shadow-md rounded-xl dark:bg-gray-800">
-              <span class="inline-block p-3 text-body bg-primary rounded-full dark:text-white dark:bg-blue-500">
+          <div className="grid grid-cols-1 gap-8 mt-8 xl:mt-12 xl:gap-16 md:grid-cols-2 xl:grid-cols-3">
+            <div className="flex flex-col items-center p-6 space-y-3 text-center bg-gray-50 shadow-md rounded-xl dark:bg-gray-800">
+              <span className="inline-block p-3 text-body bg-primary rounded-full dark:text-white dark:bg-blue-500">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="w-6 h-6"
+                  className="w-6 h-6"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor">
@@ -153,22 +153,22 @@ const Header = () => {
                 </svg>
               </span>
 
-              <h1 class="text-xl font-semibold text-gray-700 capitalize dark:text-white">
+              <h1 className="text-xl font-semibold text-gray-700 capitalize dark:text-white">
                 Copy & paste components
               </h1>
 
-              <p class="text-gray-500 dark:text-gray-300">
+              <p className="text-gray-500 dark:text-gray-300">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Provident ab nulla quod dignissimos vel non corrupti doloribus
                 voluptatum eveniet
               </p>
             </div>
 
-            <div class="flex flex-col items-center p-6 space-y-3 text-center bg-gray-50 shadow-md rounded-xl dark:bg-gray-800">
-              <span class="inline-block p-3 text-body bg-primary rounded-full dark:text-white dark:bg-blue-500">
+            <div className="flex flex-col items-center p-6 space-y-3 text-center bg-gray-50 shadow-md rounded-xl dark:bg-gray-800">
+              <span className="inline-block p-3 text-body bg-primary rounded-full dark:text-white dark:bg-blue-500">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="w-6 h-6"
+                  className="w-6 h-6"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor">
@@ -181,22 +181,22 @@ const Header = () => {
                 </svg>
               </span>
 
-              <h1 class="text-xl font-semibold text-gray-700 capitalize dark:text-white">
+              <h1 className="text-xl font-semibold text-gray-700 capitalize dark:text-white">
                 Zero Configuration
               </h1>
 
-              <p class="text-gray-500 dark:text-gray-300">
+              <p className="text-gray-500 dark:text-gray-300">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Provident ab nulla quod dignissimos vel non corrupti doloribus
                 voluptatum eveniet
               </p>
             </div>
 
-            <div class="flex flex-col items-center p-6 space-y-3 text-center bg-gray-50 shadow-md rounded-xl dark:bg-gray-800">
-              <span class="inline-block p-3 text-body bg-primary rounded-full dark:text-white dark:bg-blue-500">
+            <div className="flex flex-col items-center p-6 space-y-3 text-center bg-gray-50 shadow-md rounded-xl dark:bg-gray-800">
+              <span className="inline-block p-3 text-body bg-primary rounded-full dark:text-white dark:bg-blue-500">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="w-6 h-6"
+                  className="w-6 h-6"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor">
@@ -209,11 +209,11 @@ const Header = () => {
                 </svg>
               </span>
 
-              <h1 class="text-xl font-semibold text-gray-700 capitalize dark:text-white">
+              <h1 className="text-xl font-semibold text-gray-700 capitalize dark:text-white">
                 Simple & clean designs
               </h1>
 
-              <p class="text-gray-500 dark:text-gray-300">
+              <p className="text-gray-500 dark:text-gray-300">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Provident ab nulla quod dignissimos vel non corrupti doloribus
                 voluptatum eveniet
@@ -224,36 +224,36 @@ const Header = () => {
       </section>
 
       {/* About Us */}
-      <div class="px-4 bg-body py-16 mx-auto sm:max-w-xl md:max-w-full md:px-24 lg:px-36 lg:py-20">
-        <div class="grid gap-5 row-gap-10 lg:grid-cols-2">
-          <div class="flex flex-col justify-center">
-            <div class="max-w-xl mb-6">
-              <h2 class="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
+      <div className="px-4 bg-body py-16 mx-auto sm:max-w-xl md:max-w-full md:px-24 lg:px-36 lg:py-20">
+        <div className="grid gap-5 row-gap-10 lg:grid-cols-2">
+          <div className="flex flex-col justify-center">
+            <div className="max-w-xl mb-6">
+              <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
                 The quick, brown fox
-                <br class="hidden md:block" />
+                <br className="hidden md:block" />
                 jumps over
-                <span class="relative px-1">
-                  <div class="absolute inset-x-0 bottom-0 h-3 transform -skew-x-12 bg-teal-accent-400"></div>
-                  <span class="relative inline-block text-deep-purple-accent-400">
+                <span className="relative px-1">
+                  <div className="absolute inset-x-0 bottom-0 h-3 transform -skew-x-12 bg-teal-accent-400"></div>
+                  <span className="relative inline-block text-deep-purple-accent-400">
                     a lazy dog
                   </span>
                 </span>
               </h2>
-              <p class="text-base text-gray-700 md:text-lg">
+              <p className="text-base text-gray-700 md:text-lg">
                 Sed ut perspiciatis unde omnis iste natus error sit voluptatem
                 accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
                 quae. explicabo.
               </p>
             </div>
-            <p class="mb-4 text-sm font-bold tracking-widest uppercase">
+            <p className="mb-4 text-sm font-bold tracking-widest uppercase">
               Features
             </p>
-            <div class="grid space-y-3 sm:gap-2 sm:grid-cols-2 sm:space-y-0">
-              <ul class="space-y-3">
-                <li class="flex">
-                  <span class="mr-1">
+            <div className="grid space-y-3 sm:gap-2 sm:grid-cols-2 sm:space-y-0">
+              <ul className="space-y-3">
+                <li className="flex">
+                  <span className="mr-1">
                     <svg
-                      class="w-5 h-5 mt-px text-deep-purple-accent-400"
+                      className="w-5 h-5 mt-px text-deep-purple-accent-400"
                       stroke="currentColor"
                       viewBox="0 0 52 52">
                       <polygon
@@ -266,10 +266,10 @@ const Header = () => {
                   </span>
                   A slice of heaven
                 </li>
-                <li class="flex">
-                  <span class="mr-1">
+                <li className="flex">
+                  <span className="mr-1">
                     <svg
-                      class="w-5 h-5 mt-px text-deep-purple-accent-400"
+                      className="w-5 h-5 mt-px text-deep-purple-accent-400"
                       stroke="currentColor"
                       viewBox="0 0 52 52">
                       <polygon
@@ -282,10 +282,10 @@ const Header = () => {
                   </span>
                   Disrupt inspire
                 </li>
-                <li class="flex">
-                  <span class="mr-1">
+                <li className="flex">
+                  <span className="mr-1">
                     <svg
-                      class="w-5 h-5 mt-px text-deep-purple-accent-400"
+                      className="w-5 h-5 mt-px text-deep-purple-accent-400"
                       stroke="currentColor"
                       viewBox="0 0 52 52">
                       <polygon
@@ -299,11 +299,11 @@ const Header = () => {
                   Preliminary thinking
                 </li>
               </ul>
-              <ul class="space-y-3">
-                <li class="flex">
-                  <span class="mr-1">
+              <ul className="space-y-3">
+                <li className="flex">
+                  <span className="mr-1">
                     <svg
-                      class="w-5 h-5 mt-px text-deep-purple-accent-400"
+                      className="w-5 h-5 mt-px text-deep-purple-accent-400"
                       stroke="currentColor"
                       viewBox="0 0 52 52">
                       <polygon
@@ -316,10 +316,10 @@ const Header = () => {
                   </span>
                   Flipboard curmudgeon
                 </li>
-                <li class="flex">
-                  <span class="mr-1">
+                <li className="flex">
+                  <span className="mr-1">
                     <svg
-                      class="w-5 h-5 mt-px text-deep-purple-accent-400"
+                      className="w-5 h-5 mt-px text-deep-purple-accent-400"
                       stroke="currentColor"
                       viewBox="0 0 52 52">
                       <polygon
@@ -332,10 +332,10 @@ const Header = () => {
                   </span>
                   Storage shed
                 </li>
-                <li class="flex">
-                  <span class="mr-1">
+                <li className="flex">
+                  <span className="mr-1">
                     <svg
-                      class="w-5 h-5 mt-px text-deep-purple-accent-400"
+                      className="w-5 h-5 mt-px text-deep-purple-accent-400"
                       stroke="currentColor"
                       viewBox="0 0 52 52">
                       <polygon
@@ -353,7 +353,7 @@ const Header = () => {
           </div>
           <div>
             <img
-              class="object-cover w-full h-56 rounded shadow-lg sm:h-96"
+              className="object-cover w-full h-56 rounded shadow-lg sm:h-96"
               src="https://images.pexels.com/photos/927022/pexels-photo-927022.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=3&amp;h=750&amp;w=1260"
               alt=""
             />
@@ -362,41 +362,41 @@ const Header = () => {
       </div>
 
       {/* Our Team */}
-      <section class="bg-body dark:bg-gray-900">
-        <div class="container px-6 py-10 mx-auto">
-          <h1 class="text-2xl font-semibold text-center text-gray-800 capitalize lg:text-3xl dark:text-white">
+      <section className="bg-body dark:bg-gray-900">
+        <div className="container px-6 py-10 mx-auto">
+          <h1 className="text-2xl font-semibold text-center text-gray-800 capitalize lg:text-3xl dark:text-white">
             Our Executive Team
           </h1>
 
-          <p class="max-w-2xl mx-auto my-6 text-center text-gray-500 dark:text-gray-300">
+          <p className="max-w-2xl mx-auto my-6 text-center text-gray-500 dark:text-gray-300">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo
             incidunt ex placeat modi magni quia error alias, adipisci rem
             similique, at omnis eligendi optio eos harum.
           </p>
 
-          <div class="grid grid-cols-1 gap-8 mt-8 xl:mt-16 md:grid-cols-2 xl:grid-cols-2">
-            <div class="flex bg-gray-50 flex-col items-center p-8 transition-colors duration-300 transform cursor-pointer group hover:bg-primary shadow-lg rounded-xl">
-              <span class="inline-flex items-center justify-center h-[8.875rem] w-[8.875rem] rounded-full bg-gray-800">
-                <span class="text-5xl font-medium text-white leading-none">
+          <div className="grid grid-cols-1 gap-8 mt-8 xl:mt-16 md:grid-cols-2 xl:grid-cols-2">
+            <div className="flex bg-gray-50 flex-col items-center p-8 transition-colors duration-300 transform cursor-pointer group hover:bg-primary shadow-lg rounded-xl">
+              <span className="inline-flex items-center justify-center h-[8.875rem] w-[8.875rem] rounded-full bg-gray-800">
+                <span className="text-5xl font-medium text-white leading-none">
                   م
                 </span>
               </span>
 
-              <h1 class="mt-4 text-2xl font-semibold text-gray-700 capitalize dark:text-white group-hover:text-white">
+              <h1 className="mt-4 text-2xl font-semibold text-gray-700 capitalize dark:text-white group-hover:text-white">
                 محمد الربعي
               </h1>
 
-              <p class="mt-2 text-gray-500 capitalize dark:text-gray-300 group-hover:text-gray-300">
+              <p className="mt-2 text-gray-500 capitalize dark:text-gray-300 group-hover:text-gray-300">
                 Full Stack Developer
               </p>
 
-              <div class="flex mt-3 -mx-2">
+              <div className="flex mt-3 -mx-2">
                 <a
                   href="#"
-                  class="mx-2 text-gray-600 dark:text-gray-300 hover:text-gray-500 dark:hover:text-gray-300 group-hover:text-white"
+                  className="mx-2 text-gray-600 dark:text-gray-300 hover:text-gray-500 dark:hover:text-gray-300 group-hover:text-white"
                   aria-label="Reddit">
                   <svg
-                    class="w-6 h-6 fill-current"
+                    className="w-6 h-6 fill-current"
                     viewBox="0 0 24 24"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg">
@@ -406,10 +406,10 @@ const Header = () => {
 
                 <a
                   href="#"
-                  class="mx-2 text-gray-600 dark:text-gray-300 hover:text-gray-500 dark:hover:text-gray-300 group-hover:text-white"
+                  className="mx-2 text-gray-600 dark:text-gray-300 hover:text-gray-500 dark:hover:text-gray-300 group-hover:text-white"
                   aria-label="Facebook">
                   <svg
-                    class="w-6 h-6 fill-current"
+                    className="w-6 h-6 fill-current"
                     viewBox="0 0 24 24"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg">
@@ -419,10 +419,10 @@ const Header = () => {
 
                 <a
                   href="#"
-                  class="mx-2 text-gray-600 dark:text-gray-300 hover:text-gray-500 dark:hover:text-gray-300 group-hover:text-white"
+                  className="mx-2 text-gray-600 dark:text-gray-300 hover:text-gray-500 dark:hover:text-gray-300 group-hover:text-white"
                   aria-label="Github">
                   <svg
-                    class="w-6 h-6 fill-current"
+                    className="w-6 h-6 fill-current"
                     viewBox="0 0 24 24"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg">
@@ -432,28 +432,28 @@ const Header = () => {
               </div>
             </div>
 
-            <div class="flex bg-gray-50 flex-col items-center p-8 transition-colors duration-300 transform cursor-pointer group hover:bg-primary shadow-lg rounded-xl">
-              <span class="inline-flex items-center justify-center h-[8.875rem] w-[8.875rem] rounded-full bg-gray-800">
-                <span class="text-5xl font-medium text-white leading-none">
+            <div className="flex bg-gray-50 flex-col items-center p-8 transition-colors duration-300 transform cursor-pointer group hover:bg-primary shadow-lg rounded-xl">
+              <span className="inline-flex items-center justify-center h-[8.875rem] w-[8.875rem] rounded-full bg-gray-800">
+                <span className="text-5xl font-medium text-white leading-none">
                   ن
                 </span>
               </span>
 
-              <h1 class="mt-4 text-2xl font-semibold text-gray-700 capitalize dark:text-white group-hover:text-white">
+              <h1 className="mt-4 text-2xl font-semibold text-gray-700 capitalize dark:text-white group-hover:text-white">
                 نجلاء الدوسري
               </h1>
 
-              <p class="mt-2 text-gray-500 capitalize dark:text-gray-300 group-hover:text-gray-300">
+              <p className="mt-2 text-gray-500 capitalize dark:text-gray-300 group-hover:text-gray-300">
                 Full Stack Developer
               </p>
 
-              <div class="flex mt-3 -mx-2">
+              <div className="flex mt-3 -mx-2">
                 <a
                   href="#"
-                  class="mx-2 text-gray-600 dark:text-gray-300 hover:text-gray-500 dark:hover:text-gray-300 group-hover:text-white"
+                  className="mx-2 text-gray-600 dark:text-gray-300 hover:text-gray-500 dark:hover:text-gray-300 group-hover:text-white"
                   aria-label="Reddit">
                   <svg
-                    class="w-6 h-6 fill-current"
+                    className="w-6 h-6 fill-current"
                     viewBox="0 0 24 24"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg">
@@ -463,10 +463,10 @@ const Header = () => {
 
                 <a
                   href="#"
-                  class="mx-2 text-gray-600 dark:text-gray-300 hover:text-gray-500 dark:hover:text-gray-300 group-hover:text-white"
+                  className="mx-2 text-gray-600 dark:text-gray-300 hover:text-gray-500 dark:hover:text-gray-300 group-hover:text-white"
                   aria-label="Facebook">
                   <svg
-                    class="w-6 h-6 fill-current"
+                    className="w-6 h-6 fill-current"
                     viewBox="0 0 24 24"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg">
@@ -476,10 +476,10 @@ const Header = () => {
 
                 <a
                   href="#"
-                  class="mx-2 text-gray-600 dark:text-gray-300 hover:text-gray-500 dark:hover:text-gray-300 group-hover:text-white"
+                  className="mx-2 text-gray-600 dark:text-gray-300 hover:text-gray-500 dark:hover:text-gray-300 group-hover:text-white"
                   aria-label="Github">
                   <svg
-                    class="w-6 h-6 fill-current"
+                    className="w-6 h-6 fill-current"
                     viewBox="0 0 24 24"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg">
