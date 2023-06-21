@@ -97,9 +97,9 @@ export default function App() {
   const [employee, setEmployee] = useState([]);
 
   const navigate = useNavigate();
-  const apiChallenge = "http://localhost:8000/api/admin/challenge/";
-  const apiComment = "http://localhost:8000/api/admin/comment/";
-  const apiEmployee = "http://localhost:8000/api/admin/employee";
+  const apiChallenge = "http://localhost:8800/api/admin/challenge/";
+  const apiComment = "http://localhost:8800/api/admin/comment/";
+  const apiEmployee = "http://localhost:8800/api/admin/employee";
 
   useEffect(() => {
     axios.get(apiChallenge).then((res) => {
@@ -192,7 +192,7 @@ export default function App() {
       </Flex>
     );
   };
-  
+
   const SidebarContent = ({ onClose, ...rest }) => {
     const sidebarVariants = {
       open: {

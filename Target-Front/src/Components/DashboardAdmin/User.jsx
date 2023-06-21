@@ -61,7 +61,7 @@ const UsersTable = () => {
       });
 
     axios
-      .get("http://localhost:8000/api/department/DepartmentList")
+      .get("http://localhost:8800/api/department/DepartmentList")
       .then((res) => {
         setDepData(res.data.result);
         console.log("all the department");
@@ -76,7 +76,7 @@ const UsersTable = () => {
   const DeleteUser = (id) => {
     console.log(id);
     axios
-      .delete(`http://localhost:8000/api/admin/deleteEmployee/${id}`)
+      .delete(`http://localhost:8800/api/admin/deleteEmployee/${id}`)
       .then((res) => {
         setSearch(
           data.filter((del) => {
@@ -92,7 +92,7 @@ const UsersTable = () => {
     console.log("department ID");
     console.log(mydepartment);
     axios
-      .post("http://localhost:8000/api/admin/createEmployee", {
+      .post("http://localhost:8800/api/admin/createEmployee", {
         name,
         username,
         password,
@@ -112,7 +112,7 @@ const UsersTable = () => {
   };
 
   const UpdateEmp = (id) => {
-    axios.get(`http://localhost:8000/api/admin/employee/${id}`).then((res) => {
+    axios.get(`http://localhost:8800/api/admin/employee/${id}`).then((res) => {
       setGetEmp(res.data.result);
       console.log("the updated user is");
       console.log(res.data.result);
@@ -128,7 +128,7 @@ const UsersTable = () => {
     console.log(userRole);
 
     axios
-      .patch(`http://localhost:8000/api/admin/updateEmployee/${id}`, {
+      .patch(`http://localhost:8800/api/admin/updateEmployee/${id}`, {
         name,
         username,
         mydepartment,
@@ -413,8 +413,8 @@ const UsersTable = () => {
                           onChange={(e) => setUserRole(e.target.value)}
                           mb={4}
                           icon={<></>}
-                          // value={employeeData.department}
-                          // onChange={handleChange1}>
+                        // value={employeeData.department}
+                        // onChange={handleChange1}>
                         >
                           <option value="employee">موظف</option>
                           <option value="subAdmin">مدير قسم</option>

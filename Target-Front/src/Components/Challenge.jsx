@@ -36,8 +36,8 @@ export default function App(props) {
   const [search, setSearch] = useState([]);
   const navigate = useNavigate();
 
-  const api = "http://localhost:8000/api/admin/challenge/";
-  const apiCreate = "http://localhost:8000/api/admin/createChallenge";
+  const api = "http://localhost:8800/api/admin/challenge/";
+  const apiCreate = "http://localhost:8800/api/admin/createChallenge";
   const handleAddChallenge = async () => {
     await setChallenge({
       title,
@@ -71,7 +71,7 @@ export default function App(props) {
       )
     );
   };
-    const isUser = cookies.load("username");
+  const isUser = cookies.load("username");
   return (
     <>
       <Box display={"flex"} w={"full"} justifyContent={"space-between"}>
