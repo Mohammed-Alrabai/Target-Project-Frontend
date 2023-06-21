@@ -50,6 +50,7 @@ export default function App(props) {
       });
       setChallenge(data);
       console.log(data);
+      window.location.reload(false);
     } catch (error) {
       console.log(error);
     }
@@ -71,7 +72,7 @@ export default function App(props) {
       )
     );
   };
-    const isUser = cookies.load("username");
+  const isUser = cookies.load("username");
   return (
     <>
       <Box display={"flex"} w={"full"} justifyContent={"space-between"}>
