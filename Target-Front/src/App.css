@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+.hover-text:hover{
+color: #7fa084;
+}
+.hover-btn:hover{
+color: #7fa084;
+}
 @font-face {
     font-family: GE_SS_Two_Light;
     src: url(./assets/font/GE_SS_Two_Light.otf);
