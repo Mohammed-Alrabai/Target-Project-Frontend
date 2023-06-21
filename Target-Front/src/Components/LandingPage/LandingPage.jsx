@@ -95,7 +95,7 @@ const Header = () => {
             </div>
           </div>
         </nav>
-
+{/* gggggg */}
         {/* Hero Start */}
         <div className="container px-6 py-16 mx-auto">
           <div className="items-center lg:flex my-16">
