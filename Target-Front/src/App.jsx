@@ -45,7 +45,15 @@ import {
 import React from "react";
 // import icons
 import { HiCode, HiCollection } from "react-icons/hi";
-import { Router, Routes, Route, Link, useNavigate } from "react-router-dom";
+import {
+  Router,
+  Routes,
+  Route,
+  Link,
+  useNavigate,
+  useLocation,
+  useParams,
+} from "react-router-dom";
 import { HiUserGroup } from "react-icons/hi";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -79,6 +87,7 @@ const LinkItems = [
   { name: "الموظفين", path: "/User", icon: HiUserGroup },
 ];
 
+
 const LinkItemsEmployee = [
   { name: "التحديات", path: "/", icon: FiCompass },
   // { name: "الحلول المقترحة", path: "/Solution", icon: FiTrendingUp },
@@ -102,6 +111,8 @@ export default function App() {
   const apiComment = "http://localhost:8000/api/admin/comment/";
   const apiEmployee = "http://localhost:8000/api/admin/employee";
 
+    const Params = useLocation();
+    const pathname = Params.pathname;
   useEffect(() => {
     axios.get(apiChallenge).then((res) => {
       setDataChallenge(res.data.result);
@@ -115,7 +126,7 @@ export default function App() {
       setEmployee(res.data.result);
       console.log(res.data.result);
     });
-  }, []);
+  }, [pathname]);
 
   // get comment data from employee
   const employeeComment = () => {
@@ -154,7 +165,9 @@ export default function App() {
 
   const isLogin = cookies.load("token");
   const isUser = cookies.load("username");
-  const isAdmin = 'a';
+  const isAdmin = "a";
+
+
   const NavItem = (props) => {
     const { icon, children, ...rest } = props;
     return (
@@ -193,7 +206,7 @@ export default function App() {
       </Flex>
     );
   };
-  
+
   const SidebarContent = ({ onClose, ...rest }) => {
     const sidebarVariants = {
       open: {
@@ -299,14 +312,14 @@ export default function App() {
   const logout = () => {
     cookies.remove("token");
     cookies.remove("username");
-    navigate("/login");
-  }
-
+    navigate("/landing");
+  };
   return (
     <>
       <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<></>} />
         <Route path="/landing" element={<LandingPage />} />
+
       </Routes>
       {isLogin ? (
         <>
@@ -425,7 +438,9 @@ export default function App() {
           </Box>
         </>
       ) : (
-        <>{navigate("/landing")}</>
+        <>
+          {pathname == "/login" ? <Login /> : navigate("/landing")}
+        </>
       )}
     </>
   );

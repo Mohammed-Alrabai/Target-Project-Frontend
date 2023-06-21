@@ -9,6 +9,12 @@ module.exports = withMT({
   ],
   theme: {
     extend: {},
+    colors: {
+      primary: "#7fa084",
+      secondary: "#f5f5f5",
+      body: "#f5f4f1",
+      hover: "#6F9475",
+    },
   },
   plugins: [],
 });
