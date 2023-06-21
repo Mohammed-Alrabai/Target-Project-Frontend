@@ -4,6 +4,7 @@ import bgHero from "../../assets/img/hero.svg";
 import { Button, Image } from "@chakra-ui/react";
 import Footer from "../Footer";
 import { useNavigate } from "react-router-dom";
+import meeting from '../../assets/img/meeting.jpg'
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
@@ -62,11 +63,10 @@ const Header = () => {
             </div>
 
             <div
-              className={`absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-body dark:bg-gray-900 md:bg-transparent md:dark:bg-transparent md:mt-0 md:p-0 md:top-0 md:relative md:w-auto md:opacity-100 md:translate-x-0 md:flex md:items-center ${
-                isOpen
-                  ? "translate-x-0 opacity-100"
-                  : "opacity-0 -translate-x-full"
-              }`}>
+              className={`absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-body dark:bg-gray-900 md:bg-transparent md:dark:bg-transparent md:mt-0 md:p-0 md:top-0 md:relative md:w-auto md:opacity-100 md:translate-x-0 md:flex md:items-center ${isOpen
+                ? "translate-x-0 opacity-100"
+                : "opacity-0 -translate-x-full"
+                }`}>
               <div className="flex flex-col md:flex-row md:mx-6">
                 <a
                   className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-primary dark:hover:text-primary md:mx-4 md:my-0"
@@ -351,8 +351,8 @@ const Header = () => {
           </div>
           <div>
             <img
-              className="object-cover w-full h-56 rounded shadow-lg sm:h-96"
-              src="https://images.pexels.com/photos/927022/pexels-photo-927022.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=3&amp;h=750&amp;w=1260"
+              className="object-cover w-full h-56 rounded-md shadow-lg sm:h-96"
+              src={meeting}
               alt=""
             />
           </div>
@@ -365,7 +365,7 @@ const Header = () => {
           <h1 className="text-2xl font-semibold text-center text-primary capitalize lg:text-3xl dark:text-white">
             فريقنا
           </h1>
-{/*  */}
+          {/*  */}
           <p className="max-w-2xl mx-auto my-6 text-center text-gray-500 dark:text-gray-300">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo
             incidunt ex placeat modi magni quia error alias, adipisci rem
