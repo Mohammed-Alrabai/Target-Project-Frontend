@@ -163,11 +163,9 @@ export default function App() {
     },
   ];
 
-  const isLogin = cookies.load("token");
-  const isUser = cookies.load("username");
-  const isAdmin = "a";
-
-
+  const isLogin = localStorage.getItem("token");
+  const isUser = localStorage.getItem("username");
+  const isAdmin = 'a';
   const NavItem = (props) => {
     const { icon, children, ...rest } = props;
     return (
@@ -310,10 +308,12 @@ export default function App() {
     setIsDropdownOpen(false);
   };
   const logout = () => {
-    cookies.remove("token");
-    cookies.remove("username");
-    navigate("/landing");
-  };
+    localStorage.clear()
+    // cookies.remove("token");
+    // cookies.remove("username");
+    navigate("/login");
+  }
+
   return (
     <>
       <Routes>
