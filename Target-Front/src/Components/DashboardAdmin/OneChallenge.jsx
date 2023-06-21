@@ -35,6 +35,7 @@ export default function App() {
   const [data, setData] = useState([]);
   const [comment, setComment] = useState([]);
   const [bodyc, setbodyc] = useState("")
+  const [authName, setauthName] = useState("")
   const color = useColorModeValue("gray.50", " gray.900");
 
   const id = useParams().id;
@@ -46,7 +47,7 @@ export default function App() {
     onClose();
   };
   useEffect(() => {
-    console.log("hoooo")
+
     axios.get(`http://localhost:8000/api/employee/ChallengeById/${id}`, {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
@@ -95,6 +96,7 @@ export default function App() {
     }
     ).then((res) => {
       console.log("comment is added")
+      window.location.reload(false);
     }).catch((error) => {
       console.log(error)
     })
@@ -217,14 +219,14 @@ export default function App() {
                         _dark={{ color: "white" }}
                         fontWeight="700"
                       >
-
+                        {c.EmployeeAuther}
 
                       </Text>
                       <chakra.p
                         mt={2}
                         color="gray.600"
                         _dark={{ color: "gray.300" }}>
-                        {c.body}
+                        {c.bodyc}
                       </chakra.p>
                     </Box>
                     <Flex justifyContent="space-between" alignItems="center" mt={4}>

@@ -5,6 +5,7 @@ import { Button, Icon, Image } from "@chakra-ui/react";
 import Footer from "../Footer";
 import { useNavigate } from "react-router-dom";
 import {BsLinkedin} from "react-icons/bs";
+import meeting from '../../assets/img/meeting.jpg'
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
@@ -360,6 +361,7 @@ const Header = () => {
             </div>
           </div>
         </div>
+
 
         {/* Our Team */}
         <section className="bg-body dark:bg-gray-900">
