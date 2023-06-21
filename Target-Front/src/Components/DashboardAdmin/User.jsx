@@ -18,14 +18,20 @@ import {
   ModalBody,
   ModalCloseButton,
   Select,
-  useDisclosure,
   Icon,
+  CloseButton ,
   Image,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+  useDisclosure,  
 } from "@chakra-ui/react";
 import { HiUserGroup } from "react-icons/hi";
-import axios, { isCancel } from "axios";
+import axios from "axios";
 import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 // for push
 const UsersTable = () => {
@@ -42,6 +48,14 @@ const UsersTable = () => {
   const [userRole, setUserRole] = useState("");
   const [Emp, setGetEmp] = useState([]);
   const [depData, setDepData] = useState([]);
+  const [showAlertCreate, setShowAlertCreate] = useState(false);
+  const [showAlertUpdate, setShowAlertUpdate] = useState(false);
+  const [showAlertDelete, setShowAlertDelete] = useState(false);
+  const {
+    isOpen: isVisible,
+    onClose,
+    onOpen,
+  } = useDisclosure({ defaultIsOpen: true });
   const navigate = useNavigate();
 
   //get all the data from backEnd API
@@ -74,17 +88,34 @@ const UsersTable = () => {
   const color = useColorModeValue("gray.900", "gray.300");
 
   const DeleteUser = (id) => {
-    console.log(id);
-    axios
-      .delete(`http://localhost:8000/api/admin/deleteEmployee/${id}`)
-      .then((res) => {
-        setSearch(
-          data.filter((del) => {
-            return del._id != id;
+    const alert = Swal.fire({
+      title: "هل انت متاكد من عملية الحذف ؟",
+      icon: "question",
+      iconHtml: "؟",
+      confirmButtonText: "نعم",
+      cancelButtonText: "لا",
+      showCancelButton: true,
+      showCloseButton: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`http://localhost:8000/api/admin/deleteEmployee/${id}`)
+          .then((res) => {
+            setSearch(
+              data.filter((del) => {
+                return del._id !== id;
+              })
+            );
+            setShowAlertDelete(true);
+            console.log("تم الحذف");
           })
-        );
-        console.log("deleted");
-      });
+          .catch((error) => {
+            console.log(error);
+          });
+      } else {
+        console.log("تم إلغاء الحذف");
+      }
+    });
   };
 
   const AddEmployee = () => {
@@ -100,6 +131,7 @@ const UsersTable = () => {
         userRole,
       })
       .then((res) => {
+        setShowAlertCreate(true);
         window.location.reload(false);
         setIsModalOpen(false);
         console.log("employee is added successfuly");
@@ -137,7 +169,6 @@ const UsersTable = () => {
       .then((res) => {
         window.location.reload(false);
         setIsModalChange(false);
-        console.log("updated!");
       });
   };
 
@@ -170,6 +201,46 @@ const UsersTable = () => {
           الموظفين
         </Text>
       </Box>
+      {/* {showAlertDelete && (
+        <>
+          <Box position="absolute" w={"400px"}>
+            <Alert status="success" w={"full"}>
+              <AlertIcon />
+              <Box w={"full"}>
+                <AlertTitle>Success!</AlertTitle>
+                <AlertDescription>تم الحذف بنجاح</AlertDescription>
+              </Box>
+              <CloseButton
+                alignSelf="flex-start"
+                position="relative"
+                right={-1}
+                top={-1}
+                onClick={() => setShowAlertDelete(false)}
+              />
+            </Alert>
+          </Box>
+        </>
+      )}
+      {showAlertCreate && (
+        <>
+          <Box position="absolute" w={"400px"}>
+            <Alert status="success" w={"full"}>
+              <AlertIcon />
+              <Box w={"full"}>
+                <AlertTitle>Success!</AlertTitle>
+                <AlertDescription>تم اضافة بنجاح</AlertDescription>
+              </Box>
+              <CloseButton
+                alignSelf="flex-start"
+                position="relative"
+                right={-1}
+                top={-1}
+                onClick={() => setShowAlertCreate(false)}
+              />
+            </Alert>
+          </Box>
+        </>
+      )} */}
       <Box
         overflowX="auto"
         mx={[-6, -8]}
@@ -307,7 +378,7 @@ const UsersTable = () => {
                   borderBottomWidth="1px"
                   rounded={"md"}
                   key={item._id}
-                  _hover={{ bg: "gray.100", _dark: { bg: "gray.800" } }}>
+                  _hover={{ bg: "#EFEFEF", _dark: { bg: "gray.800" } }}>
                   <Td
                     whiteSpace="nowrap"
                     fontSize={"0.95rem"}

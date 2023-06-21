@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import logo from "../../assets/img/logo.png";
+import logo from "../../assets/img/logo-wh.svg";
 import bgHero from "../../assets/img/hero.svg";
 import { Button, Icon, Image } from "@chakra-ui/react";
 import Footer from "../Footer";
@@ -23,7 +23,7 @@ const Header = () => {
             <div className="container px-6 py-4 mx-auto md:flex md:justify-between md:items-center">
               <div className="flex items-center justify-between">
                 <a href="#">
-                  <img className="w-auto h-6 mx-auto" src={logo} alt="" />
+                  <img className="w-auto h-20 mx-auto" src={logo} alt="" />
                 </a>
                 <div className="flex md:hidden">
                   <button
@@ -229,25 +229,27 @@ const Header = () => {
           <div className="grid gap-5 row-gap-10 lg:grid-cols-2">
             <div className="flex flex-col justify-center">
               <div className="max-w-xl mb-6">
-                <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
-                  The quick, brown fox
-                  <br className="hidden md:block" />
-                  jumps over
-                  <span className="relative px-1">
-                    <div className="absolute inset-x-0 bottom-0 h-3 transform -skew-x-12 bg-teal-accent-400"></div>
-                    <span className="relative inline-block text-deep-purple-accent-400">
-                      a lazy dog
+                <h2 className="max-w-lg mb-6 text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
+                  تم تطوير نظامنا باستخدام
+                  <br />
+                  <span className="relative  px-1">
+                    <div className="absolute  inset-x-0 bottom-0 h-3 transform -skew-x-12 bg-teal-accent-400"></div>
+                    <span className="relative  mt-5 text-primary inline-block text-deep-purple-accent-400">
+                      أحدث التقنيات
                     </span>
                   </span>
                 </h2>
                 <p className="text-base text-gray-700 md:text-lg">
-                  Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                  accusantium doloremque laudantium, totam rem aperiam, eaque
-                  ipsa quae. explicabo.
+                  لضمان الأداء العالي وتجربة مستخدم ممتازة. يشمل النظام لوحة
+                  تحكم للمدراء حيث يمكنهم إضافة التحديات والأهداف وإدارتها
+                  بسهولة. بالإضافة إلى ذلك، يحتوي النظام على صفحة خاصة للموظفين
+                  يمكنهم من خلالها استعراض جميع التحديات والأهداف الموجودة،
+                  ويتمكنون من إضافة آرائهم ومشاركة اقتراحاتهم. <br /> نحن نسعى دائمًا
+                  لتحسين وتطوير النظام لتلبية احتياجات وتطلعات المستخدمين.
                 </p>
               </div>
-              <p className="mb-4 text-sm font-bold tracking-widest uppercase">
-                Features
+              <p className="mb-4 text-primary text-md font-bold tracking-widest uppercase">
+                التقنيات المستخدمة
               </p>
               <div className="grid space-y-3 sm:gap-2 sm:grid-cols-2 sm:space-y-0">
                 <ul className="space-y-3">
@@ -265,7 +267,7 @@ const Header = () => {
                           points="29 13 14 29 25 29 23 39 38 23 27 23"></polygon>
                       </svg>
                     </span>
-                    A slice of heaven
+                    Node.js
                   </li>
                   <li className="flex">
                     <span className="mr-1">
@@ -281,7 +283,7 @@ const Header = () => {
                           points="29 13 14 29 25 29 23 39 38 23 27 23"></polygon>
                       </svg>
                     </span>
-                    Disrupt inspire
+                    Express.js
                   </li>
                   <li className="flex">
                     <span className="mr-1">
@@ -297,7 +299,7 @@ const Header = () => {
                           points="29 13 14 29 25 29 23 39 38 23 27 23"></polygon>
                       </svg>
                     </span>
-                    Preliminary thinking
+                    MongoDB
                   </li>
                 </ul>
                 <ul className="space-y-3">
@@ -315,7 +317,7 @@ const Header = () => {
                           points="29 13 14 29 25 29 23 39 38 23 27 23"></polygon>
                       </svg>
                     </span>
-                    Flipboard curmudgeon
+                    React.js
                   </li>
                   <li className="flex">
                     <span className="mr-1">
@@ -331,7 +333,7 @@ const Header = () => {
                           points="29 13 14 29 25 29 23 39 38 23 27 23"></polygon>
                       </svg>
                     </span>
-                    Storage shed
+                    Chakra UI
                   </li>
                   <li className="flex">
                     <span className="mr-1">
@@ -347,7 +349,7 @@ const Header = () => {
                           points="29 13 14 29 25 29 23 39 38 23 27 23"></polygon>
                       </svg>
                     </span>
-                    Satoshi Nakamoto
+                    Tailwind CSS
                   </li>
                 </ul>
               </div>
@@ -355,13 +357,12 @@ const Header = () => {
             <div>
               <img
                 className="object-cover w-full h-56 rounded shadow-lg sm:h-96"
-                src="https://images.pexels.com/photos/927022/pexels-photo-927022.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=3&amp;h=750&amp;w=1260"
+                src={meeting}
                 alt=""
               />
             </div>
           </div>
         </div>
-
 
         {/* Our Team */}
         <section className="bg-body dark:bg-gray-900">

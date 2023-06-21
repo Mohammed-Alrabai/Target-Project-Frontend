@@ -10,16 +10,16 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { FaGithub } from "react-icons/fa";
-import logo from "../assets/img/logo.png";
+import logo from "../assets/img/logo-wh.svg";
 
 const Footer = () => {
     const color = useColorModeValue("gray.900", "gray.300");
   return (
     <footer class="bg-body dark:bg-gray-900">
-      <div class="container px-6 mx-auto">
+      <div class="container px-6 py-5 mx-auto">
         <div class="flex flex-col items-center text-center">
           <a href="#">
-            <Image class="w-auto h-12" src={logo} alt="" />
+            <Image class="w-auto h-24" src={logo} alt="" />
           </a>
         </div>
 
