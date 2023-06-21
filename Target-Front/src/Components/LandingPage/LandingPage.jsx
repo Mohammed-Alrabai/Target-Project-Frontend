@@ -95,22 +95,21 @@ const Header = () => {
             </div>
           </div>
         </nav>
-{/* gggggg */}
+        {/* gggggg */}
         {/* Hero Start */}
         <div className="container px-6 py-16 mx-auto">
           <div className="items-center lg:flex my-16">
             <div className="w-full lg:w-1/2">
               <div className="lg:max-w-lg">
                 <h1 className="text-3xl font-semibold text-gray-800 dark:text-white lg:text-4xl">
-                  في نفس المساحة، لقد تم توليد <br /> انت{" "}
-                  <span className="text-primary ">الهدف</span>
+                  عدة عقول تفكر
+                  <span className="text-primary "> لهدف واحد</span>
                 </h1>
-                <p className="mt-3 text-gray-600 dark:text-gray-400">
-                  هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم
-                  توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا
-                  النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف
-                  التى يولدها التطبيق. إذا كنت تحتاج إلى عدد أكبر من الفقرات
-                  يتيح لك مولد النص العربى
+                <p className="mt-3 text-gray-600 text-lg dark:text-gray-400">
+                  الهدف الرئيسي لنظامنا هو تحسين التواصل وتعزيز تبادل الأفكار
+                  والحلول بين الموظفين والمدراء. يسعى النظام أيضًا إلى تمكين
+                  المستخدمين من مشاركة اقتراحاتهم وحلولهم للمسؤولين والإدارة،
+                  وذلك بهدف تطوير وتحسين العمليات وتحقيق الأهداف المؤسسية.
                 </p>
                 <button className="w-full px-16 py-3 mt-6 text-md tracking-wider text-body uppercase transition-colors duration-300 transform bg-primary rounded-lg lg:w-auto hover:bg-hover focus:outline-none focus:bg-blue-500">
                   ابدا الان
@@ -131,8 +130,7 @@ const Header = () => {
       <section className="bg-body dark:bg-gray-900">
         <div className="container px-6 py-10 mx-auto">
           <h1 className="text-2xl font-semibold text-center text-gray-800 capitalize lg:text-3xl dark:text-white">
-            explore our <br /> awesome{" "}
-            <span className="text-primary">Components</span>
+            <span className="text-primary text-3xl"> من نحن ؟</span>
           </h1>
 
           <div className="grid grid-cols-1 gap-8 mt-8 xl:mt-12 xl:gap-16 md:grid-cols-2 xl:grid-cols-3">
@@ -154,13 +152,13 @@ const Header = () => {
               </span>
 
               <h1 className="text-xl font-semibold text-gray-700 capitalize dark:text-white">
-                Copy & paste components
+                رؤيتنا
               </h1>
 
               <p className="text-gray-500 dark:text-gray-300">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Provident ab nulla quod dignissimos vel non corrupti doloribus
-                voluptatum eveniet
+                تمكين الموظفين والمدراء للتواصل والتعاون المثمر، وتعزيز الإبداع
+                والابتكار في المؤسسة، من أجل تحقيق التطور المستمر والنجاح
+                المستدام.{" "}
               </p>
             </div>
 
@@ -182,13 +180,13 @@ const Header = () => {
               </span>
 
               <h1 className="text-xl font-semibold text-gray-700 capitalize dark:text-white">
-                Zero Configuration
+                رسالتنا
               </h1>
 
               <p className="text-gray-500 dark:text-gray-300">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Provident ab nulla quod dignissimos vel non corrupti doloribus
-                voluptatum eveniet
+                نحن نسعى لتعزيز التواصل البناء وتبادل الأفكار والحلول بين
+                الموظفين والمدراء، وتمكينهم من المشاركة الفاعلة في تحقيق أهداف
+                المؤسسة وتطوير حلول مبتكرة وملائمة للتحديات التي تواجهها.
               </p>
             </div>
 
@@ -210,13 +208,13 @@ const Header = () => {
               </span>
 
               <h1 className="text-xl font-semibold text-gray-700 capitalize dark:text-white">
-                Simple & clean designs
+                أهدافنا
               </h1>
 
               <p className="text-gray-500 dark:text-gray-300">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Provident ab nulla quod dignissimos vel non corrupti doloribus
-                voluptatum eveniet
+                تعزيز التفاعل الإيجابي والتعاون بين الموظفين والمدراء. تشجيع
+                الابتكار والإبداع في العمل والخدمات. تحقيق التطوير المستمر
+                للعمليات والخدمات. توضيح أهداف المؤسسة وتركيز الجميع عليها.
               </p>
             </div>
           </div>
@@ -364,10 +362,10 @@ const Header = () => {
       {/* Our Team */}
       <section className="bg-body dark:bg-gray-900">
         <div className="container px-6 py-10 mx-auto">
-          <h1 className="text-2xl font-semibold text-center text-gray-800 capitalize lg:text-3xl dark:text-white">
-            Our Executive Team
+          <h1 className="text-2xl font-semibold text-center text-primary capitalize lg:text-3xl dark:text-white">
+            فريقنا
           </h1>
-
+{/*  */}
           <p className="max-w-2xl mx-auto my-6 text-center text-gray-500 dark:text-gray-300">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo
             incidunt ex placeat modi magni quia error alias, adipisci rem
