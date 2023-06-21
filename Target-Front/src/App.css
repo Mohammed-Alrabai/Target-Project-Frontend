@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @font-face {
     font-family: GE_SS_Two_Light;
     src: url(./assets/font/GE_SS_Two_Light.otf);
