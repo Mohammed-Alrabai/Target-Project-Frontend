@@ -120,8 +120,9 @@ const UsersTable = () => {
       }
     });
   };
-
+  
   const AddEmployee = () => {
+    // test
     console.log(userRole);
     console.log("department ID");
     console.log(mydepartment);
