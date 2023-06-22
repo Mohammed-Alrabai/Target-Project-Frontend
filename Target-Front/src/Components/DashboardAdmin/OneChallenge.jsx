@@ -35,7 +35,6 @@ export default function App() {
   const [data, setData] = useState([]);
   const [comment, setComment] = useState([]);
   const [bodyc, setbodyc] = useState("")
-  const [authName, setauthName] = useState("")
   const color = useColorModeValue("gray.50", " gray.900");
 
   const id = useParams().id;
@@ -79,6 +78,20 @@ export default function App() {
     }).catch((error) => {
       console.log(error);
     })
+    ///////get employee by Id 
+    axios.get(`http://localhost:8000/api/employee/CommentChallengeById/${id}`, {
+      headers: {
+        'authorization': `bearer ${localStorage.getItem("token")}`
+      }
+    }).then((res) => {
+      console.log("this issss commmenttt")
+      console.log(res.data.reponse.comments)
+      setComment(res.data.reponse.comments)
+    }).catch((error) => {
+      console.log(error);
+    })
+
+
   }, []);
 
   ///add comment by employee
@@ -219,7 +232,7 @@ export default function App() {
                         _dark={{ color: "white" }}
                         fontWeight="700"
                       >
-                        {c.EmployeeAuther}
+
 
                       </Text>
                       <chakra.p
