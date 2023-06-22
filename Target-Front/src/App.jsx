@@ -107,9 +107,9 @@ export default function App() {
   const [employee, setEmployee] = useState([]);
 
   const navigate = useNavigate();
-  const apiChallenge = "http://localhost:8000/api/admin/challenge/";
-  const apiComment = "http://localhost:8000/api/admin/comment/";
-  const apiEmployee = "http://localhost:8000/api/admin/employee";
+  const apiChallenge = "https://target-zgr6.onrender.com/api/admin/challenge/";
+  const apiComment = "https://target-zgr6.onrender.com/api/admin/comment/";
+  const apiEmployee = "https://target-zgr6.onrender.com/api/admin/employee";
 
     const Params = useLocation();
     const pathname = Params.pathname;

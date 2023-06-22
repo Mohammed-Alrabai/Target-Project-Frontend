@@ -15,21 +15,21 @@ import logo from "../assets/img/logo-wh.svg";
 const Footer = () => {
     const color = useColorModeValue("gray.900", "gray.300");
   return (
-    <footer class="bg-body dark:bg-gray-900">
-      <div class="container px-6 py-5 mx-auto">
-        <div class="flex flex-col items-center text-center">
+    <footer className="bg-body dark:bg-gray-900">
+      <div className="container px-6 py-5 mx-auto">
+        <div className="flex flex-col items-center text-center">
           <a href="#">
-            <Image class="w-auto h-24" src={logo} alt="" />
+            <Image className="w-auto h-24" src={logo} alt="" />
           </a>
         </div>
 
-        <hr class="my-6 border-primary md:my-10 dark:border-gray-700" />
+        <hr className="my-6 border-primary md:my-10 dark:border-gray-700" />
 
-        <div class="flex flex-col items-center sm:flex-row sm:justify-between">
-          <div class="flex flex-wrap justify-center mb-6 -mx-4">
+        <div className="flex flex-col items-center sm:flex-row sm:justify-between">
+          <div className="flex flex-wrap justify-center mb-6 -mx-4">
             <a
               href="#"
-              class="mx-4 text-sm text-gray-600 transition-colors duration-300 hover:text-primary dark:text-gray-300 dark:hover:text-blue-400"
+              className="mx-4 text-sm text-gray-600 transition-colors duration-300 hover:text-primary dark:text-gray-300 dark:hover:text-blue-400"
               aria-label="Reddit">
               {" "}
               الصفحة الرئيسية
@@ -37,7 +37,7 @@ const Footer = () => {
 
             <a
               href="#"
-              class="mx-4 text-sm text-gray-600 transition-colors duration-300 hover:text-primary dark:text-gray-300 dark:hover:text-blue-400"
+              className="mx-4 text-sm text-gray-600 transition-colors duration-300 hover:text-primary dark:text-gray-300 dark:hover:text-blue-400"
               aria-label="Reddit">
               {" "}
               من نحن؟
@@ -45,13 +45,13 @@ const Footer = () => {
 
             <a
               href="#"
-              class="mx-4 text-sm text-gray-600 transition-colors duration-300 hover:text-primary dark:text-gray-300 dark:hover:text-blue-400"
+              className="mx-4 text-sm text-gray-600 transition-colors duration-300 hover:text-primary dark:text-gray-300 dark:hover:text-blue-400"
               aria-label="Reddit">
               {" "}
               فريقنا
             </a>
           </div>
-          <p class="text-sm mb-6 text-gray-500 dark:text-gray-300">
+          <p className="text-sm mb-6 text-gray-500 dark:text-gray-300">
             @جميع الحقوق محفوظة
           </p>
         </div>

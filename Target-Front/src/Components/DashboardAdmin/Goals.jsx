@@ -30,7 +30,7 @@ const Todo = () => {
   const color = useColorModeValue("#f5f4f1", "gray.900");
   const [goals, setGoals] = useState([]);
   const [bodyGoals, setBodyGoals] = useState([]);
-  const api = "http://localhost:8000/api/admin/goals";
+  const api = "https://target-zgr6.onrender.com/api/admin/goals";
 
   useEffect(() => {
     axios.get(api , {
@@ -52,13 +52,13 @@ const Todo = () => {
   // create a new goal
   const [goal, setGoal] = useState({});
   const [body, setBody] = useState("");
-  const apiCreate = "http://localhost:8000/api/admin/createGoal";
+  const apiCreate = "https://target-zgr6.onrender.com/api/admin/createGoal";
 
   const createGoal = () => {
     axios.post(apiCreate, {
       body,
       headers : {
-        Authorization: "Bearer " + cookies.load("token"),
+        Authorization: "Bearer " + localStorage.getItem("token"),
       }
     }
     ).then((res) => {

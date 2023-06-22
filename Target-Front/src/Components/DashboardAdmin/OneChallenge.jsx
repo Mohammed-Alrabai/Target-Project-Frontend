@@ -41,44 +41,56 @@ export default function App() {
   const id = useParams().id;
 
 
-  const api = `http://localhost:8000/api/admin/challenge/${id}`;
+  const api = `https://target-zgr6.onrender.com/api/admin/challenge/${id}`;
   const handleAddChallenge = async () => {
 
     onClose();
   };
   useEffect(() => {
 
-    axios.get(`http://localhost:8000/api/employee/ChallengeById/${id}`, {
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      }
-    }).then((res) => {
-      setData(res.data);
-      console.log("the challange data is")
-      console.log(res.data)
-      setTitle(res.data.result.title)
-      setBody(res.data.result.body)
-      console.log("the body is")
-      console.log(res.data.result.body)
-      setCreateAt(res.data.result.createdAt)
-      console.log(res.data.result.title);
-    }).catch((err) => {
-      console.log(err);
-    })
+    axios
+      .get(
+        `https://target-zgr6.onrender.com/api/employee/ChallengeById/${id}`,
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
+      .then((res) => {
+        setData(res.data);
+        console.log("the challange data is");
+        console.log(res.data);
+        setTitle(res.data.result.title);
+        setBody(res.data.result.body);
+        console.log("the body is");
+        console.log(res.data.result.body);
+        setCreateAt(res.data.result.createdAt);
+        console.log(res.data.result.title);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     ////////comment api
 
-    axios.get(`http://localhost:8000/api/employee/CommentChallengeById/${id}`, {
-      headers: {
-        'authorization': `bearer ${localStorage.getItem("token")}`
-      }
-    }).then((res) => {
-      console.log("this issss commmenttt")
-      console.log(res.data.reponse.comments)
-      setComment(res.data.reponse.comments)
-    }).catch((error) => {
-      console.log(error);
-    })
+    axios
+      .get(
+        `https://target-zgr6.onrender.com/api/employee/CommentChallengeById/${id}`,
+        {
+          headers: {
+            authorization: `bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log("this issss commmenttt");
+        console.log(res.data.reponse.comments);
+        setComment(res.data.reponse.comments);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   ///add comment by employee
@@ -86,20 +98,25 @@ export default function App() {
     const token = localStorage.getItem("token")
     console.log(token)
     console.log("commentsss")
-    axios.post(`http://localhost:8000/api/employee/CreateComment/${id}`,
-      {
-        bodyc
-      }, {
-      headers: {
-        'Authorization': `bearer ${token}`
-      }
-    }
-    ).then((res) => {
-      console.log("comment is added")
-      window.location.reload(false);
-    }).catch((error) => {
-      console.log(error)
-    })
+    axios
+      .post(
+        `https://target-zgr6.onrender.com/api/employee/CreateComment/${id}`,
+        {
+          bodyc,
+        },
+        {
+          headers: {
+            Authorization: `bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log("comment is added");
+        window.location.reload(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   const isUser = localStorage.getItem("username");
