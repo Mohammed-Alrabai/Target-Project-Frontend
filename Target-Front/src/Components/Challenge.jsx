@@ -36,8 +36,9 @@ export default function App(props) {
   const [search, setSearch] = useState([]);
   const navigate = useNavigate();
 
-  const api = "http://localhost:8000/api/admin/challenge/";
-  const apiCreate = "http://localhost:8000/api/admin/createChallenge";
+  const api = "https://target-zgr6.onrender.com/api/admin/challenge/";
+  const apiCreate =
+    "https://target-zgr6.onrender.com/api/admin/createChallenge";
   const handleAddChallenge = async () => {
     await setChallenge({
       title,

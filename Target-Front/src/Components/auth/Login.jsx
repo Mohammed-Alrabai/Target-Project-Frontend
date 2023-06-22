@@ -17,7 +17,8 @@ import {
   Alert,
   AlertIcon,
   AlertTitle,
-  AlertDescription
+  AlertDescription,
+  Text,
 } from "@chakra-ui/react";
 import cookies, { loadAll } from "react-cookies";
 import herobg from "../../assets/img/hero.svg";
@@ -31,7 +32,7 @@ function Login() {
   const handelClick = () => {
     if (username === "admin") {
       axios
-        .post("http://localhost:8000/api/admin/login", {
+        .post("https://target-zgr6.onrender.com/api/admin/login", {
           username,
           password,
         })
@@ -50,7 +51,7 @@ function Login() {
         });
     } else {
       axios
-        .post("http://localhost:8000/api/employee/emplogin", {
+        .post("https://target-zgr6.onrender.com/api/employee/emplogin", {
           username,
           password,
         })
@@ -84,7 +85,7 @@ function Login() {
     <>
       {showAlert && (
         <>
-          <Box position={"absolute"} top={10} right={10} >
+          <Box position={"absolute"} top={10} right={10}>
             <Alert status="error">
               <AlertIcon />
               اسم المستخدم او كلمة المرور غير صحيح
@@ -92,12 +93,31 @@ function Login() {
           </Box>
         </>
       )}
-      <Stack minH={"100vh"} direction={{ base: "column", md: "row" }}>
+      <Stack minH={"100vh"} direction={{ base: "column", md: "row" }} bg={"#F7F7F7"}>
         <Flex p={8} flex={1} align={"center"} justify={"center"}>
           <Stack spacing={4} w={"full"} maxW={"md"}>
             <Heading fontSize={"2xl"} textAlign={"center"}>
               تسجيل الدخول الى حسابك
             </Heading>
+            <Text fontSize={"sm"} color={"gray.600"}>
+              لتجربة صفحة الموظف يمكنك استخدام هذه البيانات:
+              <br />
+              <Text as={"span"} color={"#7FA084"}>
+                اسم المستخدم employee
+                <br />
+                كلمة المرور employee
+              </Text>
+            </Text>
+            <hr />
+            <Text fontSize={"sm"} color={"gray.600"}>
+              لتجربة صفحة الادمين يمكنك استخدام هذه البيانات:
+              <br />
+              <Text as={"span"} color={"#7FA084"}>
+                اسم المستخدم admin
+                <br />
+                كلمة المرور admin
+              </Text>
+            </Text>
             <FormControl id="email">
               <FormLabel>اسم المستخدم</FormLabel>
               <Input

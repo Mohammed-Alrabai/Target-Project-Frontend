@@ -61,7 +61,7 @@ const UsersTable = () => {
   //get all the data from backEnd API
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/admin/employee")
+      .get("https://target-zgr6.onrender.com/api/admin/employee")
       .then((res) => {
         setData(res.data.result);
         setSearch(res.data.result);
@@ -75,7 +75,7 @@ const UsersTable = () => {
       });
 
     axios
-      .get("http://localhost:8000/api/department/DepartmentList")
+      .get("https://target-zgr6.onrender.com/api/department/DepartmentList")
       .then((res) => {
         setDepData(res.data.result);
         console.log("all the department");
@@ -99,7 +99,9 @@ const UsersTable = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:8000/api/admin/deleteEmployee/${id}`)
+          .delete(
+            `https://target-zgr6.onrender.com/api/admin/deleteEmployee/${id}`
+          )
           .then((res) => {
             setSearch(
               data.filter((del) => {
@@ -123,7 +125,7 @@ const UsersTable = () => {
     console.log("department ID");
     console.log(mydepartment);
     axios
-      .post("http://localhost:8000/api/admin/createEmployee", {
+      .post("https://target-zgr6.onrender.com/api/admin/createEmployee", {
         name,
         username,
         password,
@@ -144,12 +146,14 @@ const UsersTable = () => {
   };
 
   const UpdateEmp = (id) => {
-    axios.get(`http://localhost:8000/api/admin/employee/${id}`).then((res) => {
-      setGetEmp(res.data.result);
-      console.log("the updated user is");
-      console.log(res.data.result);
-      console.log(id);
-    });
+    axios
+      .get(`https://target-zgr6.onrender.com/api/admin/employee/${id}`)
+      .then((res) => {
+        setGetEmp(res.data.result);
+        console.log("the updated user is");
+        console.log(res.data.result);
+        console.log(id);
+      });
   };
 
   const EditEmployee = (id) => {
@@ -160,12 +164,15 @@ const UsersTable = () => {
     console.log(userRole);
 
     axios
-      .patch(`http://localhost:8000/api/admin/updateEmployee/${id}`, {
-        name,
-        username,
-        mydepartment,
-        userRole,
-      })
+      .patch(
+        `https://target-zgr6.onrender.com/api/admin/updateEmployee/${id}`,
+        {
+          name,
+          username,
+          mydepartment,
+          userRole,
+        }
+      )
       .then((res) => {
         window.location.reload(false);
         setIsModalChange(false);
