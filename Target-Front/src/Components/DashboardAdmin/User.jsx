@@ -92,6 +92,7 @@ const UsersTable = () => {
       title: "هل انت متاكد من عملية الحذف ؟",
       icon: "question",
       iconHtml: "؟",
+      confirmButtonColor: "#6F9475",
       confirmButtonText: "نعم",
       cancelButtonText: "لا",
       showCancelButton: true,
@@ -380,7 +381,7 @@ const UsersTable = () => {
           </Thead>
           <Tbody>
             <>
-              {search.map((item) => (
+              {search.map((item, index) => (
                 <Tr
                   borderBottomWidth="1px"
                   rounded={"md"}
@@ -392,7 +393,7 @@ const UsersTable = () => {
                     fontWeight={"medium"}
                     px={6}
                     py={6}>
-                    {item._id}
+                    {index + 1}
                   </Td>
                   <Td
                     whiteSpace="nowrap"
@@ -477,11 +478,12 @@ const UsersTable = () => {
                           mb={4}
                           icon={<></>}
                           onChange={(e) => setDepartment(e.target.value)}>
+                            <option>اختر القسم</option>
                           {depData.map((item) => {
                             return (
-                              <option key={item._id} value={item._id}>
-                                {item.name}
-                              </option>
+                                <option key={item._id} value={item._id}>
+                                  {item.name}
+                                </option>
                             );
                           })}
                         </Select>

@@ -18,7 +18,7 @@ import {
   useDisclosure,
   Textarea,
   Select,
-  Text
+  Text,
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -34,19 +34,16 @@ export default function App() {
   const [challenge, setChallenge] = useState({});
   const [data, setData] = useState([]);
   const [comment, setComment] = useState([]);
-  const [bodyc, setbodyc] = useState("")
+  const [bodyc, setbodyc] = useState("");
   const color = useColorModeValue("gray.50", " gray.900");
 
   const id = useParams().id;
 
-
   const api = `https://target-zgr6.onrender.com/api/admin/challenge/${id}`;
   const handleAddChallenge = async () => {
-
     onClose();
   };
   useEffect(() => {
-
     axios
       .get(
         `https://target-zgr6.onrender.com/api/employee/ChallengeById/${id}`,
@@ -73,39 +70,48 @@ export default function App() {
 
     ////////comment api
 
-
-    axios.get(`http://localhost:8000/api/employee/CommentChallengeById/${id}`, {
-      headers: {
-        'authorization': `bearer ${localStorage.getItem("token")}`
-      }
-    }).then((res) => {
-      console.log("this issss commmenttt")
-      console.log(res.data.reponse.comments)
-      setComment(res.data.reponse.comments)
-    }).catch((error) => {
-      console.log(error);
-    })
-    ///////get employee by Id 
-    axios.get(`http://localhost:8000/api/employee/CommentChallengeById/${id}`, {
-      headers: {
-        'authorization': `bearer ${localStorage.getItem("token")}`
-      }
-    }).then((res) => {
-      console.log("this issss commmenttt")
-      console.log(res.data.reponse.comments)
-      setComment(res.data.reponse.comments)
-    }).catch((error) => {
-      console.log(error);
-    })
-
-
+    axios
+      .get(
+        `https://target-zgr6.onrender.com/api/employee/CommentChallengeById/${id}`,
+        {
+          headers: {
+            authorization: `bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log("this issss commmenttt");
+        console.log(res.data.reponse.comments);
+        setComment(res.data.reponse.comments);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    ///////get employee by Id
+    axios
+      .get(
+        `https://target-zgr6.onrender.com/api/employee/CommentChallengeById/${id}`,
+        {
+          headers: {
+            authorization: `bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log("this issss commmenttt");
+        console.log(res.data.reponse.comments);
+        setComment(res.data.reponse.comments);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   ///add comment by employee
   const addComment = () => {
-    const token = localStorage.getItem("token")
-    console.log(token)
-    console.log("commentsss")
+    const token = localStorage.getItem("token");
+    console.log(token);
+    console.log("commentsss");
     axios
       .post(
         `https://target-zgr6.onrender.com/api/employee/CreateComment/${id}`,
@@ -125,7 +131,7 @@ export default function App() {
       .catch((error) => {
         console.log(error);
       });
-  }
+  };
 
   const isUser = localStorage.getItem("username");
 
@@ -139,8 +145,7 @@ export default function App() {
               mt={0}
               borderBottom={"2px solid"}
               borderStyle={"solid"}
-              borderColor={useColorModeValue("gray.300", "gray.700")}
-            >
+              borderColor={useColorModeValue("gray.300", "gray.700")}>
               <Box
                 mx="auto"
                 px={8}
@@ -185,7 +190,12 @@ export default function App() {
                 </Box>
               </Box>
               <Box display={"flex"} gap={0} alignItems={"center"}>
-                <Textarea rounded={0} bg={"white"} placeholder="تعليق" onChange={(e) => setbodyc(e.target.value)} />
+                <Textarea
+                  rounded={0}
+                  bg={"white"}
+                  placeholder="تعليق"
+                  onChange={(e) => setbodyc(e.target.value)}
+                />
                 <Button
                   rounded={0}
                   bg={"#7fa084"}
@@ -194,19 +204,18 @@ export default function App() {
                   h={"80px"}
                   onClick={addComment}>
                   اضافة تعليق{" "}
-
                 </Button>
               </Box>
               {/* comment box */}
-              {comment.map(c => {
+              {comment.map((c) => {
                 return (
-                  <Box px={8}
+                  <Box
+                    px={8}
                     py={4}
                     shadow="lg"
                     bg="white"
                     _dark={{ bg: "gray.800" }}
                     key={c._id}>
-
                     <Flex justifyContent="space-between">
                       <Link
                         color="gray.700"
@@ -216,20 +225,14 @@ export default function App() {
                       <chakra.span
                         fontSize="sm"
                         color="gray.600"
-                        _dark={{ color: "gray.400" }}>
-
-                      </chakra.span>
+                        _dark={{ color: "gray.400" }}></chakra.span>
                     </Flex>
                     <Box mt={2}>
                       <Text
                         fontSize="2xl"
                         color="gray.700"
                         _dark={{ color: "white" }}
-                        fontWeight="700"
-                      >
-
-
-                      </Text>
+                        fontWeight="700"></Text>
                       <chakra.p
                         mt={2}
                         color="gray.600"
@@ -237,16 +240,15 @@ export default function App() {
                         {c.bodyc}
                       </chakra.p>
                     </Box>
-                    <Flex justifyContent="space-between" alignItems="center" mt={4}>
-                      <Flex alignItems="center">
-
-                      </Flex>
+                    <Flex
+                      justifyContent="space-between"
+                      alignItems="center"
+                      mt={4}>
+                      <Flex alignItems="center"></Flex>
                     </Flex>
                   </Box>
-
-                )
+                );
               })}
-
             </Box>
           </Box>
           {/* for employee */}
