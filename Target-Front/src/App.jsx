@@ -27,8 +27,8 @@ import {
 import { FaBell, FaClipboardCheck, FaRss } from "react-icons/fa";
 import { AiFillGift } from "react-icons/ai";
 import { BsGearFill } from "react-icons/bs";
-import logo from "./assets/img/logo.png";
-import logoBlack from "./assets/img/logo-black.png";
+import logo from "./assets/img/logo-wh.svg";
+import logoBlack from "./assets/img/logo-b.svg";
 import {
   FiHome,
   FiTrendingUp,
@@ -146,20 +146,20 @@ export default function App() {
       id: 2,
       label: "عدد التحديات",
       score: totalChallenges,
-      icon: AiOutlineEye,
+      icon: FiCompass,
       percentage: "30%",
     },
     {
       id: 1,
       label: "عدد الردود",
       score: totalComments,
-      icon: AiOutlineLike,
+      icon: HiOutlineMail,
     },
     {
       id: 3,
       label: "عدد الموظفين",
       score: totalEmployee,
-      icon: HiOutlineMail,
+      icon: HiUserGroup,
     },
   ];
 
@@ -250,9 +250,10 @@ export default function App() {
                   src={logoBlack}
                   objectFit="contain"
                   alt="logo"
-                  height={"full"}
+                  height={"90px"}
+                  mr={20}
                   mt={10}
-                  w={"200px"}
+                  w={"full"}
                 />
               </>
             ) : (
@@ -260,9 +261,10 @@ export default function App() {
                 src={logo}
                 objectFit="contain"
                 alt="logo"
-                height={"full"}
+                height={"90px"}
+                mr={20}
                 mt={10}
-                w={"200px"}
+                w={"full"}
               />
             )}
           </Box>
@@ -321,7 +323,6 @@ export default function App() {
       <Routes>
         <Route path="/login" element={<></>} />
         <Route path="/landing" element={<LandingPage />} />
-
       </Routes>
       {isLogin ? (
         <>
@@ -378,18 +379,16 @@ export default function App() {
                   {/* <Button onClick={() => navigate("/login")}>Login</Button> */}
                   <Menu>
                     <MenuButton
-                      as={Avatar}
                       ml="4"
                       size={{ base: "sm", md: "md" }}
                       name="anubra266"
                       src="https://picsum.photos/200"
                       cursor="pointer"
-                      onClick={handleDropdownOpen}
-                    />
+                      onClick={handleDropdownOpen}>
+                      {" "}
+                      <Avatar bg="#7FA084" />
+                    </MenuButton>
                     <MenuList>
-                      <MenuItem onClick={handleDropdownClose}>
-                        Dashboard
-                      </MenuItem>
                       <MenuItem onClick={logout}>Sign out</MenuItem>
                     </MenuList>
                   </Menu>
@@ -440,9 +439,7 @@ export default function App() {
           </Box>
         </>
       ) : (
-        <>
-          {pathname == "/login" ? <Login /> : navigate("/landing")}
-        </>
+        <>{pathname == "/login" ? <Login /> : navigate("/landing")}</>
       )}
     </>
   );

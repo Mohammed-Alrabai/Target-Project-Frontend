@@ -146,7 +146,7 @@ export default function App() {
                     fontSize="sm"
                     color="gray.600"
                     _dark={{ color: "gray.400" }}>
-                    {createAt}
+                    {createAt.split("T")[0]}
                   </chakra.span>
                 </Flex>
                 <Box mt={2}>
@@ -171,23 +171,6 @@ export default function App() {
                     {body}
                   </chakra.p>
                 </Box>
-                <Flex justifyContent="space-between" alignItems="center" mt={4}>
-                  <Flex alignItems="center">
-                    <Link
-                      px={3}
-                      py={1}
-                      bg="gray.600"
-                      color="gray.100"
-                      fontSize="sm"
-                      fontWeight="700"
-                      rounded="md"
-                      _hover={{ bg: "gray.500" }}>
-                      عاجل
-                    </Link>
-                  </Flex>
-                </Flex>
-
-
               </Box>
               <Box display={"flex"} gap={0} alignItems={"center"}>
                 <Textarea rounded={0} bg={"white"} placeholder="تعليق" onChange={(e) => setbodyc(e.target.value)} />
@@ -273,84 +256,6 @@ export default function App() {
       <Box bg="tomato" height="80px"></Box>
       <Box bg="tomato" height="80px"></Box> */}
         </SimpleGrid>
-        <Box
-          w={"400px"}
-          bg={"#f5f4f1"}
-          display={{ base: "none", lg: "block" }}
-          border="1px"
-          bgColor={useColorModeValue("#f5f4f1", "gray.800")}
-          borderColor={useColorModeValue("gray.200", "gray.700")}>
-          <Box p={4}>
-            <Input type="text" placeholder="بحث" />
-          </Box>
-          <Box
-            p={4}
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            w="100%">
-            {isUser ? (
-              <></>
-            ) : (
-              <Button
-                colorScheme="blue"
-                alignItems={"center"}
-                display={"flex"}
-                w={"100%"}
-                onClick={onOpen}>
-                اضافة تحدي جديد
-              </Button>
-            )}
-            <Modal isOpen={isOpen} onClose={onClose} size="xl">
-              <ModalOverlay />
-              <ModalContent>
-                <ModalHeader>إضافة تحدي جديد</ModalHeader>
-                <ModalBody>
-                  <Input
-                    type="text"
-                    placeholder="أدخل عنوان التحدي"
-                    value={title}
-                    mb={4}
-                    onChange={(e) => setTitle(e.target.value)}
-                  />
-                  <Textarea
-                    type="text"
-                    placeholder="أدخل موضوع التحدي"
-                    value={body}
-                    mb={4}
-                    onChange={(e) => setBody(e.target.value)}
-                  />
-                  <Select
-                    icon={""}
-                    ml={8}
-                    colorScheme="blue"
-                    w={"170px"}
-                    value={department}
-                    onChange={(e) => setDepartment(e.target.value)}
-                    placeholder="اختر القسم">
-                    <option value="public">عام</option>
-                    <option value="المالية">المالية</option>
-                    <option value="تقنية المعلومات">تقنية المعلومات</option>
-                    <option value="المشتريات">المشتريات</option>
-                    <option value="التسويق">التسويق</option>
-                    <option value="المشتريات">المشتريات</option>
-                  </Select>
-                </ModalBody>
-                <ModalFooter>
-                  <Button
-                    ml={4}
-                    colorScheme="blue"
-                    onClick={handleAddChallenge}>
-                    إضافة
-                  </Button>
-                  <Button variant="ghost" onClick={onClose}>
-                    إلغاء
-                  </Button>
-                </ModalFooter>
-              </ModalContent>
-            </Modal>
-          </Box>
-        </Box>
       </Box>
     </>
   );

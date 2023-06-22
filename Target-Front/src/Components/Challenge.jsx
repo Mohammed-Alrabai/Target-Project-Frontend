@@ -134,22 +134,9 @@ export default function App(props) {
                   </Box>
 
                   <Flex
-                    justifyContent="space-between"
+                    justifyContent="left"
                     alignItems="center"
                     mt={4}>
-                    <Flex alignItems="center">
-                      <Link
-                        px={3}
-                        py={1}
-                        bg="gray.600"
-                        color="gray.100"
-                        fontSize="sm"
-                        fontWeight="700"
-                        rounded="md"
-                        _hover={{ bg: "gray.500" }}>
-                        {item.type}
-                      </Link>
-                    </Flex>
                     <Link
                       color="brand.600"
                       _dark={{ color: "brand.400" }}

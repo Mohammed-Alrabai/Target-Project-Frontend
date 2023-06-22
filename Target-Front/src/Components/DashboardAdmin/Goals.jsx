@@ -35,7 +35,7 @@ const Todo = () => {
   useEffect(() => {
     axios.get(api , {
       headers: {
-        Authorization: "Bearer " + cookies.load("token"),
+        Authorization: "Bearer " + localStorage.getItem("token"),
       }
     }).then((res) => {
       setGoals(res.data.result);
@@ -88,9 +88,11 @@ const Todo = () => {
             <Input w={"full"} placeholder="بحث" />
           </Box>
           {/* Add New */}
-          <Button bg={"#7fa084"} color={"white"} _hover={{ bg: "#6F9475" }}
-          onClick={createGoal}
-          >
+          <Button
+            bg={"#7fa084"}
+            color={"white"}
+            _hover={{ bg: "#6F9475" }}
+            onClick={createGoal}>
             اضافة
           </Button>
         </Flex>
@@ -194,33 +196,26 @@ const Todo = () => {
               </Tr>
             </Thead>
             <Tbody>
-              <Tr>
-                <Td>
-                  <Checkbox colorScheme="teal" />
-                </Td>
-                <Td>نص عشوائي عربي عربي عربي</Td>
-              </Tr>
-              <Tr>
-                <Td>
-                  <Checkbox colorScheme="teal" />
-                </Td>
-                <Td>
-                  هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم
-                  توليد هذا النص من مولد النص العربى
-                </Td>
-              </Tr>
-              <Tr>
-                <Td>
-                  <Checkbox colorScheme="teal" />
-                </Td>
-                <Td>
-                  هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم
-                </Td>
-              </Tr>
+              {goals.map((goal) => (
+                <Tr>
+                  <Td>
+                    <Checkbox />
+                  </Td>
+                  <Td>{goal.title}</Td>
+                </Tr>
+              ))}
               <Tr>
                 <Td></Td>
                 <Td>
-                  <Input w={"full"} type="text" placeholder="اضافة هدف جديد" />
+                  <Input
+                    w={"full"}
+                    minW={"200px"}
+                    type="text"
+                    on
+                    placeholder="اضافة هدف جديد"
+                    value={body}
+                    onChange={(e) => setBody(e.target.value)}
+                  />
                 </Td>
               </Tr>
             </Tbody>
