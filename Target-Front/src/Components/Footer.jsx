@@ -13,9 +13,9 @@ import { FaGithub } from "react-icons/fa";
 import logo from "../assets/img/logo-wh.svg";
 
 const Footer = () => {
-    const color = useColorModeValue("gray.900", "gray.300");
+    const color = useColorModeValue("gray.900" ,"gray.900");
   return (
-    <footer className="bg-body dark:bg-gray-900">
+    <footer _dark={{bg:"gray.900"}} bg={color} className=" ">
       <div className="container px-6 py-5 mx-auto">
         <div className="flex flex-col items-center text-center">
           <a href="#">
@@ -23,7 +23,7 @@ const Footer = () => {
           </a>
         </div>
 
-        <hr className="my-6 border-primary md:my-10 dark:border-gray-700" />
+        <hr className="my-6 border-primary md:my-10 " />
 
         <div className="flex flex-col items-center sm:flex-row sm:justify-between">
           <div className="flex flex-wrap justify-center mb-6 -mx-4">

@@ -40,7 +40,6 @@ function Login() {
           // load page after login
           window.location.href = "/";
           localStorage.setItem("token", res.data.token);
-          console.log("this is admin");
           // cookies.save("token", res.data.token, { path: "/" });
           // localStorage.setItem("token", res.data.token);
         })
@@ -59,10 +58,6 @@ function Login() {
           // load page after login
           localStorage.setItem("token", res.data.token);
           localStorage.setItem("username", res.data.result.username);
-          console.log("the userData");
-          console.log(res.data);
-          console.log(res.data.result.username);
-
           // cookies.save("token", res.data.token, { path: "/" });
           // cookies.save("username", res.data.username, { path: "/" });
           // localStorage.setItem("token", res.data.token);
@@ -96,7 +91,7 @@ function Login() {
       <Stack minH={"100vh"} direction={{ base: "column", md: "row" }} bg={"#F7F7F7"}>
         <Flex p={8} flex={1} align={"center"} justify={"center"}>
           <Stack spacing={4} w={"full"} maxW={"md"}>
-            <Heading fontSize={"2xl"} textAlign={"center"}>
+            <Heading fontSize={"2xl"} textAlign={"center"} color={"#7FA084"}>
               تسجيل الدخول الى حسابك
             </Heading>
             <Text fontSize={"sm"} color={"gray.600"}>

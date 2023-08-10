@@ -19,13 +19,13 @@ import {
   ModalCloseButton,
   Select,
   Icon,
-  CloseButton ,
+  CloseButton,
   Image,
   Alert,
   AlertIcon,
   AlertTitle,
   AlertDescription,
-  useDisclosure,  
+  useDisclosure,
 } from "@chakra-ui/react";
 import { HiUserGroup } from "react-icons/hi";
 import axios from "axios";
@@ -65,10 +65,6 @@ const UsersTable = () => {
       .then((res) => {
         setData(res.data.result);
         setSearch(res.data.result);
-        console.log("api data");
-        console.log(res.data.result);
-        console.log(data);
-        //console.log(res.data)
       })
       .catch((error) => {
         console.log(error);
@@ -78,7 +74,6 @@ const UsersTable = () => {
       .get("https://target-zgr6.onrender.com/api/department/DepartmentList")
       .then((res) => {
         setDepData(res.data.result);
-        console.log("all the department");
       })
       .catch((error) => {
         console.log(error);
@@ -110,22 +105,17 @@ const UsersTable = () => {
               })
             );
             setShowAlertDelete(true);
-            console.log("تم الحذف");
           })
           .catch((error) => {
             console.log(error);
           });
       } else {
-        console.log("تم إلغاء الحذف");
+        <></>;
       }
     });
   };
-  
+
   const AddEmployee = () => {
-    // test
-    console.log(userRole);
-    console.log("department ID");
-    console.log(mydepartment);
     axios
       .post("https://target-zgr6.onrender.com/api/admin/createEmployee", {
         name,
@@ -138,13 +128,10 @@ const UsersTable = () => {
         setShowAlertCreate(true);
         window.location.reload(false);
         setIsModalOpen(false);
-        console.log("employee is added successfuly");
       })
       .catch((error) => {
         console.log(error);
       });
-    console.log("department");
-    console.log(mydepartment);
   };
 
   const UpdateEmp = (id) => {
@@ -152,19 +139,10 @@ const UsersTable = () => {
       .get(`https://target-zgr6.onrender.com/api/admin/employee/${id}`)
       .then((res) => {
         setGetEmp(res.data.result);
-        console.log("the updated user is");
-        console.log(res.data.result);
-        console.log(id);
       });
   };
 
   const EditEmployee = (id) => {
-    console.log("the Department Id kkk");
-    console.log(mydepartment);
-    console.log(name);
-    console.log(username);
-    console.log(userRole);
-
     axios
       .patch(
         `https://target-zgr6.onrender.com/api/admin/updateEmployee/${id}`,
@@ -182,8 +160,6 @@ const UsersTable = () => {
   };
 
   const filterFunc = (event) => {
-    console.log("the data inside");
-    console.log(data);
     setSearch(
       data.filter(
         (f) => f.name.toLowerCase().includes(event.target.value)
@@ -479,12 +455,12 @@ const UsersTable = () => {
                           mb={4}
                           icon={<></>}
                           onChange={(e) => setDepartment(e.target.value)}>
-                            <option>اختر القسم</option>
+                          <option>اختر القسم</option>
                           {depData.map((item) => {
                             return (
-                                <option key={item._id} value={item._id}>
-                                  {item.name}
-                                </option>
+                              <option key={item._id} value={item._id}>
+                                {item.name}
+                              </option>
                             );
                           })}
                         </Select>

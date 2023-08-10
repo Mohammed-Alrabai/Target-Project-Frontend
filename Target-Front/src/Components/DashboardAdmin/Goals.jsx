@@ -39,11 +39,8 @@ const Todo = () => {
       }
     }).then((res) => {
       setGoals(res.data.result);
-      console.log(res.data);
       const { body } = res.data.result[0];
-      console.log(body);
       const bodyS = body.split("-");
-      console.log(bodyS);
     }).catch((error) => {
       console.log(error);
     })
@@ -62,7 +59,6 @@ const Todo = () => {
       }
     }
     ).then((res) => {
-      console.log(res.data);
     }).catch((error) => {
       console.log(error);
     })

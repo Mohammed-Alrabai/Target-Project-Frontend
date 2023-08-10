@@ -55,14 +55,9 @@ export default function App() {
       )
       .then((res) => {
         setData(res.data);
-        console.log("the challange data is");
-        console.log(res.data);
         setTitle(res.data.result.title);
         setBody(res.data.result.body);
-        console.log("the body is");
-        console.log(res.data.result.body);
         setCreateAt(res.data.result.createdAt);
-        console.log(res.data.result.title);
       })
       .catch((err) => {
         console.log(err);
@@ -80,8 +75,6 @@ export default function App() {
         }
       )
       .then((res) => {
-        console.log("this issss commmenttt");
-        console.log(res.data.reponse.comments);
         setComment(res.data.reponse.comments);
       })
       .catch((error) => {
@@ -98,8 +91,6 @@ export default function App() {
         }
       )
       .then((res) => {
-        console.log("this issss commmenttt");
-        console.log(res.data.reponse.comments);
         setComment(res.data.reponse.comments);
       })
       .catch((error) => {
@@ -110,8 +101,6 @@ export default function App() {
   ///add comment by employee
   const addComment = () => {
     const token = localStorage.getItem("token");
-    console.log(token);
-    console.log("commentsss");
     axios
       .post(
         `https://target-zgr6.onrender.com/api/employee/CreateComment/${id}`,
@@ -125,7 +114,6 @@ export default function App() {
         }
       )
       .then((res) => {
-        console.log("comment is added");
         window.location.reload(false);
       })
       .catch((error) => {
@@ -193,6 +181,7 @@ export default function App() {
                 <Textarea
                   rounded={0}
                   bg={"white"}
+                  _dark={{ bg: "gray.800" }}
                   placeholder="تعليق"
                   onChange={(e) => setbodyc(e.target.value)}
                 />
