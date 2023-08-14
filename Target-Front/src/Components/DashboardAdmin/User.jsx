@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Table,
@@ -19,25 +20,18 @@ import {
   ModalCloseButton,
   Select,
   Icon,
-  CloseButton,
-  Image,
   Alert,
   AlertIcon,
-  AlertTitle,
-  AlertDescription,
   useDisclosure,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import { HiUserGroup } from "react-icons/hi";
 import axios from "axios";
-import { React, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-// for push
 const UsersTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalChange, setIsModalChange] = useState(false);
-  const [isModalOpenChange, setIsModalOpenChange] = useState(false);
 
   const [data, setData] = useState([]);
   const [search, setSearch] = useState([]);
@@ -46,19 +40,14 @@ const UsersTable = () => {
   const [username, setUsername] = useState("");
   const [mydepartment, setDepartment] = useState("");
   const [userRole, setUserRole] = useState("");
-  const [Emp, setGetEmp] = useState([]);
+  const [Emp, setEmp] = useState([]);
   const [depData, setDepData] = useState([]);
   const [showAlertCreate, setShowAlertCreate] = useState(false);
-  const [showAlertUpdate, setShowAlertUpdate] = useState(false);
   const [showAlertDelete, setShowAlertDelete] = useState(false);
-  const {
-    isOpen: isVisible,
-    onClose,
-    onOpen,
-  } = useDisclosure({ defaultIsOpen: true });
-  const navigate = useNavigate();
+  const { isOpen: isVisible, onClose, onOpen } = useDisclosure({
+    defaultIsOpen: true,
+  });
 
-  //get all the data from backEnd API
   useEffect(() => {
     axios
       .get("https://target-zgr6.onrender.com/api/admin/employee")
@@ -98,19 +87,14 @@ const UsersTable = () => {
           .delete(
             `https://target-zgr6.onrender.com/api/admin/deleteEmployee/${id}`
           )
-          .then((res) => {
-            setSearch(
-              data.filter((del) => {
-                return del._id !== id;
-              })
-            );
+          .then(() => {
+            setData((prevData) => prevData.filter((del) => del._id !== id));
+            setSearch((prevSearch) => prevSearch.filter((del) => del._id !== id));
             setShowAlertDelete(true);
           })
           .catch((error) => {
             console.log(error);
           });
-      } else {
-        <></>;
       }
     });
   };
@@ -126,7 +110,8 @@ const UsersTable = () => {
       })
       .then((res) => {
         setShowAlertCreate(true);
-        window.location.reload(false);
+        setData([...data, res.data.result]);
+        setSearch([...search, res.data.result]);
         setIsModalOpen(false);
       })
       .catch((error) => {
@@ -134,11 +119,12 @@ const UsersTable = () => {
       });
   };
 
+
   const UpdateEmp = (id) => {
     axios
       .get(`https://target-zgr6.onrender.com/api/admin/employee/${id}`)
       .then((res) => {
-        setGetEmp(res.data.result);
+        setEmp(res.data.result);
       });
   };
 
@@ -160,17 +146,15 @@ const UsersTable = () => {
   };
 
   const filterFunc = (event) => {
+    const searchValue = event.target.value.toLowerCase();
     setSearch(
-      data.filter(
-        (f) => f.name.toLowerCase().includes(event.target.value)
-        // console.log(f.name)
+      data.filter((employee) =>
+        employee.name.toLowerCase().includes(searchValue)
       )
     );
   };
-
   return (
     <Box
-      className="flex flex-col"
       minH="100vh"
       w={"full"}
       mx={"auto"}
@@ -186,46 +170,6 @@ const UsersTable = () => {
           الموظفين
         </Text>
       </Box>
-      {/* {showAlertDelete && (
-        <>
-          <Box position="absolute" w={"400px"}>
-            <Alert status="success" w={"full"}>
-              <AlertIcon />
-              <Box w={"full"}>
-                <AlertTitle>Success!</AlertTitle>
-                <AlertDescription>تم الحذف بنجاح</AlertDescription>
-              </Box>
-              <CloseButton
-                alignSelf="flex-start"
-                position="relative"
-                right={-1}
-                top={-1}
-                onClick={() => setShowAlertDelete(false)}
-              />
-            </Alert>
-          </Box>
-        </>
-      )}
-      {showAlertCreate && (
-        <>
-          <Box position="absolute" w={"400px"}>
-            <Alert status="success" w={"full"}>
-              <AlertIcon />
-              <Box w={"full"}>
-                <AlertTitle>Success!</AlertTitle>
-                <AlertDescription>تم اضافة بنجاح</AlertDescription>
-              </Box>
-              <CloseButton
-                alignSelf="flex-start"
-                position="relative"
-                right={-1}
-                top={-1}
-                onClick={() => setShowAlertCreate(false)}
-              />
-            </Alert>
-          </Box>
-        </>
-      )} */}
       <Box
         overflowX="auto"
         mx={[-6, -8]}
@@ -378,7 +322,7 @@ const UsersTable = () => {
                     fontWeight={"medium"}
                     px={6}
                     py={6}>
-                    {item.name}
+                    {item.name || ""}
                   </Td>
                   <Td
                     whiteSpace="nowrap"
@@ -434,61 +378,61 @@ const UsersTable = () => {
                 </Box>
                 {Emp.map((emp) => (
                   <>
-                    <ModalBody>
+                    {emp && (
                       <>
-                        <Input
-                          name="name"
-                          placeholder={emp.name}
-                          mb={4}
-                          onChange={(e) => setName(e.target.value)}
-                        />
-                        <Input
-                          name="username"
-                          placeholder={emp.username}
-                          mb={4}
-                          onChange={(e) => setUsername(e.target.value)}
-                        />
+                        <ModalBody>
+                          <>
+                            <Input
+                              name="name"
+                              placeholder={emp.name || ""}
+                              mb={4}
+                              onChange={(e) => setName(e.target.value)}
+                            />
+                            <Input
+                              name="username"
+                              placeholder={emp.username}
+                              mb={4}
+                              onChange={(e) => setUsername(e.target.value)}
+                            />
 
-                        <Select
-                          name="Department"
-                          //placeholder={emp.mydepartment.name}
-                          mb={4}
-                          icon={<></>}
-                          onChange={(e) => setDepartment(e.target.value)}>
-                          <option>اختر القسم</option>
-                          {depData.map((item) => {
-                            return (
-                              <option key={item._id} value={item._id}>
-                                {item.name}
-                              </option>
-                            );
-                          })}
-                        </Select>
-                        <Select
-                          name="userRole"
-                          placeholder="الصلاحيات "
-                          onChange={(e) => setUserRole(e.target.value)}
-                          mb={4}
-                          icon={<></>}
-                          // value={employeeData.department}
-                          // onChange={handleChange1}>
-                        >
-                          <option value="employee">موظف</option>
-                          <option value="subAdmin">مدير قسم</option>
-                        </Select>
+                            <Select
+                              name="Department"
+                              mb={4}
+                              icon={<></>}
+                              onChange={(e) => setDepartment(e.target.value)}
+                              value={emp.mydepartment._id}>
+                              <option>اختر القسم</option>
+                              {depData.map((item) => (
+                                <option key={item._id} value={item._id}>
+                                  {item.name}
+                                </option>
+                              ))}
+                            </Select>
+                            <Select
+                              name="userRole"
+                              placeholder="الصلاحيات "
+                              onChange={(e) => setUserRole(e.target.value)}
+                              mb={4}
+                              icon={<></>}
+                              value={emp.userRole}>
+                              <option value="employee">موظف</option>
+                              <option value="subAdmin">مدير قسم</option>
+                            </Select>
+                          </>
+                        </ModalBody>
+                        <ModalFooter>
+                          <Button
+                            colorScheme="blue"
+                            ml={3}
+                            onClick={() => EditEmployee(emp._id)}>
+                            حفظ
+                          </Button>
+                          <Button onClick={() => setIsModalOpenChange(false)}>
+                            إغلاق
+                          </Button>
+                        </ModalFooter>
                       </>
-                    </ModalBody>
-                    <ModalFooter>
-                      <Button
-                        colorScheme="blue"
-                        ml={3}
-                        onClick={() => EditEmployee(emp._id)}>
-                        حفظ
-                      </Button>
-                      <Button onClick={() => setIsModalOpenChange(false)}>
-                        إغلاق
-                      </Button>
-                    </ModalFooter>
+                    )}
                   </>
                 ))}
               </ModalContent>

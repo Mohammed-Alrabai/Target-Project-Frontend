@@ -22,15 +22,12 @@ import {
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { color } from "framer-motion";
 import cookies from "react-cookies";
 
 export default function App(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-  const [department, setDepartment] = useState("");
-  const [type, setType] = useState("");
   const [challenge, setChallenge] = useState([]);
   const [data, setData] = useState([]);
   const [search, setSearch] = useState([]);
@@ -39,19 +36,17 @@ export default function App(props) {
   const api = "https://target-zgr6.onrender.com/api/admin/challenge/";
   const apiCreate =
     "https://target-zgr6.onrender.com/api/admin/createChallenge";
+
   const handleAddChallenge = async () => {
-    await setChallenge({
+    const newChallenge = {
       title,
       body,
-    });
+    };
+
     try {
-      await axios.post(apiCreate, {
-        title,
-        body,
-      });
-      setChallenge(data);
-      console.log(data);
-      window.location.reload(false);
+      await axios.post(apiCreate, newChallenge);
+      setChallenge([...challenge, newChallenge]);
+      setSearch([...search, newChallenge]);
     } catch (error) {
       console.log(error);
     }
@@ -64,16 +59,15 @@ export default function App(props) {
       setSearch(res.data.result);
     });
   }, []);
-  // search function
+
   const handleSearch = (event) => {
     setSearch(
-      data.filter(f =>
-        f.title.toLowerCase().includes(event.target.value)
-        // console.log(f.name)
-      )
+      data.filter((f) => f.title.toLowerCase().includes(event.target.value))
     );
   };
+
   const isUser = cookies.load("username");
+
   return (
     <>
       <Box display={"flex"} w={"full"} justifyContent={"space-between"}>
@@ -100,15 +94,19 @@ export default function App(props) {
                       color="gray.700"
                       _dark={{ color: "gray.200" }}
                       fontWeight="700"
-                      cursor="pointer"></Link>
+                      cursor="pointer">
+                      {item.title}
+                    </Link>
                     <chakra.span
                       fontSize="sm"
                       color="gray.600"
                       _dark={{ color: "gray.400" }}>
                       {item.createdAt
-                        .slice(0, 10)
-                        .replace("-", "/", 2)
-                        .replace("-", "/", 2)}
+                        ? item.createdAt
+                            .slice(0, 10)
+                            .replace("-", "/", 2)
+                            .replace("-", "/", 2)
+                        : ""}
                     </chakra.span>
                   </Flex>
                   <Box mt={2}>
@@ -134,10 +132,7 @@ export default function App(props) {
                     </chakra.p>
                   </Box>
 
-                  <Flex
-                    justifyContent="left"
-                    alignItems="center"
-                    mt={4}>
+                  <Flex justifyContent="left" alignItems="center" mt={4}>
                     <Link
                       color="brand.600"
                       _dark={{ color: "brand.400" }}
@@ -155,10 +150,6 @@ export default function App(props) {
               </Box>
             ))}
           </Box>
-          {/* <Box bg="tomato" height="80px"></Box>
-      <Box bg="tomato" height="80px"></Box>
-      <Box bg="tomato" height="80px"></Box>
-      <Box bg="tomato" height="80px"></Box> */}
         </SimpleGrid>
         <Box
           w={"400px"}
@@ -168,7 +159,6 @@ export default function App(props) {
           bgColor={useColorModeValue("#F5F4F1", "gray.800")}
           borderColor={useColorModeValue("gray.200", "gray.700")}>
           <Box p={4}>
-            {/* search input */}
             <Input
               type="text"
               placeholder="بحث"
@@ -217,42 +207,6 @@ export default function App(props) {
                     mb={4}
                     onChange={(e) => setBody(e.target.value)}
                   />
-                  <Box mb={4} display={"flex"} justifyContent={""}>
-                    <Box>
-                      <Select
-                        _focusVisible={{ borderColor: "#8FAC93" }}
-                        icon={""}
-                        ml={8}
-                        colorScheme="blue"
-                        w={"170px"}
-                        value={department}
-                        onChange={(e) => setDepartment(e.target.value)}
-                        placeholder="اختر القسم">
-                        <option value="عام">عام</option>
-                        <option value="المالية">المالية</option>
-                        <option value="تقنية المعلومات">تقنية المعلومات</option>
-                        <option value="المشتريات">المشتريات</option>
-                        <option value="التسويق">التسويق</option>
-                        <option value="المشتريات">المشتريات</option>
-                      </Select>
-                    </Box>
-                    <Box>
-                      <Select
-                        _focusVisible={{ borderColor: "#8FAC93" }}
-                        icon={""}
-                        ml={8}
-                        colorScheme="blue"
-                        w={"170px"}
-                        value={type}
-                        onChange={(e) => setType(e.target.value)}
-                        placeholder="اختر القسم">
-                        <option _dark={{ color: "white" }} value="عاجل">
-                          عاجل{" "}
-                        </option>
-                        <option value="غير عاجل">غير عاجل </option>
-                      </Select>
-                    </Box>
-                  </Box>
                 </ModalBody>
                 <ModalFooter>
                   <Button
